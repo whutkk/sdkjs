@@ -223,6 +223,8 @@
         this.shrinkToFit = false;
         this.merged = null;
         this.textAlign = null;
+
+        this.bApplyByArray = null;
     }
 
     CellFlags.prototype.clone = function () {
@@ -11247,7 +11249,15 @@
 			isFormula = c.isFormula();
 			this.model.autoFilters.renameTableColumn(bbox);
 		} else {
-			c.setValue2(val);
+			if(flags.bApplyByArray) {
+				var activeRange = this.getSelectedRange();
+				bbox = activeRange.bbox;
+				activeRange._foreach(function (cell) {
+					cell.setValue2(val);
+				});
+			} else {
+				c.setValue2(val);
+			}
 			// Вызываем функцию пересчета для заголовков форматированной таблицы
 			this.model.autoFilters.renameTableColumn(bbox);
 
@@ -11386,8 +11396,30 @@
 				autoCompleteLC: arrAutoCompleteLC,
 				cellName: c.getName(),
 				cellNumFormat: c.getNumFormatType(),
-				saveValueCallback: function (val, flags) {
-					return t._saveCellValueAfterEdit(c, val, flags, /*isNotHistory*/false, /*lockDraw*/false);
+				saveValueCallback: function (val, flags, callback) {
+					var saveCellValueCallback = function(success) {
+						if(!success) {
+							if(callback) {
+								return callback(false);
+							} else {
+								return false;
+							}
+						}
+
+						var bRes = t._saveCellValueAfterEdit(c, val, flags, /*isNotHistory*/false, /*lockDraw*/false);
+						if(callback) {
+							return callback(bRes);
+						} else {
+							return bRes;
+						}
+					};
+					if(flags.bApplyByArray) {
+						var activeRange = t.getSelectedRange();
+						t._isLockedCells(activeRange.bbox, /*subType*/null, saveCellValueCallback);
+					} else {
+						return saveCellValueCallback(true);
+					}
+
 				},
 				getSides: function () {
 					var _c1, _r1, _c2, _r2, ri = 0, bi = 0;
