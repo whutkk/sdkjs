@@ -6669,7 +6669,7 @@
         cell_info.name = this._getColumnTitle(c1) + this._getRowTitle(r1);
         cell_info.formula = c.getFormula();
 
-        cell_info.text = c.getValueForEdit();
+        cell_info.text = c.getValueForEdit(true);
 
 		cell_info.halign = align.getAlignHorizontal();
 		cell_info.valign = align.getAlignVertical();
@@ -11236,11 +11236,17 @@
 			var ftext = val.reduce(function (pv, cv) {
 				return pv + cv.text;
 			}, "");
-			var ret = true;
+
 			// ToDo - при вводе формулы в заголовок автофильтра надо писать "0"
+			var ret = true;
+			if(flags.bApplyByArray) {
+				c = this.getSelectedRange();
+				bbox = c.bbox;
+			}
 			c.setValue(ftext, function (r) {
 				ret = r;
-			});
+			}, null, flags.bApplyByArray ? bbox : null);
+
 			if (!ret) {
 				this.isFormulaEditMode = oldMode;
 				History.EndTransaction();
@@ -11250,14 +11256,11 @@
 			this.model.autoFilters.renameTableColumn(bbox);
 		} else {
 			if(flags.bApplyByArray) {
-				var activeRange = this.getSelectedRange();
-				bbox = activeRange.bbox;
-				activeRange._foreach(function (cell) {
-					cell.setValue2(val);
-				});
-			} else {
-				c.setValue2(val);
+				c = this.getSelectedRange();
+				bbox = c.bbox;
 			}
+			c.setValue2(val);
+
 			// Вызываем функцию пересчета для заголовков форматированной таблицы
 			this.model.autoFilters.renameTableColumn(bbox);
 

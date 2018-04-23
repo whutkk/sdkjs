@@ -6501,7 +6501,7 @@
 		this.textIndex = null;
 		this._hasChanged = true;
 	};
-	Cell.prototype.setValue=function(val,callback, isCopyPaste) {
+	Cell.prototype.setValue=function(val,callback, isCopyPaste, byRef) {
 		var ws = this.ws;
 		var wb = ws.workbook;
 		var DataOld = null;
@@ -6908,13 +6908,14 @@
 	Cell.prototype.getFormulaParsed=function(){
 		return this.formulaParsed;
 	};
-	Cell.prototype.getValueForEdit = function() {
+	Cell.prototype.getValueForEdit = function(checkFormulaArray) {
 		this._checkDirty();
 		//todo
 		// if (CellValueType.Error == this.getType()) {
 		// 	return this._getValueTypeError(textValueForEdit);
 		// }
-		return AscCommonExcel.getStringFromMultiText(this.getValueForEdit2());
+		var res = AscCommonExcel.getStringFromMultiText(this.getValueForEdit2());
+		return this.formulaParsed && this.formulaParsed.ref && checkFormulaArray ? "{" + res + "}" : res;
 	};
 	Cell.prototype.getValueForEdit2 = function() {
 		this._checkDirty();
@@ -8312,11 +8313,11 @@
 	Range.prototype.getName=function(){
 		return this.bbox.getName();
 	};
-	Range.prototype.setValue=function(val,callback, isCopyPaste){
+	Range.prototype.setValue=function(val,callback, isCopyPaste, byRef){
 		History.Create_NewPoint();
 		History.StartTransaction();
 		this._foreach(function(cell){
-			cell.setValue(val,callback, isCopyPaste);
+			cell.setValue(val,callback, isCopyPaste, byRef);
 			// if(cell.isEmpty())
 			// cell.Remove();
 		});
@@ -9011,14 +9012,13 @@
 		});
 		return formula;
 	};
-	Range.prototype.getValueForEdit=function(){
+	Range.prototype.getValueForEdit=function(checkFormulaArray){
 		var t = this;
 		var valueForEdit;
 		this.worksheet._getCellNoEmpty(this.bbox.r1,this.bbox.c1, function(cell) {
 			if(null != cell)
 			{
-				var numFormat = t.getNumFormat();
-				valueForEdit = cell.getValueForEdit(numFormat);
+				valueForEdit = cell.getValueForEdit(checkFormulaArray);
 			}
 			else
 				valueForEdit = "";
