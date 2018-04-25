@@ -7226,7 +7226,7 @@
 				val.value = 0;
 				val.type = cElementType.number;
 			}
-		} else if (cElementType.array === val.type) {
+		} else if (cElementType.array === val.type && !parsed.ref) {//***array-formula***
 			val = val.getElement(0);
 		} else if (cElementType.cellsRange === val.type || cElementType.cellsRange3D === val.type) {
 			val = val.cross(new Asc.Range(this.nCol, this.nRow, this.nCol, this.nRow), this.ws.getId());
@@ -7239,6 +7239,22 @@
 		}
 		this._calculateRefType();
 		var res = this.getFormulaParsed().value;
+
+		//***array-formula***
+		if(cElementType.array === res.type) {
+			var ref = this.formulaParsed.ref;
+			if(ref) {
+				var row = 1 === res.array.length ? 0 : this.nRow - ref.r1;
+				var col = 1 === res.array[0].length ? 0 : this.nCol - ref.c1;
+				if(res.array[row] && res.array[row][col]) {
+					res = res.getElementRowCol(row, col);
+				} else {
+					res = new window['AscCommonExcel'].cError(window['AscCommonExcel'].cErrorType.not_available);
+				}
+			} else {
+				res = res.getElement(0);
+			}
+		}
 		if (res) {
 			this.cleanText();
 			switch (res.type) {
