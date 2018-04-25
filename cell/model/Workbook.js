@@ -3091,6 +3091,11 @@
 		this.sheetMergedStyles = new AscCommonExcel.SheetMergedStyles();
 		this.pivotTables = [];
 
+		//***array-formula***
+		//TODO пересмотреть. нужно для того, чтобы хранить ссылку на parserFormula главной ячейки при проходе по range массива
+		this.formulaArrayLink = null;
+		//***array-formula***
+
 		this.lastFindOptions = null;
 
 		/*handlers*/
@@ -6527,30 +6532,45 @@
 			 Если значение является формулой, то проверяем содержиться ли в ячейке формула или нет, если "да" - то очищаем в графе зависимостей список, от которых зависит формула(masterNodes), позже будет построен новый. Затем выставляем флаг о необходимости дальнейшего пересчета, и заносим ячейку в список пересчитываемых ячеек.
 			 */
 			if (null != val && val[0] == "=" && val.length > 1) {
-				var cellWithFormula = new CCellWithFormula(this.ws, this.nRow, this.nCol);
-				newFP = new parserFormula(val.substring(1), cellWithFormula, this.ws);
-
-				var formulaLocaleParse = isCopyPaste === true ? false : oFormulaLocaleInfo.Parse;
-				var formulaLocaleDigetSep = isCopyPaste === true ? false : oFormulaLocaleInfo.DigitSep;
-				var parseResult = new AscCommonExcel.ParseResult();
-				if (!newFP.parse(formulaLocaleParse, formulaLocaleDigetSep, parseResult)) {
-					switch (parseResult.error) {
-						case c_oAscError.ID.FrmlWrongFunctionName:
-							break;
-						case c_oAscError.ID.FrmlParenthesesCorrectCount:
-							this.setValue("=" + newFP.getFormula(), callback, isCopyPaste);
-							return;
-						default :
-						{
-							wb.handlers.trigger("asc_onError", parseResult.error, c_oAscError.Level.NoCritical);
-							if (callback) {
-								callback(false);
-							}
-							return;
-						}
+				//***array-formula***
+				if(byRef && (this.nCol !== byRef.c1 || this.nRow !== byRef.r1)) {
+					newFP = this.ws.formulaArrayLink;
+					if(this.nCol === byRef.c2 && this.nRow === byRef.r2) {
+						this.ws.formulaArrayLink = null;
 					}
+					//***array-formula***
 				} else {
-					newFP.setFormulaString(newFP.assemble());
+					var cellWithFormula = new CCellWithFormula(this.ws, this.nRow, this.nCol);
+					newFP = new parserFormula(val.substring(1), cellWithFormula, this.ws);
+
+					var formulaLocaleParse = isCopyPaste === true ? false : oFormulaLocaleInfo.Parse;
+					var formulaLocaleDigetSep = isCopyPaste === true ? false : oFormulaLocaleInfo.DigitSep;
+					var parseResult = new AscCommonExcel.ParseResult();
+					if (!newFP.parse(formulaLocaleParse, formulaLocaleDigetSep, parseResult)) {
+						switch (parseResult.error) {
+							case c_oAscError.ID.FrmlWrongFunctionName:
+								break;
+							case c_oAscError.ID.FrmlParenthesesCorrectCount:
+								this.setValue("=" + newFP.getFormula(), callback, isCopyPaste);
+								return;
+							default :
+							{
+								wb.handlers.trigger("asc_onError", parseResult.error, c_oAscError.Level.NoCritical);
+								if (callback) {
+									callback(false);
+								}
+								return;
+							}
+						}
+					} else {
+						newFP.setFormulaString(newFP.assemble());
+						//***array-formula***
+						if(byRef) {
+							newFP.ref = byRef;
+							this.ws.formulaArrayLink = newFP;
+						}
+						//***array-formula***
+					}
 				}
 			}
 		}
@@ -7132,7 +7152,9 @@
 				this.setIsCalc(true);
 				this.processFormula(function(parsed) {
 					if (!isCalc) {
-						parsed.calculate();
+						//***array-formula***
+						//добавлен последний параметр для обработки формулы массива
+						parsed.calculate(null, null, null, t);
 					} else {
 						parsed.calculateCycleError();
 		}

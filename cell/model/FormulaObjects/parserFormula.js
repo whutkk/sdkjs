@@ -5527,7 +5527,20 @@ parserFormula.prototype.setFormula = function(formula) {
 		this.value = elemArr.pop();
 		this.value.numFormat = numFormat;
 
-		this._endCalculate();
+		//***array-formula***
+		//для обработки формулы массива
+		//передаётся последним параметром cell и временно подменяется parent у parserFormula для того, чтобы поменялось значение в элементе массива
+		var cell = arguments[3];
+		if(this.ref && cell && !(this.ref.r1 === cell.nRow && this.ref.c1 === cell.nCol)) {
+			var oldParent = this.parent;
+			this.parent = new AscCommonExcel.CCellWithFormula(cell.ws, cell.nRow, cell.nCol);
+			this._endCalculate();
+			this.parent = oldParent;
+		} else {
+			this._endCalculate();
+		}
+		//***array-formula***
+
 		return this.value;
 	};
 	parserFormula.prototype._endCalculate = function() {
