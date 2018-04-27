@@ -11416,13 +11416,40 @@
 							return bRes;
 						}
 					};
-					if(flags.bApplyByArray) {
-						var activeRange = t.getSelectedRange();
-						t._isLockedCells(activeRange.bbox, /*subType*/null, saveCellValueCallback);
-					} else {
-						return saveCellValueCallback(true);
-					}
 
+					//***array-formula***
+					var ref = null;
+					if(flags.bApplyByArray) {
+						//необходимо проверить на выделение массива частично
+						var activeRange = t.getSelectedRange();
+						var doNotApply = false;
+						activeRange._foreachNoEmpty(function(cell, row, col) {
+							ref = cell.formulaParsed && cell.formulaParsed.ref ? cell.formulaParsed.ref : null;
+
+							if(ref && !activeRange.bbox.containsRange(ref)) {
+								doNotApply = true;
+								return false;
+							}
+						});
+						if(doNotApply) {
+							t.handlers.trigger("onErrorEvent", c_oAscError.ID.LockCreateDefName, c_oAscError.Level.NoCritical);
+							return false;
+						} else {
+							t._isLockedCells(activeRange.bbox, /*subType*/null, saveCellValueCallback);
+						}
+					} else {
+						//проверяем activeCell на наличие форулы массива
+						var activeCell = t.model.selectionRange.activeCell;
+						t.model._getCell(activeCell.row, activeCell.col, function(cell) {
+							ref = cell.formulaParsed && cell.formulaParsed.ref ? cell.formulaParsed.ref : null;
+						});
+						if(ref && !ref.isOneCell()) {
+							t.handlers.trigger("onErrorEvent", c_oAscError.ID.LockCreateDefName, c_oAscError.Level.NoCritical);
+							return false;
+						} else {
+							return saveCellValueCallback(true);
+						}
+					}
 				},
 				getSides: function () {
 					var _c1, _r1, _c2, _r2, ri = 0, bi = 0;
