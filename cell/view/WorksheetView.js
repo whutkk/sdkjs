@@ -11238,11 +11238,22 @@
 			}, "");
 
 			// ToDo - при вводе формулы в заголовок автофильтра надо писать "0"
+			//***array-formula***
 			var ret = true;
 			if(flags.bApplyByArray) {
 				c = this.getSelectedRange();
+				if(c.bbox.isOneCell()) {
+					//проверяем, есть ли формула массива в этой ячейке
+					this.model._getCell(c.bbox.r1, c.bbox.c1, function(cell){
+						var formulaRef = cell && cell.formulaParsed && cell.formulaParsed.ref ? cell.formulaParsed.ref : null;
+						if(formulaRef) {
+							c = t.model.getRange3(formulaRef.r1, formulaRef.c1, formulaRef.r2, formulaRef.c2);
+						}
+					});
+				}
 				bbox = c.bbox;
 			}
+
 			c.setValue(ftext, function (r) {
 				ret = r;
 			}, null, flags.bApplyByArray ? bbox : null);
@@ -11255,6 +11266,7 @@
 			isFormula = c.isFormula();
 			this.model.autoFilters.renameTableColumn(bbox);
 		} else {
+			//***array-formula***
 			if(flags.bApplyByArray) {
 				c = this.getSelectedRange();
 				bbox = c.bbox;
@@ -11423,14 +11435,16 @@
 						//необходимо проверить на выделение массива частично
 						var activeRange = t.getSelectedRange();
 						var doNotApply = false;
-						activeRange._foreachNoEmpty(function(cell, row, col) {
-							ref = cell.formulaParsed && cell.formulaParsed.ref ? cell.formulaParsed.ref : null;
+						if(!activeRange.bbox.isOneCell()) {
+							activeRange._foreachNoEmpty(function(cell, row, col) {
+								ref = cell.formulaParsed && cell.formulaParsed.ref ? cell.formulaParsed.ref : null;
 
-							if(ref && !activeRange.bbox.containsRange(ref)) {
-								doNotApply = true;
-								return false;
-							}
-						});
+								if(ref && !activeRange.bbox.containsRange(ref)) {
+									doNotApply = true;
+									return false;
+								}
+							});
+						}
 						if(doNotApply) {
 							t.handlers.trigger("onErrorEvent", c_oAscError.ID.LockCreateDefName, c_oAscError.Level.NoCritical);
 							return false;
