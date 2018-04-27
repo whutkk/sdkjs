@@ -870,7 +870,8 @@
 			}
 			changedSheet[name] = bbox;
 		},
-		addToChangedCell: function(cell) {
+		addToChangedCell: function(cell, eventData) {
+			var t = this;
 			var sheetId = cell.ws.getId();
 			if (!this.changedCell) {
 				this.changedCell = {};
@@ -882,29 +883,34 @@
 				this.changedCell[sheetId] = changedSheet;
 			}
 
+			var addChangedSheet = function(row, col) {
+				var cellIndex = getCellIndex(row, col);
+				if (t.isInCalc && !changedSheet[cellIndex]) {
+					if (!t.changedCellRepeated) {
+						t.changedCellRepeated = {};
+					}
+					var changedSheetRepeated = t.changedCellRepeated[sheetId];
+					if (!changedSheetRepeated) {
+						changedSheetRepeated = {};
+						t.changedCellRepeated[sheetId] = changedSheetRepeated;
+					}
+					changedSheetRepeated[cellIndex] = 1;
+				}
+				changedSheet[cellIndex] = 1;
+			};
+
 			//***array-formula***
 			//TODO без серьёзных изменений пока есть вариант добавлять в changedSheet все ячейки формулы массива
-			/*var diffCol = 0;
-			var diffRow = 0;
 			if(eventData && eventData.formula && eventData.formula.ref) {
-				if(eventData.notifyData && eventData.notifyData.areaData && eventData.notifyData.areaData.cellsInArea) {
-					diffCol = eventData.notifyData.areaData.cellsInArea.c1 - eventData.formula.ref.c1;
-					diffRow = eventData.notifyData.areaData.cellsInArea.r1 - eventData.formula.ref.r1;
+				var formulaRef = eventData.formula.ref;
+				for(var i = formulaRef.r1; i <= formulaRef.r2; i++) {
+					for(var j = formulaRef.c1; j <= formulaRef.c2; j++) {
+						addChangedSheet(i, j);
+					}
 				}
-			}*/
-			var cellIndex = getCellIndex(cell.nRow, cell.nCol);
-			if (this.isInCalc && !changedSheet[cellIndex]) {
-				if (!this.changedCellRepeated) {
-					this.changedCellRepeated = {};
-				}
-				var changedSheetRepeated = this.changedCellRepeated[sheetId];
-				if (!changedSheetRepeated) {
-					changedSheetRepeated = {};
-					this.changedCellRepeated[sheetId] = changedSheetRepeated;
-				}
-				changedSheetRepeated[cellIndex] = 1;
+			} else {
+				addChangedSheet(cell.nRow, cell.nCol);
 			}
-			changedSheet[cellIndex] = 1;
 		},
 		addToChangedDefName: function(defName) {
 			if (!this.changedDefName) {
