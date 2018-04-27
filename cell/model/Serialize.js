@@ -6020,16 +6020,16 @@
 					//TODO возможно стоит делать это в worksheet после полного чтения
 					//***array-formula***
 					//добавление ко всем ячейкам массива головной формулы
-					for(var i = 0; i < tmp.formulaArray.length; i++) {
-						var curFormula = tmp.formulaArray[i];
+					for(var j = 0; j < tmp.formulaArray.length; j++) {
+						var curFormula = tmp.formulaArray[j];
 						var ref = curFormula.ref;
 						if(ref) {
 							var rangeFormulaArray = tmp.ws.getRange3(ref.r1, ref.c1, ref.r2, ref.c2);
 							rangeFormulaArray._foreach(function(cell){
 								cell.setFormulaInternal(curFormula);
-								if (curFormula.ca || cell.isNullTextString()) {
+								//if (curFormula.ca || cell.isNullTextString()) {
 									tmp.ws.workbook.dependencyFormulas.addToChangedCell(cell);
-								}
+								//}
 							});
 						}
 					}

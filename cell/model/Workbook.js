@@ -881,6 +881,17 @@
 				changedSheet = {};
 				this.changedCell[sheetId] = changedSheet;
 			}
+
+			//***array-formula***
+			//TODO без серьёзных изменений пока есть вариант добавлять в changedSheet все ячейки формулы массива
+			/*var diffCol = 0;
+			var diffRow = 0;
+			if(eventData && eventData.formula && eventData.formula.ref) {
+				if(eventData.notifyData && eventData.notifyData.areaData && eventData.notifyData.areaData.cellsInArea) {
+					diffCol = eventData.notifyData.areaData.cellsInArea.c1 - eventData.formula.ref.c1;
+					diffRow = eventData.notifyData.areaData.cellsInArea.r1 - eventData.formula.ref.r1;
+				}
+			}*/
 			var cellIndex = getCellIndex(cell.nRow, cell.nCol);
 			if (this.isInCalc && !changedSheet[cellIndex]) {
 				if (!this.changedCellRepeated) {
@@ -7825,7 +7836,7 @@
 				dependencyFormulas.addToChangedRange2(this.ws.getId(), shared.ref);
 				}
 		} else {
-			this.ws.workbook.dependencyFormulas.addToChangedCell(this);
+			this.ws.workbook.dependencyFormulas.addToChangedCell(this, eventData);
 		}
 	};
 	CCellWithFormula.prototype._onChangeFormula = function(eventData) {
