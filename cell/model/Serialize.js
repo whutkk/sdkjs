@@ -3562,6 +3562,7 @@
 			var ref;
 			var type;
 			var shared = parsed.getShared();
+			var arrayFormula = parsed.getArrayFormulaRef();
             if (shared) {
                 var sharedToWrite = this.sharedFormulas[parsed.getIndexNumber()];
                 if (!sharedToWrite) {
@@ -3598,8 +3599,16 @@
                         formula = parsed.getFormula();
                     });
                 }
-            } else {
-                formula = parsed.getFormula();
+			} else if(null !== arrayFormula) {
+				//***array-formula***
+				var bIsFirstCellArray = parsed.checkFirstCellArray(cell);
+				if(bIsFirstCellArray) {
+					ref = arrayFormula;
+					type = ECellFormulaType.cellformulatypeArray;
+					formula = parsed.getFormula();
+				}
+			} else {
+				formula = parsed.getFormula();
             }
 
             // if(null != oFormula.aca)
