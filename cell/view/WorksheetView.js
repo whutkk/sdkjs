@@ -11258,15 +11258,16 @@
 				ret = r;
 			}, null, flags.bApplyByArray ? bbox : null);
 
-			//***array-formula***
-			History.Add(AscCommonExcel.g_oUndoRedoArrayFormula, AscCH.historyitem_Cell_AddArrayFormula, this.model.getId(),
-				new Asc.Range(c.bbox.c1, c.bbox.r1, c.bbox.c2, c.bbox.r2), new AscCommonExcel.UndoRedoData_ArrayFormula(c, ftext));
-
 			if (!ret) {
 				this.isFormulaEditMode = oldMode;
 				History.EndTransaction();
 				return false;
 			}
+
+			//***array-formula***
+			History.Add(AscCommonExcel.g_oUndoRedoArrayFormula, AscCH.historyitem_Cell_AddArrayFormula, this.model.getId(),
+				new Asc.Range(c.bbox.c1, c.bbox.r1, c.bbox.c2, c.bbox.r2), new AscCommonExcel.UndoRedoData_ArrayFormula(c.bbox, ftext));
+
 			isFormula = c.isFormula();
 			this.model.autoFilters.renameTableColumn(bbox);
 		} else {

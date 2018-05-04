@@ -538,6 +538,8 @@ function (window, undefined) {
 					return new UndoRedoData_DefinedNames();
 				case this.PivotTable:
 					return new UndoRedoData_PivotTable();
+				case this.ArrayFormula:
+					return new UndoRedoData_ArrayFormula();
 			}
 			return null;
 		};
@@ -1559,36 +1561,6 @@ function (window, undefined) {
 		this.activeCells.r2 = collaborativeEditing.getLockMeRow2(nSheetId, this.activeCells.r2);
 	};
 
-	function UndoRedoData_SingleProperty(elem) {
-		this.elem = elem;
-	}
-
-	UndoRedoData_SingleProperty.prototype.Properties = {
-		elem: 0
-	};
-	UndoRedoData_SingleProperty.prototype.getType = function () {
-		return UndoRedoDataTypes.SingleProperty;
-	};
-	UndoRedoData_SingleProperty.prototype.getProperties = function () {
-		return this.Properties;
-	};
-	UndoRedoData_SingleProperty.prototype.getProperty = function (nType) {
-		switch (nType) {
-			case this.Properties.elem:
-				return this.elem;
-				break;
-		}
-		return null;
-	};
-	UndoRedoData_SingleProperty.prototype.setProperty = function (nType, value) {
-		switch (nType) {
-			case this.Properties.elem:
-				this.elem = value;
-				break;
-		}
-	};
-
-
 	//***array-formula***
 	function UndoRedoData_ArrayFormula(range, formula) {
 		this.range = range;
@@ -1628,12 +1600,6 @@ function (window, undefined) {
 		}
 		return null;
 	};
-	/*UndoRedoData_ArrayFormula.prototype.applyCollaborative = function (nSheetId, collaborativeEditing) {
-		this.activeCells.c1 = collaborativeEditing.getLockMeColumn2(nSheetId, this.activeCells.c1);
-		this.activeCells.c2 = collaborativeEditing.getLockMeColumn2(nSheetId, this.activeCells.c2);
-		this.activeCells.r1 = collaborativeEditing.getLockMeRow2(nSheetId, this.activeCells.r1);
-		this.activeCells.r2 = collaborativeEditing.getLockMeRow2(nSheetId, this.activeCells.r2);
-	};*/
 
 
 	function UndoRedoData_SingleProperty(elem) {
@@ -2688,7 +2654,7 @@ function (window, undefined) {
 	function UndoRedoArrayFormula(wb) {
 		this.wb = wb;
 		this.nType = UndoRedoClassTypes.Add(function () {
-			return AscCommonExcel.g_oUndoRedoSharedFormula;
+			return AscCommonExcel.g_oUndoRedoArrayFormula;
 		});
 	}
 
@@ -2701,30 +2667,22 @@ function (window, undefined) {
 	UndoRedoArrayFormula.prototype.Redo = function (Type, Data, nSheetId, opt_wb) {
 		this.UndoRedo(Type, Data, nSheetId, false, opt_wb);
 	};
-	UndoRedoArrayFormula.prototype.UndoRedo = function (Type, Data, nSheetId, bUndo, opt_wb) {
-		//var wb = opt_wb ? opt_wb : this.wb;
+	UndoRedoArrayFormula.prototype.UndoRedo = function (Type, Data, nSheetId, bUndo) {
+		var ws = this.wb.getWorksheetById(nSheetId);
+		if (null == ws) {
+			return;
+		}
 
+		var bbox = Data.range;
+		var formula = Data.formula;
+		var range = ws.getRange3(bbox.r1, bbox.c1, bbox.r2, bbox.c2);
 		switch (Type) {
 			case AscCH.historyitem_Cell_AddArrayFormula:
-				if(bUndo) {
-
-				} else {
-
+				if(!bUndo) {
+					range.setValue(formula, null, null, bbox);
 				}
 				break;
 		}
-
-		/*var parsed = wb.workbookFormulas.get(Data.index);
-		if (parsed && bUndo) {
-			var val = bUndo ? Data.oOldVal : Data.oNewVal;
-			if (AscCH.historyitem_SharedFormula_ChangeFormula == Type) {
-				parsed.removeDependencies();
-				parsed.setFormula(val);
-				wb.dependencyFormulas.addToBuildDependencyShared(parsed);
-			} else if (AscCH.historyitem_SharedFormula_ChangeShared == Type) {
-				parsed.setSharedRef(val, Data.bRow);
-			}
-		}*/
 	};
 
 	//----------------------------------------------------------export----------------------------------------------------
