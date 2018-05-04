@@ -1590,9 +1590,9 @@ function (window, undefined) {
 
 
 	//***array-formula***
-	function UndoRedoData_ArrayFormula() {
-		this.range = null;
-		this.formula = null;
+	function UndoRedoData_ArrayFormula(range, formula) {
+		this.range = range;
+		this.formula = formula;
 	}
 
 	UndoRedoData_ArrayFormula.prototype.Properties = {
@@ -2702,8 +2702,19 @@ function (window, undefined) {
 		this.UndoRedo(Type, Data, nSheetId, false, opt_wb);
 	};
 	UndoRedoArrayFormula.prototype.UndoRedo = function (Type, Data, nSheetId, bUndo, opt_wb) {
-		/*var wb = opt_wb ? opt_wb : this.wb;
-		var parsed = wb.workbookFormulas.get(Data.index);
+		//var wb = opt_wb ? opt_wb : this.wb;
+
+		switch (Type) {
+			case AscCH.historyitem_Cell_AddArrayFormula:
+				if(bUndo) {
+
+				} else {
+
+				}
+				break;
+		}
+
+		/*var parsed = wb.workbookFormulas.get(Data.index);
 		if (parsed && bUndo) {
 			var val = bUndo ? Data.oOldVal : Data.oNewVal;
 			if (AscCH.historyitem_SharedFormula_ChangeFormula == Type) {
