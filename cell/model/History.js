@@ -119,7 +119,6 @@ function (window, undefined) {
 	window['AscCH'].historyitem_Cell_Num = 24;
 	window['AscCH'].historyitem_Cell_SetPivotButton = 25;
 	window['AscCH'].historyitem_Cell_RemoveSharedFormula = 26;
-	window['AscCH'].historyitem_Cell_AddArrayFormula = 27;
 
 	window['AscCH'].historyitem_Comment_Add = 1;
 	window['AscCH'].historyitem_Comment_Remove = 2;
@@ -150,6 +149,9 @@ function (window, undefined) {
 
 	window['AscCH'].historyitem_SharedFormula_ChangeFormula = 1;
 	window['AscCH'].historyitem_SharedFormula_ChangeShared = 2;
+
+	window['AscCH'].historyitem_ArrayFromula_AddFormula = 1;
+	window['AscCH'].historyitem_ArrayFromula_ChangeArray = 2;
 
 
 function CHistory()

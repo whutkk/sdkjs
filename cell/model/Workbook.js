@@ -3882,6 +3882,7 @@
 				var processed = c_oSharedShiftType.NeedTransform;
 				var parsed = cell.getFormulaParsed();
 				var shared = parsed.getShared();
+				var arrayFormula = parsed.getArray();
 				if (shared) {
 					processed = shiftedShared[parsed.getListenerId()];
 					var isPreProcessed = c_oSharedShiftType.PreProcessed === processed;
@@ -3907,7 +3908,14 @@
 						}
 						shiftedShared[parsed.getListenerId()] = processed;
 					}
+				} else if(arrayFormula) {
+					//***array-formula***
+					if(cell.nRow === arrayFormula.r1 && cell.nCol === arrayFormula.c1) {
+						parsed.ref = arrayFormula.clone();
+						parsed.ref.setOffset(offset);
+					}
 				}
+
 				if (c_oSharedShiftType.NeedTransform === processed) {
 					var isTransform = cell.transformSharedFormula();
 					parsed = cell.getFormulaParsed();

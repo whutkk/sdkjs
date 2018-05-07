@@ -4494,6 +4494,12 @@ function parserFormula( formula, parent, _ws ) {
 				null, new AscCommonExcel.UndoRedoData_IndexSimpleProp(index, opt_updateBase, old, newRef), true);
 		}
 	};
+	parserFormula.prototype.getArray = function() {
+		return this.ref;
+	};
+	parserFormula.prototype.setArrayRef = function() {
+
+	};
 	parserFormula.prototype.removeShared = function() {
 		this.shared = null;
 	};

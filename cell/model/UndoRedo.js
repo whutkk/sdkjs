@@ -2667,7 +2667,7 @@ function (window, undefined) {
 	UndoRedoArrayFormula.prototype.Redo = function (Type, Data, nSheetId, opt_wb) {
 		this.UndoRedo(Type, Data, nSheetId, false, opt_wb);
 	};
-	UndoRedoArrayFormula.prototype.UndoRedo = function (Type, Data, nSheetId, bUndo) {
+	UndoRedoArrayFormula.prototype.UndoRedo = function (Type, Data, nSheetId, bUndo, opt_wb) {
 		var ws = this.wb.getWorksheetById(nSheetId);
 		if (null == ws) {
 			return;
@@ -2677,10 +2677,15 @@ function (window, undefined) {
 		var formula = Data.formula;
 		var range = ws.getRange3(bbox.r1, bbox.c1, bbox.r2, bbox.c2);
 		switch (Type) {
-			case AscCH.historyitem_Cell_AddArrayFormula:
+			case AscCH.historyitem_ArrayFromula_AddFormula:
 				if(!bUndo) {
 					range.setValue(formula, null, null, bbox);
 				}
+				break;
+			case AscCH.historyitem_ArrayFromula_ChangeArray:
+				var wb = opt_wb ? opt_wb : this.wb;
+				var parsed = wb.workbookFormulas.get(Data.index);
+				parsed.setSharedRef(val, Data.bRow);
 				break;
 		}
 	};
