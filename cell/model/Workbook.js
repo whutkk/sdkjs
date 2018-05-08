@@ -3882,7 +3882,8 @@
 				var processed = c_oSharedShiftType.NeedTransform;
 				var parsed = cell.getFormulaParsed();
 				var shared = parsed.getShared();
-				var arrayFormula = parsed.getArray();
+				var arrayFormula = parsed.getArrayFormulaRef();
+				var formulaRefObj = null;
 				if (shared) {
 					processed = shiftedShared[parsed.getListenerId()];
 					var isPreProcessed = c_oSharedShiftType.PreProcessed === processed;
@@ -3910,10 +3911,12 @@
 					}
 				} else if(arrayFormula) {
 					//***array-formula***
-					if(!shiftedArrayFormula[parsed.getListenerId()] && cell.nRow === arrayFormula.r1 && cell.nCol === arrayFormula.c1) {
+					if(!shiftedArrayFormula[parsed.getListenerId()] && parsed.checkFirstCellArray(cell)) {
 						shiftedArrayFormula[parsed.getListenerId()] = 1;
-						parsed.ref = arrayFormula.clone();
-						parsed.ref.setOffset(offset);
+						var newArrayRef = arrayFormula.clone();
+						newArrayRef.setOffset(offset);
+						parsed.setArrayFormulaRef(newArrayRef);
+						formulaRefObj = {formula: {ref: newArrayRef}};
 					} else {
 						processed = c_oSharedShiftType.Processed;
 					}
@@ -3929,7 +3932,7 @@
 					cellWithFormula = parsed.getParent();
 					cellWithFormula.nRow = newNRow;
 					cellWithFormula.nCol = newNCol;
-					t.workbook.dependencyFormulas.addToChangedCell(cellWithFormula);
+					t.workbook.dependencyFormulas.addToChangedCell(cellWithFormula, formulaRefObj);
 				}
 			}
 			if (newNRow >= t.nRowsCount) {
@@ -4926,10 +4929,12 @@
 				moveCells(copyRange, oBBoxFrom.c1 + i, oBBoxTo.c1 + i, oBBoxFrom.r1, oBBoxTo.r1, oBBoxFrom.r2 - oBBoxFrom.r1 + 1);
 			}
 		}
+		var shiftedArrayFormula = {};
 		this.getRange3(oBBoxTo.r1, oBBoxTo.c1, oBBoxTo.r2, oBBoxTo.c2)._foreachNoEmpty(function(cell){
 			var formula = cell.getFormulaParsed();
 			if (formula) {
 				var cellWithFormula = formula.getParent();
+				var arrayFormula = formula.getArrayFormulaRef();
 				if (copyRange) {
 					History.TurnOff();
 					cellWithFormula = new CCellWithFormula(cellWithFormula.ws, cell.nRow, cell.nCol);
@@ -4939,8 +4944,24 @@
 					cell.setFormulaInternal(newFormula);
 					History.TurnOn();
 				} else {
-					cellWithFormula.nRow = cell.nRow;
-					cellWithFormula.nCol = cell.nCol;
+					//***array-formula***
+					//TODO возможно стоит это делать в dependencyFormulas.move
+					if(arrayFormula) {
+						var preMoveCell = {nRow: cell.nRow - offset.row, nCol: cell.nCol - offset.col};
+						if(!shiftedArrayFormula[formula.getListenerId()] && formula.checkFirstCellArray(preMoveCell)) {
+
+							shiftedArrayFormula[formula.getListenerId()] = 1;
+							var newArrayRef = arrayFormula.clone();
+							newArrayRef.setOffset(offset);
+							formula.setArrayFormulaRef(newArrayRef);
+
+							cellWithFormula.nRow = cell.nRow;
+							cellWithFormula.nCol = cell.nCol;
+						}
+					} else {
+						cellWithFormula.nRow = cell.nRow;
+						cellWithFormula.nCol = cell.nCol;
+					}
 				}
 				oThis.workbook.dependencyFormulas.addToBuildDependencyCell(cell);
 			}
