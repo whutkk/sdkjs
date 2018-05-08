@@ -4935,23 +4935,36 @@
 			if (formula) {
 				var cellWithFormula = formula.getParent();
 				var arrayFormula = formula.getArrayFormulaRef();
+				var preMoveCell, newArrayRef, newFormula;
 				if (copyRange) {
 					History.TurnOff();
-					cellWithFormula = new CCellWithFormula(cellWithFormula.ws, cell.nRow, cell.nCol);
-					var newFormula = formula.clone(null, cellWithFormula, oThis);
-					newFormula.changeOffset(offset, false, true);
-					newFormula.setFormulaString(newFormula.assemble(true));
-					cell.setFormulaInternal(newFormula);
+					//***array-formula***
+					preMoveCell = {nRow: cell.nRow - offset.row, nCol: cell.nCol - offset.col};
+					var isFirstCellArray = formula.checkFirstCellArray(preMoveCell) && !shiftedArrayFormula[formula.getListenerId()];
+					if(!arrayFormula || (arrayFormula && isFirstCellArray)) {
+						cellWithFormula = new CCellWithFormula(cellWithFormula.ws, cell.nRow, cell.nCol);
+						newFormula = formula.clone(null, cellWithFormula, oThis);
+						newFormula.changeOffset(offset, false, true);
+						newFormula.setFormulaString(newFormula.assemble(true));
+						cell.setFormulaInternal(newFormula);
+
+						if(isFirstCellArray) {
+							newArrayRef = arrayFormula.clone();
+							newArrayRef.setOffset(offset);
+							newFormula.setArrayFormulaRef(newArrayRef);
+							shiftedArrayFormula[newFormula.getListenerId()] = 1;
+						}
+					}
 					History.TurnOn();
 				} else {
 					//***array-formula***
 					//TODO возможно стоит это делать в dependencyFormulas.move
 					if(arrayFormula) {
-						var preMoveCell = {nRow: cell.nRow - offset.row, nCol: cell.nCol - offset.col};
+						preMoveCell = {nRow: cell.nRow - offset.row, nCol: cell.nCol - offset.col};
 						if(!shiftedArrayFormula[formula.getListenerId()] && formula.checkFirstCellArray(preMoveCell)) {
 
 							shiftedArrayFormula[formula.getListenerId()] = 1;
-							var newArrayRef = arrayFormula.clone();
+							newArrayRef = arrayFormula.clone();
 							newArrayRef.setOffset(offset);
 							formula.setArrayFormulaRef(newArrayRef);
 
