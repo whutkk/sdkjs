@@ -2682,10 +2682,10 @@ function (window, undefined) {
 					range.setValue(formula, null, null, bbox);
 				}
 				break;
-			case AscCH.historyitem_ArrayFromula_ChangeArray:
-				var wb = opt_wb ? opt_wb : this.wb;
-				var parsed = wb.workbookFormulas.get(Data.index);
-				parsed.setSharedRef(val, Data.bRow);
+			case AscCH.historyitem_ArrayFromula_DeleteFormula:
+				if(bUndo) {
+					range.setValue(formula, null, null, bbox);
+				}
 				break;
 		}
 	};

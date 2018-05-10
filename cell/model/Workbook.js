@@ -6722,6 +6722,7 @@
 	Cell.prototype.setFormulaInternal = function(formula, dontTouchPrev) {
 		if (!dontTouchPrev && this.formulaParsed) {
 			var shared = this.formulaParsed.getShared();
+			var arrayFormula = this.formulaParsed.getArrayFormulaRef();
 			if (shared) {
 				if (shared.ref.isOnTheEdge(this.nCol, this.nRow)) {
 					this.ws.workbook.dependencyFormulas.addToChangedShared(this.formulaParsed);
@@ -6729,6 +6730,11 @@
 				var index = this.ws.workbook.workbookFormulas.add(this.formulaParsed).getIndexNumber();
 				History.Add(AscCommonExcel.g_oUndoRedoCell, AscCH.historyitem_Cell_RemoveSharedFormula, this.ws.getId(),
 					new Asc.Range(this.nCol, this.nRow, this.nCol, this.nRow), new UndoRedoData_CellSimpleData(this.nRow, this.nCol, index, null), true);
+			} else if(arrayFormula && this.formulaParsed.checkFirstCellArray(this)) {
+				//***array-formula***
+				var fText = "=" + this.formulaParsed.getFormula();
+				History.Add(AscCommonExcel.g_oUndoRedoArrayFormula, AscCH.historyitem_ArrayFromula_DeleteFormula, this.ws.getId(),
+					new Asc.Range(this.nCol, this.nRow, this.nCol, this.nRow), new AscCommonExcel.UndoRedoData_ArrayFormula(arrayFormula, fText), true);
 			} else {
 				this.formulaParsed.removeDependencies();
 			}

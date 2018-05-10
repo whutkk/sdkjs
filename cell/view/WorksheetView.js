@@ -11467,7 +11467,7 @@
 						//проверяем activeCell на наличие форулы массива
 						var activeCell = t.model.selectionRange.activeCell;
 						t.model._getCell(activeCell.row, activeCell.col, function(cell) {
-							ref = cell.formulaParsed && cell.formulaParsed.ref ? cell.formulaParsed.ref : null;
+							ref = cell.formulaParsed && cell.formulaParsed.ref ? cell.formulaPsetFormulaInternalarsed.ref : null;
 						});
 						if(ref && !ref.isOneCell()) {
 							t.handlers.trigger("onErrorEvent", c_oAscError.ID.CannotChangeFormulaArray, c_oAscError.Level.NoCritical);
