@@ -8081,6 +8081,13 @@
 			return;
 		}
 
+		//***array-formula***
+		if (!this.checkMoveFormulaArray(arnFrom, arnTo, ctrlKey)) {
+			this._cleanSelectionMoveRange();
+			this.model.workbook.handlers.trigger("asc_onError", c_oAscError.ID.CannotChangeFormulaArray, c_oAscError.Level.NoCritical);
+			return;
+		}
+
         var resmove = this.model._prepareMoveRange(arnFrom, arnTo);
         if (resmove === -2) {
             this.handlers.trigger("onErrorEvent", c_oAscError.ID.CannotMoveRange, c_oAscError.Level.NoCritical);
@@ -11463,7 +11470,7 @@
 							ref = cell.formulaParsed && cell.formulaParsed.ref ? cell.formulaParsed.ref : null;
 						});
 						if(ref && !ref.isOneCell()) {
-							t.handlers.trigger("onErrorEvent", c_oAscError.ID.LockCreateDefName, c_oAscError.Level.NoCritical);
+							t.handlers.trigger("onErrorEvent", c_oAscError.ID.CannotChangeFormulaArray, c_oAscError.Level.NoCritical);
 							return false;
 						} else {
 							return saveCellValueCallback(true);
@@ -13997,6 +14004,40 @@
 
         return res;
     };
+
+	WorksheetView.prototype.checkMoveFormulaArray = function(from, to, ctrlKey) {
+		//***array-formula***
+		var res = true;
+
+		//TODO вместо getRange3 нужна функция, которая может заканчивать цикл по ячейкам
+		if(!ctrlKey) {
+			//проверяем from, затрагиваем ли мы часть формулы массива
+			this.model.getRange3(from.r1, from.c1, from.r2, from.c2)._foreachNoEmpty(function(cell) {
+				if(cell.isFormula()) {
+					var formulaParsed = cell.getFormulaParsed();
+					var arrayFormulaRef = formulaParsed.getArrayFormulaRef();
+					if(arrayFormulaRef && !from.containsRange(arrayFormulaRef)) {
+						res = false;
+					}
+				}
+			});
+		}
+
+		//проверяем to, затрагиваем ли мы часть формулы массива
+		if(res) {
+			this.model.getRange3(to.r1, to.c1, to.r2, to.c2)._foreachNoEmpty(function(cell) {
+				if(cell.isFormula()) {
+					var formulaParsed = cell.getFormulaParsed();
+					var arrayFormulaRef = formulaParsed.getArrayFormulaRef();
+					if(arrayFormulaRef && !to.containsRange(arrayFormulaRef)) {
+						res = false;
+					}
+				}
+			});
+		}
+
+		return res;
+	};
 
     // Convert coordinates methods
 	WorksheetView.prototype.ConvertXYToLogic = function (x, y) {

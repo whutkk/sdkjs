@@ -176,6 +176,8 @@
 			ForceSaveButton: -331,
 			ForceSaveTimeout: -332,
 
+			CannotChangeFormulaArray: -450,
+
 			OpenWarning : 500
 		}
 	};
@@ -1258,6 +1260,7 @@
 	prot['LockedCellPivot']                  = prot.LockedCellPivot;
 	prot['ForceSaveButton']                  = prot.ForceSaveButton;
 	prot['ForceSaveTimeout']                 = prot.ForceSaveTimeout;
+	prot['CannotChangeFormulaArray']         = prot.CannotChangeFormulaArray;
 	prot['OpenWarning']                      = prot.OpenWarning;
 	window['Asc']['c_oAscAsyncAction']       = window['Asc'].c_oAscAsyncAction = c_oAscAsyncAction;
 	prot                                     = c_oAscAsyncAction;
