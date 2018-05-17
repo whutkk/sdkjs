@@ -5491,6 +5491,13 @@ parserFormula.prototype.setFormula = function(formula) {
 			if("number" === typeof(currentElement)){
 				continue;
 			}
+
+			//TODO пока проставляю у каждого элемента флаг для рассчетов. пересмотреть
+			//***array-formula***
+			if(this.ref) {
+				currentElement.bArrayFormula = true;
+			}
+
 			if (currentElement.type === cElementType.operator || currentElement.type === cElementType.func) {
 				argumentsCount = "number" === typeof(this.outStack[i - 1]) ? this.outStack[i - 1] : currentElement.argumentsCurrent;
 				if (elemArr.length < argumentsCount) {
@@ -6847,6 +6854,8 @@ function rtl_math_erfc( x ) {
 	window['AscCommonExcel'].getArrayMin = getArrayMin;
 	window['AscCommonExcel'].compareFormula = compareFormula;
 	window['AscCommonExcel'].cDate = cDate;
+
+	window['AscCommonExcel'].convertAreaToArray = convertAreaToArray;
 
 	window["Asc"]["cDate"] = window["Asc"].cDate = cDate;
 	prot									     = cDate.prototype;

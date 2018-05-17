@@ -117,7 +117,12 @@
 	cABS.prototype.Calculate = function (arg) {
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
+			//***array-formula***
+			if(this.bArrayFormula) {
+				arg0 = window['AscCommonExcel'].convertAreaToArray(arg0);
+			} else {
+				arg0 = arg0.cross(arguments[1]);
+			}
 		}
 		arg0 = arg0.tocNumber();
 		if (arg0 instanceof cError) {
