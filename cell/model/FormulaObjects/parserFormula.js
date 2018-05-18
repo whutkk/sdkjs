@@ -2501,7 +2501,7 @@ parserHelp.setDigitSeparator(AscCommon.g_oDefaultCultureInfo.NumberDecimalSepara
 	cBaseFunction.prototype.excludeHiddenRows = false;
 	cBaseFunction.prototype.excludeErrorsVal = false;
 	cBaseFunction.prototype.excludeNestedStAg = false;
-	cBaseFunction.prototype.bArrayFormula = false;
+	cBaseFunction.prototype.bArrayFormula = null;
 	cBaseFunction.prototype.name = null;
 	cBaseFunction.prototype.Calculate = function () {
 		return new cError(cErrorType.wrong_name);
@@ -5506,6 +5506,7 @@ parserFormula.prototype.setFormula = function(formula) {
 
 			//TODO пока проставляю у каждого элемента флаг для рассчетов. пересмотреть
 			//***array-formula***
+			currentElement.bArrayFormula = null;
 			if(this.ref) {
 				currentElement.bArrayFormula = true;
 			}
