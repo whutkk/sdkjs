@@ -511,32 +511,7 @@ $( function () {
 		ok( oParser.parse() );
 		strictEqual( oParser.calculate().getValue(), 4 );
 
-		//***array-formula***
-		ws.getRange2( "A100" ).setValue( "1" );
-		ws.getRange2( "B100" ).setValue( "3" );
-		ws.getRange2( "C100" ).setValue( "-4" );
-		ws.getRange2( "A101" ).setValue( "2" );
-		ws.getRange2( "B101" ).setValue( "4" );
-		ws.getRange2( "C101" ).setValue( "5" );
-
-		oParser = new parserFormula( "ABS(A100:C101)", "A1", ws );
-		oParser.setArrayFormulaRef(ws.getRange2("E106:H107"));
-		ok( oParser.parse() );
-		var array = oParser.calculate();
-		strictEqual( array.getElementRowCol(0,0).getValue(), 1 );
-		strictEqual( array.getElementRowCol(0,1).getValue(), 3 );
-		strictEqual( array.getElementRowCol(0,2).getValue(), 4 );
-		strictEqual( array.getElementRowCol(1,0).getValue(), 2 );
-		strictEqual( array.getElementRowCol(1,1).getValue(), 4 );
-		strictEqual( array.getElementRowCol(1,2).getValue(), 5 );
-
-		oParser = new parserFormula( "ABS({1,2,-3})", "A1", ws );
-		oParser.setArrayFormulaRef(ws.getRange2("E106:H107"));
-		ok( oParser.parse() );
-		array = oParser.calculate();
-		strictEqual( array.getElementRowCol(0,0).getValue(), 1 );
-		strictEqual( array.getElementRowCol(0,1).getValue(), 2 );
-		strictEqual( array.getElementRowCol(0,2).getValue(), 3 );
+		testArrayFormula("ABS");
 	} );
 
     test( "Test: \"Absolute reference\"", function () {
@@ -691,6 +666,26 @@ $( function () {
         strictEqual( oParser.calculate().getValue(), -1 );
     } );
 
+	test( "Test: \"ACOS\"", function () {
+		oParser = new parserFormula( 'ACOS(-0.5)', "A1", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue().toFixed(9) - 0, 2.094395102 );
+
+		testArrayFormula("ACOS");
+	} );
+
+	test( "Test: \"ACOSH\"", function () {
+		oParser = new parserFormula( 'ACOSH(1)', "A1", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), 0 );
+
+		oParser = new parserFormula( 'ACOSH(10)', "A1", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue().toFixed(7) - 0, 2.9932228 );
+
+		testArrayFormula("ACOSH");
+	} );
+
     test( "Test: \"SIN have wrong arguments count\"", function () {
         oParser = new parserFormula( 'SIN(3.1415926,3.1415926*2)', "A1", ws );
         ok( !oParser.parse() );
@@ -720,6 +715,8 @@ $( function () {
 		oParser = new parserFormula( 'ACOTH(6)', "A1", ws );
 		ok( oParser.parse() );
 		strictEqual( oParser.calculate().getValue(), Math.atanh(1 / 6) );
+
+		testArrayFormula("ACOTH");
 	} );
 
 
@@ -749,7 +746,7 @@ $( function () {
 		ok( oParser.parse(), 'COT("test")' );
 		strictEqual( oParser.calculate().getValue(), "#VALUE!", 'COT("test")' );
 
-		testArrayFormula("SECH");
+		testArrayFormula("COT");
 	} );
 
 	test( "Test: \"COTH\"", function () {
@@ -777,7 +774,7 @@ $( function () {
 		ok( oParser.parse(), 'COTH("test")' );
 		strictEqual( oParser.calculate().getValue(), "#VALUE!", 'COTH("test")' );
 
-		testArrayFormula("SECH");
+		testArrayFormula("COTH");
 	} );
 
 	test( "Test: \"CSC\"", function () {

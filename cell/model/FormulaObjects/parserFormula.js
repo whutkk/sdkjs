@@ -2501,6 +2501,7 @@ parserHelp.setDigitSeparator(AscCommon.g_oDefaultCultureInfo.NumberDecimalSepara
 	cBaseFunction.prototype.excludeHiddenRows = false;
 	cBaseFunction.prototype.excludeErrorsVal = false;
 	cBaseFunction.prototype.excludeNestedStAg = false;
+	cBaseFunction.prototype.bArrayFormula = false;
 	cBaseFunction.prototype.name = null;
 	cBaseFunction.prototype.Calculate = function () {
 		return new cError(cErrorType.wrong_name);
@@ -2706,6 +2707,17 @@ parserHelp.setDigitSeparator(AscCommon.g_oDefaultCultureInfo.NumberDecimalSepara
 			cElementType.cellsRange3D === arg.type) {
 			res = true;
 		}
+		return res;
+	};
+	cBaseFunction.prototype.prepareAreaArg = function (arg, arguments1) {
+		var res;
+
+		if(this.bArrayFormula) {
+			res = window['AscCommonExcel'].convertAreaToArray(arg);
+		} else {
+			res = arg.cross(arguments1);
+		}
+
 		return res;
 	};
 

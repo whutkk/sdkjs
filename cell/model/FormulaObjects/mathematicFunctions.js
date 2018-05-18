@@ -118,11 +118,7 @@
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
 			//***array-formula***
-			if(this.bArrayFormula) {
-				arg0 = window['AscCommonExcel'].convertAreaToArray(arg0);
-			} else {
-				arg0 = arg0.cross(arguments[1]);
-			}
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (arg0 instanceof cError) {
@@ -156,7 +152,8 @@
 	cACOS.prototype.Calculate = function (arg) {
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
+			//***array-formula***
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (arg0 instanceof cError) {
@@ -192,7 +189,8 @@
 	cACOSH.prototype.Calculate = function (arg) {
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
+			//***array-formula***
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (arg0 instanceof cError) {
@@ -230,7 +228,8 @@
 	cACOT.prototype.Calculate = function (arg) {
 		var arg0 = arg[0];
 		if (cElementType.cellsRange === arg0.type || cElementType.cellsRange3D === arg0.type) {
-			arg0 = arg0.cross(arguments[1]);
+			//***array-formula***
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (cElementType.error === arg0.type) {
@@ -268,7 +267,8 @@
 	cACOTH.prototype.Calculate = function (arg) {
 		var arg0 = arg[0];
 		if (cElementType.cellsRange === arg0.type || cElementType.cellsRange3D === arg0.type) {
-			arg0 = arg0.cross(arguments[1]);
+			//***array-formula***
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (cElementType.error === arg0.type) {
@@ -1133,11 +1133,7 @@
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
 			//***array-formula***
-			if(this.bArrayFormula) {
-				arg0 = window['AscCommonExcel'].convertAreaToArray(arg0);
-			} else {
-				arg0 = arg0.cross(arguments[1]);
-			}
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (arg0 instanceof cError) {
@@ -1174,11 +1170,7 @@
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
 			//***array-formula***
-			if(this.bArrayFormula) {
-				arg0 = window['AscCommonExcel'].convertAreaToArray(arg0);
-			} else {
-				arg0 = arg0.cross(arguments[1]);
-			}
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (arg0 instanceof cError) {
@@ -1218,11 +1210,7 @@
 		var maxVal = Math.pow(2, 27);
 		if (cElementType.cellsRange === arg0.type || cElementType.cellsRange3D === arg0.type) {
 			//***array-formula***
-			if(this.bArrayFormula) {
-				arg0 = window['AscCommonExcel'].convertAreaToArray(arg0);
-			} else {
-				arg0 = arg0.cross(arguments[1]);
-			}
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (cElementType.error === arg0.type) {
@@ -1276,11 +1264,7 @@
 		//проверку на максиимальное значение убрал
 		if (cElementType.cellsRange === arg0.type || cElementType.cellsRange3D === arg0.type) {
 			//***array-formula***
-			if(this.bArrayFormula) {
-				arg0 = window['AscCommonExcel'].convertAreaToArray(arg0);
-			} else {
-				arg0 = arg0.cross(arguments[1]);
-			}
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (cElementType.error === arg0.type) {
@@ -1328,11 +1312,7 @@
 		var maxVal = Math.pow(2, 27);
 		if (cElementType.cellsRange === arg0.type || cElementType.cellsRange3D === arg0.type) {
 			//***array-formula***
-			if(this.bArrayFormula) {
-				arg0 = window['AscCommonExcel'].convertAreaToArray(arg0);
-			} else {
-				arg0 = arg0.cross(arguments[1]);
-			}
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (cElementType.error === arg0.type) {
@@ -1386,11 +1366,7 @@
 		//проверку на максиимальное значение убрал
 		if (cElementType.cellsRange === arg0.type || cElementType.cellsRange3D === arg0.type) {
 			//***array-formula***
-			if(this.bArrayFormula) {
-				arg0 = window['AscCommonExcel'].convertAreaToArray(arg0);
-			} else {
-				arg0 = arg0.cross(arguments[1]);
-			}
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (cElementType.error === arg0.type) {
@@ -3865,11 +3841,7 @@
 		var maxVal = Math.pow(2, 27);
 		if (cElementType.cellsRange === arg0.type || cElementType.cellsRange3D === arg0.type) {
 			//***array-formula***
-			if(this.bArrayFormula) {
-				arg0 = window['AscCommonExcel'].convertAreaToArray(arg0);
-			} else {
-				arg0 = arg0.cross(arguments[1]);
-			}
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (cElementType.error === arg0.type) {
@@ -3919,11 +3891,7 @@
 		//проверку на максиимальное значение убрал
 		if (cElementType.cellsRange === arg0.type || cElementType.cellsRange3D === arg0.type) {
 			//***array-formula***
-			if(this.bArrayFormula) {
-				arg0 = window['AscCommonExcel'].convertAreaToArray(arg0);
-			} else {
-				arg0 = arg0.cross(arguments[1]);
-			}
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (cElementType.error === arg0.type) {
@@ -4078,11 +4046,7 @@
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
 			//***array-formula***
-			if(this.bArrayFormula) {
-				arg0 = window['AscCommonExcel'].convertAreaToArray(arg0);
-			} else {
-				arg0 = arg0.cross(arguments[1]);
-			}
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (arg0 instanceof cError) {
@@ -4119,11 +4083,7 @@
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
 			//***array-formula***
-			if(this.bArrayFormula) {
-				arg0 = window['AscCommonExcel'].convertAreaToArray(arg0);
-			} else {
-				arg0 = arg0.cross(arguments[1]);
-			}
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (arg0 instanceof cError) {
