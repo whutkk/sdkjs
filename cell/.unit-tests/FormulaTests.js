@@ -420,6 +420,44 @@ $( function () {
 		return res;
 	}
 
+	function testArrayFormula(func) {
+
+		var getValue = function(ref) {
+			oParser = new parserFormula( func + "(" + ref + ")", "A2", ws );
+			ok( oParser.parse() );
+			return oParser.calculate().getValue();
+		};
+
+		//***array-formula***
+		ws.getRange2( "A100" ).setValue( "1" );
+		ws.getRange2( "B100" ).setValue( "3" );
+		ws.getRange2( "C100" ).setValue( "-4" );
+		ws.getRange2( "A101" ).setValue( "2" );
+		ws.getRange2( "B101" ).setValue( "4" );
+		ws.getRange2( "C101" ).setValue( "5" );
+
+
+		oParser = new parserFormula( func + "(A100:C101)", "A1", ws );
+		oParser.setArrayFormulaRef(ws.getRange2("E106:H107"));
+		ok( oParser.parse() );
+		var array = oParser.calculate();
+		strictEqual( array.getElementRowCol(0,0).getValue(), getValue("A100"));
+		strictEqual( array.getElementRowCol(0,1).getValue(), getValue("B100"));
+		strictEqual( array.getElementRowCol(0,2).getValue(), getValue("C100"));
+		strictEqual( array.getElementRowCol(1,0).getValue(), getValue("A101"));
+		strictEqual( array.getElementRowCol(1,1).getValue(), getValue("B101"));
+		strictEqual( array.getElementRowCol(1,2).getValue(), getValue("C101"));
+
+
+		oParser = new parserFormula( func + "({1,2,-3})", "A1", ws );
+		oParser.setArrayFormulaRef(ws.getRange2("E106:H107"));
+		ok( oParser.parse() );
+		array = oParser.calculate();
+		strictEqual( array.getElementRowCol(0,0).getValue(), getValue(1));
+		strictEqual( array.getElementRowCol(0,1).getValue(), getValue(2));
+		strictEqual( array.getElementRowCol(0,2).getValue(), getValue(-3));
+	}
+
     var c_msPerDay = AscCommonExcel.c_msPerDay;
     var parserFormula = AscCommonExcel.parserFormula;
     var GetDiffDate360 = AscCommonExcel.GetDiffDate360;
@@ -663,32 +701,7 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), Math.sin( 3.1415926 ) );
 
-		//***array-formula***
-		ws.getRange2( "A100" ).setValue( "1" );
-		ws.getRange2( "B100" ).setValue( "3" );
-		ws.getRange2( "C100" ).setValue( "-4" );
-		ws.getRange2( "A101" ).setValue( "2" );
-		ws.getRange2( "B101" ).setValue( "4" );
-		ws.getRange2( "C101" ).setValue( "5" );
-
-		oParser = new parserFormula( "SIN(A100:C101)", "A1", ws );
-		oParser.setArrayFormulaRef(ws.getRange2("E106:H107"));
-		ok( oParser.parse() );
-		var array = oParser.calculate();
-		strictEqual( array.getElementRowCol(0,0).getValue().toFixed(9) - 0, 0.841470985);
-		strictEqual( array.getElementRowCol(0,1).getValue().toFixed(9) - 0, 0.141120008);
-		strictEqual( array.getElementRowCol(0,2).getValue().toFixed(9) - 0, 0.756802495);
-		strictEqual( array.getElementRowCol(1,0).getValue().toFixed(9) - 0, 0.909297427);
-		strictEqual( array.getElementRowCol(1,1).getValue().toFixed(9) - 0, -0.756802495);
-		strictEqual( array.getElementRowCol(1,2).getValue().toFixed(9) - 0, -0.958924275);
-
-		oParser = new parserFormula( "SIN({1,2,-3})", "A1", ws );
-		oParser.setArrayFormulaRef(ws.getRange2("E106:H107"));
-		ok( oParser.parse() );
-		array = oParser.calculate();
-		strictEqual( array.getElementRowCol(0,0).getValue().toFixed(9) - 0, 0.841470985);
-		strictEqual( array.getElementRowCol(0,1).getValue().toFixed(9) - 0, 0.909297427);
-		strictEqual( array.getElementRowCol(0,2).getValue().toFixed(9) - 0, -0.141120008);
+		testArrayFormula("SIN");
     } );
 
     test( "Test: \"COS(PI()/2)\"", function () {
@@ -735,6 +748,8 @@ $( function () {
 		oParser = new parserFormula( 'COT("test")', "A1", ws );
 		ok( oParser.parse(), 'COT("test")' );
 		strictEqual( oParser.calculate().getValue(), "#VALUE!", 'COT("test")' );
+
+		testArrayFormula("SECH");
 	} );
 
 	test( "Test: \"COTH\"", function () {
@@ -761,6 +776,8 @@ $( function () {
 		oParser = new parserFormula( 'COTH("test")', "A1", ws );
 		ok( oParser.parse(), 'COTH("test")' );
 		strictEqual( oParser.calculate().getValue(), "#VALUE!", 'COTH("test")' );
+
+		testArrayFormula("SECH");
 	} );
 
 	test( "Test: \"CSC\"", function () {
@@ -787,6 +804,8 @@ $( function () {
 		oParser = new parserFormula( 'CSC("test")', "A1", ws );
 		ok( oParser.parse(), 'CSC("test")' );
 		strictEqual( oParser.calculate().getValue(), "#VALUE!", 'CSC("test")' );
+
+		testArrayFormula("CSC");
 	} );
 
 	test( "Test: \"CSCH\"", function () {
@@ -813,6 +832,8 @@ $( function () {
 		oParser = new parserFormula( 'CSCH("test")', "A1", ws );
 		ok( oParser.parse(), 'CSCH("test")' );
 		strictEqual( oParser.calculate().getValue(), "#VALUE!", 'CSCH("test")' );
+
+		testArrayFormula("CSCH");
 	} );
 
 	test( "Test: \"SEC\"", function () {
@@ -839,6 +860,8 @@ $( function () {
 		oParser = new parserFormula( 'SEC("test")', "A1", ws );
 		ok( oParser.parse(), 'SEC("test")' );
 		strictEqual( oParser.calculate().getValue(), "#VALUE!", 'SEC("test")' );
+
+		testArrayFormula("SEC");
 	} );
 
 	test( "Test: \"SECH\"", function () {
@@ -861,6 +884,8 @@ $( function () {
 		oParser = new parserFormula( 'SECH("test")', "A1", ws );
 		ok( oParser.parse(), 'SECH("test")' );
 		strictEqual( oParser.calculate().getValue(), "#VALUE!", 'SECH("test")' );
+
+		testArrayFormula("SECH");
 	} );
 
 	test( "Test: \"SECOND\"", function () {
@@ -3307,7 +3332,7 @@ $( function () {
 		ok( oParser.parse() );
 		strictEqual( oParser.calculate().getValue(), 9 );
     } );
-	
+
     test( "Test: \"SINH\"", function () {
 
         oParser = new parserFormula( "SINH(0)", "A2", ws );
@@ -3318,32 +3343,7 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), ((Math.E - 1 / Math.E) / 2) );
 
-		//***array-formula***
-		ws.getRange2( "A100" ).setValue( "1" );
-		ws.getRange2( "B100" ).setValue( "3" );
-		ws.getRange2( "C100" ).setValue( "-4" );
-		ws.getRange2( "A101" ).setValue( "2" );
-		ws.getRange2( "B101" ).setValue( "4" );
-		ws.getRange2( "C101" ).setValue( "5" );
-
-		oParser = new parserFormula( "SINH(A100:C101)", "A1", ws );
-		oParser.setArrayFormulaRef(ws.getRange2("E106:H107"));
-		ok( oParser.parse() );
-		var array = oParser.calculate();
-		strictEqual( array.getElementRowCol(0,0).getValue().toFixed(9) - 0, 1.175201194);
-		strictEqual( array.getElementRowCol(0,1).getValue().toFixed(8) - 0, 10.01787493);
-		strictEqual( array.getElementRowCol(0,2).getValue().toFixed(8) - 0, -27.2899172);
-		strictEqual( array.getElementRowCol(1,0).getValue().toFixed(9) - 0, 3.626860408);
-		strictEqual( array.getElementRowCol(1,1).getValue().toFixed(8) - 0, 27.2899172);
-		strictEqual( array.getElementRowCol(1,2).getValue().toFixed(8) - 0, 74.20321058);
-
-		oParser = new parserFormula( "SINH({1,2,-3})", "A1", ws );
-		oParser.setArrayFormulaRef(ws.getRange2("E106:H107"));
-		ok( oParser.parse() );
-		array = oParser.calculate();
-		strictEqual( array.getElementRowCol(0,0).getValue().toFixed(9) - 0, 1.175201194);
-		strictEqual( array.getElementRowCol(0,1).getValue().toFixed(9) - 0, 3.626860408);
-		strictEqual( array.getElementRowCol(0,2).getValue().toFixed(8) - 0, -10.01787493);
+		testArrayFormula("SINH");
     } );
 
     test( "Test: \"COSH\"", function () {
