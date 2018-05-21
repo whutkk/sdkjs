@@ -1597,7 +1597,8 @@
 	cEXP.prototype.Calculate = function (arg) {
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
+			//***array-formula***
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (arg0 instanceof cError) {
@@ -1612,7 +1613,10 @@
 				}
 			})
 		}
-		if (!(arg0 instanceof cNumber)) {
+
+		if(arg0 instanceof cArray) {
+			return arg0;
+		} else if (!(arg0 instanceof cNumber)) {
 			return new cError(cErrorType.not_numeric);
 		} else {
 			var a = Math.exp(arg0.getValue());
@@ -1635,7 +1639,8 @@
 	cFACT.prototype.Calculate = function (arg) {
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
+			//***array-formula***
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (arg0 instanceof cError) {
@@ -2021,7 +2026,8 @@
 	cINT.prototype.Calculate = function (arg) {
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
+			//***array-formula***
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (arg0 instanceof cError) {
@@ -2043,7 +2049,7 @@
 			return new cNumber(Math.floor(arg0.getValue()))
 		}
 
-		return new cNumber(Math.floor(arg0.getValue()));
+		return arg0 instanceof cArray ? arg0 : new cNumber(Math.floor(arg0.getValue()));
 	};
 
 	/**
@@ -4900,7 +4906,8 @@
 	cTAN.prototype.Calculate = function (arg) {
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
+			//***array-formula***
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (arg0 instanceof cError) {
@@ -4936,7 +4943,8 @@
 	cTANH.prototype.Calculate = function (arg) {
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
+			//***array-formula***
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (arg0 instanceof cError) {
