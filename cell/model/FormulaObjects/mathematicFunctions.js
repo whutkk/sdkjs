@@ -1558,7 +1558,8 @@
 
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
+			//***array-formula***
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 
 		arg0 = arg0.tocNumber();
@@ -2205,7 +2206,8 @@
 	cLN.prototype.Calculate = function (arg) {
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
+			//***array-formula***
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (arg0 instanceof cError) {
@@ -2224,7 +2226,8 @@
 				} else {
 					this.array[r][c] = new cError(cErrorType.wrong_value_type);
 				}
-			})
+			});
+			return arg0;
 		} else {
 			if (arg0.getValue() <= 0) {
 				return new cError(cErrorType.not_numeric);
@@ -2338,7 +2341,8 @@
 	cLOG10.prototype.Calculate = function (arg) {
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
+			//***array-formula***
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 		if (arg0 instanceof cError) {
@@ -2357,7 +2361,8 @@
 				} else {
 					this.array[r][c] = new cError(cErrorType.wrong_value_type);
 				}
-			})
+			});
+			return arg0;
 		} else {
 			if (arg0.getValue() <= 0) {
 				return new cError(cErrorType.not_numeric);
@@ -2967,7 +2972,8 @@
 
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
+			//***array-formula***
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 
@@ -3230,7 +3236,8 @@
 
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
+			//***array-formula***
+			arg0 = this.prepareAreaArg(arg0, arguments[1]);
 		}
 		arg0 = arg0.tocNumber();
 

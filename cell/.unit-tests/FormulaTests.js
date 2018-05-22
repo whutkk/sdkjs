@@ -1514,6 +1514,14 @@ $( function () {
 		strictEqual( oParser.calculate().getValue(), 4, "RANK.AVG(94,A2:A8)" );
 	} );
 
+	test( "Test: \"RADIANS\"", function () {
+		oParser = new parserFormula( "RADIANS(270)", "A1", ws );
+		ok( oParser.parse(), "RADIANS(270)" );
+		strictEqual( oParser.calculate().getValue().toFixed(6) - 0, 4.712389 );
+
+		testArrayFormula("RADIANS");
+	} );
+
 	test( "Test: \"LOGNORM.DIST\"", function () {
 		ws.getRange2( "A2" ).setValue( "4" );
 		ws.getRange2( "A3" ).setValue( "3.5" );
@@ -2571,7 +2579,30 @@ $( function () {
         }
     } );
 
-    test( "Test: \"NETWORKDAYS\"", function () {
+	test( "Test: \"EVEN\"", function () {
+
+		oParser = new parserFormula( "EVEN(1.5)", "A2", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), 2 );
+
+		oParser = new parserFormula( "EVEN(3)", "A2", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), 4 );
+
+		oParser = new parserFormula( "EVEN(2)", "A2", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), 2 );
+
+		oParser = new parserFormula( "EVEN(-1)", "A2", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), -2 );
+
+		testArrayFormula("EVEN");
+
+	} );
+
+
+	test( "Test: \"NETWORKDAYS\"", function () {
 
         oParser = new parserFormula( "NETWORKDAYS(DATE(2006,1,1),DATE(2006,1,31))", "A2", ws );
         ok( oParser.parse() );
@@ -5356,6 +5387,44 @@ $( function () {
 
     } );
 
+	test( "Test: \"LN\"", function () {
+
+		oParser = new parserFormula( "LN(86)", "A1", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue().toFixed(7) - 0, 4.4543473 );
+
+		oParser = new parserFormula( "LN(2.7182818)", "A1", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue().toFixed(1) - 0, 1 );
+
+		oParser = new parserFormula( "LN(EXP(3))", "A1", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), 3 );
+
+		testArrayFormula("LN");
+	} );
+
+	test( "Test: \"LOG10\"", function () {
+
+		oParser = new parserFormula( "LOG10(86)", "A1", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue().toFixed(4) - 0, 1.9345 );
+
+		oParser = new parserFormula( "LOG10(10)", "A1", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), 1 );
+
+		oParser = new parserFormula( "LOG10(100000)", "A1", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), 5 );
+
+		oParser = new parserFormula( "LOG10(10^5)", "A1", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), 5 );
+
+		testArrayFormula("LOG10");
+	} );
+
     test( "Test: \"MEDIAN\"", function () {
 
         function median( x ) {
@@ -7888,6 +7957,32 @@ $( function () {
         strictEqual( oParser.calculate().getValue(), _getyieldmat( new cDate( 2008, 2, 15 ), new cDate( 2008, 10, 3 ), new cDate( 2007, 10, 8 ), 0.0625, 100.0123, 0 ) );
 
     } );
+
+	test( "Test: \"ODD\"", function () {
+
+		oParser = new parserFormula( "ODD(1.5)", "A2", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), 3 );
+
+		oParser = new parserFormula( "ODD(3)", "A2", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), 3 );
+
+		oParser = new parserFormula( "ODD(2)", "A2", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), 3 );
+
+		oParser = new parserFormula( "ODD(-1)", "A2", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), -1 );
+
+		oParser = new parserFormula( "ODD(-2)", "A2", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), -3 );
+
+		testArrayFormula("ODD");
+
+	} );
 
     test( "Test: \"ODDLPRICE\"", function () {
 
