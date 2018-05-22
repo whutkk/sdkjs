@@ -4746,6 +4746,8 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), "#NUM!" );
 
+        testArrayFormula("FISHER");
+
     } );
 
     test( "Test: \"FISHERINV\"", function () {
@@ -4769,6 +4771,8 @@ $( function () {
         oParser = new parserFormula( "FISHERINV(-1)", "A1", ws );
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), fisherInv( -1 ) );
+
+		testArrayFormula("FISHERINV");
 
     } );
 
@@ -5148,6 +5152,8 @@ $( function () {
         oParser = new parserFormula( "GAMMALN(-4.5)", "A1", ws );
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), "#NUM!" );
+
+        testArrayFormula("GAMMALN");
 
     } );
 
@@ -5616,6 +5622,8 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), normsdist( -1.5 ) );
 
+        testArrayFormula("NORMSDIST");
+
     } );
 
 	test( "Test: \"NORM.S.DIST\"", function () {
@@ -5710,6 +5718,7 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), normsinv( -1.6782136 ) );
 
+        testArrayFormula("NORMSINV");
     } );
 
 	test( "Test: \"NORM.S.INV \"", function () {
