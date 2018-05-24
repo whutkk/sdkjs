@@ -449,7 +449,7 @@ $( function () {
 			strictEqual( array.getElementRowCol(1,1).getValue(), getValue("B101"));
 			strictEqual( array.getElementRowCol(1,2).getValue(), getValue("C101"));
 		} else {
-			console.log("func: " + func + " don't return array");
+			console.log("func: " + func + " don't return area array");
 		}
 
 		oParser = new parserFormula( func + "({1,2,-3})", "A1", ws );
@@ -3467,55 +3467,99 @@ $( function () {
 		oParser = new parserFormula( 'IMCOSH("4+3i")', "A2", ws );
 		ok( oParser.parse(), 'IMCOSH("4+3i")' );
 		strictEqual( oParser.calculate().getValue(), "-27.03494560307422+3.8511533348117766i", 'IMCOSH("4+3i")' );
+
+		testArrayFormula("IMCOSH");
 	} );
 
 	test( "Test: \"IMCOS\"", function () {
 		oParser = new parserFormula( 'IMCOS("1+i")', "A2", ws );
 		ok( oParser.parse(), 'IMCOS("1+i")' );
 		strictEqual( oParser.calculate().getValue(), "0.8337300251311491-0.9888977057628651i", 'IMCOS("1+i")' );
+
+		testArrayFormula("IMCOS");
 	} );
 
 	test( "Test: \"IMCOT\"", function () {
 		oParser = new parserFormula( 'IMCOT("4+3i")', "A2", ws );
 		ok( oParser.parse(), 'IMCOT("4+3i")' );
 		strictEqual( oParser.calculate().getValue(), "0.004901182394304475-0.9992669278059015i", 'IMCOT("4+3i")' );
+
+		testArrayFormula("IMCOT");
 	} );
 
 	test( "Test: \"IMCSC\"", function () {
 		oParser = new parserFormula( 'IMCSC("4+3i")', "A2", ws );
 		ok( oParser.parse(), 'IMCSC("4+3i")' );
 		strictEqual( oParser.calculate().getValue(), "-0.0754898329158637+0.06487747137063551i", 'IMCSC("4+3i")' );
+
+		testArrayFormula("IMCSC");
 	} );
 
 	test( "Test: \"IMCSCH\"", function () {
 		oParser = new parserFormula( 'IMCSCH("4+3i")', "A2", ws );
 		ok( oParser.parse(), 'IMCSCH("4+3i")' );
 		strictEqual( oParser.calculate().getValue(), "-0.03627588962862601-0.0051744731840193976i", 'IMCSCH("4+3i")' );
+
+		testArrayFormula("IMCSCH");
+	} );
+
+	test( "Test: \"IMSIN\"", function () {
+		oParser = new parserFormula( 'IMSIN("4+3i")', "A2", ws );
+		ok( oParser.parse(), 'IMSIN("4+3i")' );
+		strictEqual( oParser.calculate().getValue(), "-7.619231720321408-6.548120040911002i", 'IMSIN("4+3i")' );
+
+		testArrayFormula("IMSIN");
 	} );
 
 	test( "Test: \"IMSINH\"", function () {
 		oParser = new parserFormula( 'IMSINH("4+3i")', "A2", ws );
 		ok( oParser.parse(), 'IMSINH("4+3i")' );
 		strictEqual( oParser.calculate().getValue(), "-27.01681325800393+3.8537380379193764i", 'IMSINH("4+3i")' );
+
+		testArrayFormula("IMSINH");
 	} );
 
 	test( "Test: \"IMSEC\"", function () {
 		oParser = new parserFormula( 'IMSEC("4+3i")', "A2", ws );
 		ok( oParser.parse(), 'IMSEC("4+3i")' );
 		strictEqual( oParser.calculate().getValue(), "-0.06529402785794705-0.07522496030277323i", 'IMSEC("4+3i")' );
+
+		testArrayFormula("IMSEC");
 	} );
 
 	test( "Test: \"IMSECH\"", function () {
 		oParser = new parserFormula( 'IMSECH("4+3i")', "A2", ws );
 		ok( oParser.parse(), 'IMSECH("4+3i")' );
 		strictEqual( oParser.calculate().getValue(), "-0.03625349691586888-0.00516434460775318i", 'IMSECH("4+3i")' );
+
+		testArrayFormula("IMSECH");
 	} );
 
 	test( "Test: \"IMTAN\"", function () {
 		oParser = new parserFormula( 'IMTAN("4+3i")', "A2", ws );
 		ok( oParser.parse(), 'IMTAN("4+3i")' );
 		strictEqual( oParser.calculate().getValue(), "0.004908258067496062+1.000709536067233i", 'IMTAN("4+3i")' );
+
+		testArrayFormula("IMTAN");
 	} );
+
+
+	test( "Test: \"IMSQRT\"", function () {
+		oParser = new parserFormula( 'IMSQRT("1+i")', "A2", ws );
+		ok( oParser.parse(), 'IMSQRT("1+i")' );
+		strictEqual( oParser.calculate().getValue(), "1.0986841134678098+0.4550898605622274i", 'IMSQRT("1+i")' );
+
+		testArrayFormula("IMSQRT");
+	} );
+
+	test( "Test: \"IMREAL\"", function () {
+		oParser = new parserFormula( 'IMREAL("6-9i")', "A2", ws );
+		ok( oParser.parse(), 'IMREAL("6-9i")' );
+		strictEqual( oParser.calculate().getValue(), 6, 'IMREAL("6-9i")' );
+
+		testArrayFormula("IMREAL");
+	} );
+
 
 	test( "Test: \"TAN\"", function () {
 

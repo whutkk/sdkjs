@@ -2720,6 +2720,30 @@ parserHelp.setDigitSeparator(AscCommon.g_oDefaultCultureInfo.NumberDecimalSepara
 
 		return res;
 	};
+	cBaseFunction.prototype.calculateOneArgument = function(arg0, arguments1, func, convertAreaToArray) {
+		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
+			if(convertAreaToArray) {
+				//***array-formula***
+				arg0 = this.prepareAreaArg(arg0, arguments[1]);
+			} else {
+				arg0 = arg0.cross(arguments1);
+			}
+		}
+		if (arg0 instanceof cError) {
+			return arg0;
+		} else if (arg0 instanceof cArray) {
+			var array = new cArray();
+			arg0.foreach(function (elem, r, c) {
+				if ( !array.array[r] ) {
+					array.addRow();
+				}
+				array.addElement(func(elem));
+			});
+			return array;
+		} else {
+			return func(arg0);
+		}
+	};
 
 	/** @constructor */
 	function cUnknownFunction(name) {

@@ -5828,32 +5828,31 @@ function (window, undefined) {
 	cIMCOS.prototype.argumentsMax = 1;
 	cIMCOS.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			var c = new Complex(val.toString());
 
-		var c = new Complex(arg0.toString());
+			if (c instanceof cError) {
+				return c;
+			}
 
-		if (c instanceof cError) {
-			return c;
-		}
+			c.Cos();
 
-		c.Cos();
+			var res = new cString(c.toString());
+			res.numFormat = 0;
 
-		var res = new cString(c.toString());
-		res.numFormat = 0;
+			return res;
+		};
 
-		return res;
-
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 	};
 
 	/**
@@ -5871,35 +5870,31 @@ function (window, undefined) {
 	cIMCOSH.prototype.isXLFN = true;
 	cIMCOSH.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		if (arg0.value === true || arg0.value === false) {
-			return new cError(cErrorType.wrong_value_type);
-		}
+			var c = new Complex(val.toString());
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			if (c instanceof cError) {
+				return c;
+			}
 
-		var c = new Complex(arg0.toString());
+			c.Cosh();
 
-		if (c instanceof cError) {
-			return c;
-		}
+			var res = new cString(c.toString());
+			res.numFormat = 0;
 
-		c.Cosh();
+			return res;
+		};
 
-		var res = new cString(c.toString());
-		res.numFormat = 0;
-
-		return res;
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 
 	};
 
@@ -5918,39 +5913,35 @@ function (window, undefined) {
 	cIMCOT.prototype.isXLFN = true;
 	cIMCOT.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		if (arg0.value === true || arg0.value === false) {
-			return new cError(cErrorType.wrong_value_type);
-		}
+			if (0 == val.value) {
+				return new cError(cErrorType.not_numeric);
+			}
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
-		if (0 == arg0.value) {
-			return new cError(cErrorType.not_numeric);
-		}
+			var c = new Complex(val.toString());
 
-		var c = new Complex(arg0.toString());
+			if (c instanceof cError) {
+				return c;
+			}
 
-		if (c instanceof cError) {
-			return c;
-		}
+			c.Cot();
 
-		c.Cot();
+			var res = new cString(c.toString());
+			res.numFormat = 0;
 
-		var res = new cString(c.toString());
-		res.numFormat = 0;
+			return res;
+		};
 
-		return res;
-
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 	};
 
 	/**
@@ -5969,40 +5960,31 @@ function (window, undefined) {
 	cIMCSC.prototype.isXLFN = true;
 	cIMCSC.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		if (arg0.value === true || arg0.value === false) {
-			return new cError(cErrorType.wrong_value_type);
-		}
+			var c = new Complex(val.toString());
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			if (c instanceof cError) {
+				return c;
+			}
 
-		if (0 == arg0.value) {
-			return new cError(cErrorType.not_numeric);
-		}
+			c.Csc();
 
-		var c = new Complex(arg0.toString());
+			var res = new cString(c.toString());
+			res.numFormat = 0;
 
-		if (c instanceof cError) {
-			return c;
-		}
+			return res;
+		};
 
-		c.Csc();
-
-		var res = new cString(c.toString());
-		res.numFormat = 0;
-
-		return res;
-
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 	};
 
 	/**
@@ -6021,39 +6003,31 @@ function (window, undefined) {
 	cIMCSCH.prototype.isXLFN = true;
 	cIMCSCH.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		if (arg0.value === true || arg0.value === false) {
-			return new cError(cErrorType.wrong_value_type);
-		}
+			var c = new Complex(val.toString());
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			if (c instanceof cError) {
+				return c;
+			}
 
-		if (0 == arg0.value) {
-			return new cError(cErrorType.not_numeric);
-		}
+			c.Csch();
 
-		var c = new Complex(arg0.toString());
+			var res = new cString(c.toString());
+			res.numFormat = 0;
 
-		if (c instanceof cError) {
-			return c;
-		}
+			return res;
+		};
 
-		c.Csch();
-
-		var res = new cString(c.toString());
-		res.numFormat = 0;
-
-		return res;
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 
 	};
 
@@ -6459,29 +6433,29 @@ function (window, undefined) {
 	cIMREAL.prototype.argumentsMax = 1;
 	cIMREAL.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			var c = new Complex(val.toString());
 
-		var c = new Complex(arg0.toString());
+			if (c instanceof cError) {
+				return c;
+			}
 
-		if (c instanceof cError) {
-			return c;
-		}
+			var res = new cNumber(c.real);
+			res.numFormat = 0;
 
-		var res = new cNumber(c.real);
-		res.numFormat = 0;
+			return res;
+		};
 
-		return res;
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 
 	};
 
@@ -6500,35 +6474,31 @@ function (window, undefined) {
 	cIMSEC.prototype.isXLFN = true;
 	cIMSEC.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		if (arg0.value === true || arg0.value === false) {
-			return new cError(cErrorType.wrong_value_type);
-		}
+			var c = new Complex(val.toString());
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			if (c instanceof cError) {
+				return c;
+			}
 
-		var c = new Complex(arg0.toString());
+			c.Sec();
 
-		if (c instanceof cError) {
-			return c;
-		}
+			var res = new cString(c.toString());
+			res.numFormat = 0;
 
-		c.Sec();
+			return res;
+		};
 
-		var res = new cString(c.toString());
-		res.numFormat = 0;
-
-		return res;
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 
 	};
 
@@ -6547,36 +6517,31 @@ function (window, undefined) {
 	cIMSECH.prototype.isXLFN = true;
 	cIMSECH.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		if (arg0.value === true || arg0.value === false) {
-			return new cError(cErrorType.wrong_value_type);
-		}
+			var c = new Complex(val.toString());
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			if (c instanceof cError) {
+				return c;
+			}
 
-		var c = new Complex(arg0.toString());
+			c.Sech();
 
-		if (c instanceof cError) {
-			return c;
-		}
+			var res = new cString(c.toString());
+			res.numFormat = 0;
 
-		c.Sech();
+			return res;
+		};
 
-		var res = new cString(c.toString());
-		res.numFormat = 0;
-
-		return res;
-
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 	};
 
 
@@ -6594,36 +6559,31 @@ function (window, undefined) {
 	cIMSIN.prototype.argumentsMax = 1;
 	cIMSIN.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		if (arg0.value === true || arg0.value === false) {
-			return new cError(cErrorType.wrong_value_type);
-		}
+			var c = new Complex(val.toString());
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			if (c instanceof cError) {
+				return c;
+			}
 
-		var c = new Complex(arg0.toString());
+			c.Sin();
 
-		if (c instanceof cError) {
-			return c;
-		}
+			var res = new cString(c.toString());
+			res.numFormat = 0;
 
-		c.Sin();
+			return res;
+		};
 
-		var res = new cString(c.toString());
-		res.numFormat = 0;
-
-		return res;
-
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 	};
 
 	/**
@@ -6641,35 +6601,31 @@ function (window, undefined) {
 	cIMSINH.prototype.isXLFN = true;
 	cIMSINH.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		if (arg0.value === true || arg0.value === false) {
-			return new cError(cErrorType.wrong_value_type);
-		}
+			var c = new Complex(val.toString());
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			if (c instanceof cError) {
+				return c;
+			}
 
-		var c = new Complex(arg0.toString());
+			c.Sinh();
 
-		if (c instanceof cError) {
-			return c;
-		}
+			var res = new cString(c.toString());
+			res.numFormat = 0;
 
-		c.Sinh();
+			return res;
+		};
 
-		var res = new cString(c.toString());
-		res.numFormat = 0;
-
-		return res;
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 
 	};
 
@@ -6687,31 +6643,31 @@ function (window, undefined) {
 	cIMSQRT.prototype.argumentsMax = 1;
 	cIMSQRT.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			var c = new Complex(val.toString());
 
-		var c = new Complex(arg0.toString());
+			if (c instanceof cError) {
+				return c;
+			}
 
-		if (c instanceof cError) {
-			return c;
-		}
+			c.SQRT();
 
-		c.SQRT();
+			var res = new cString(c.toString());
+			res.numFormat = 0;
 
-		var res = new cString(c.toString());
-		res.numFormat = 0;
+			return res;
+		};
 
-		return res;
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 
 	};
 
@@ -6883,35 +6839,31 @@ function (window, undefined) {
 	cIMTAN.prototype.isXLFN = true;
 	cIMTAN.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			var c = new Complex(val.toString());
 
-		if (arg0.value === true || arg0.value === false) {
-			return new cError(cErrorType.wrong_value_type);
-		}
+			if (c instanceof cError) {
+				return c;
+			}
 
-		var c = new Complex(arg0.toString());
+			c.Tan();
 
-		if (c instanceof cError) {
-			return c;
-		}
+			var res = new cString(c.toString());
+			res.numFormat = 0;
 
-		c.Tan();
+			return res;
+		};
 
-		var res = new cString(c.toString());
-		res.numFormat = 0;
-
-		return res;
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 
 	};
 
