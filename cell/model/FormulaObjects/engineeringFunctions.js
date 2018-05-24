@@ -5668,30 +5668,29 @@ function (window, undefined) {
 	cIMABS.prototype.argumentsMax = 1;
 	cIMABS.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return new cError(cErrorType.wrong_value_type);
-		}
+			var c = new Complex(val.toString());
 
-		var c = new Complex(arg0.toString());
+			if (c instanceof cError) {
+				return c;
+			}
 
-		if (c instanceof cError) {
-			return c;
-		}
+			var res = new cNumber(c.Abs());
+			res.numFormat = 0;
 
-		var res = new cNumber(c.Abs());
-		res.numFormat = 0;
+			return res;
+		};
 
-		return res;
-
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 	};
 
 	/**
@@ -5708,29 +5707,29 @@ function (window, undefined) {
 	cIMAGINARY.prototype.argumentsMax = 1;
 	cIMAGINARY.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			var c = new Complex(val.toString());
 
-		var c = new Complex(arg0.toString());
+			if (c instanceof cError) {
+				return c;
+			}
 
-		if (c instanceof cError) {
-			return c;
-		}
+			var res = new cNumber(c.Imag());
+			res.numFormat = 0;
 
-		var res = new cNumber(c.Imag());
-		res.numFormat = 0;
+			return res;
+		};
 
-		return res;
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 
 	};
 
@@ -5748,29 +5747,29 @@ function (window, undefined) {
 	cIMARGUMENT.prototype.argumentsMax = 1;
 	cIMARGUMENT.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			var c = new Complex(val.toString());
 
-		var c = new Complex(arg0.toString());
+			if (c instanceof cError) {
+				return c;
+			}
 
-		if (c instanceof cError) {
-			return c;
-		}
+			var res = new cNumber(c.Arg());
+			res.numFormat = 0;
 
-		var res = new cNumber(c.Arg());
-		res.numFormat = 0;
+			return res;
+		};
 
-		return res;
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 
 	};
 
@@ -5788,29 +5787,29 @@ function (window, undefined) {
 	cIMCONJUGATE.prototype.argumentsMax = 1;
 	cIMCONJUGATE.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			var c = new Complex(val.toString());
 
-		var c = new Complex(arg0.toString());
+			if (c instanceof cError) {
+				return c;
+			}
 
-		if (c instanceof cError) {
-			return c;
-		}
+			var res = new cString(c.Conj());
+			res.numFormat = 0;
 
-		var res = new cString(c.Conj());
-		res.numFormat = 0;
+			return res;
+		};
 
-		return res;
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 
 	};
 
@@ -6098,31 +6097,35 @@ function (window, undefined) {
 	cIMEXP.prototype.argumentsMax = 1;
 	cIMEXP.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			var c = new Complex(val.toString());
 
-		var c = new Complex(arg0.toString());
+			if (c instanceof cError) {
+				return c;
+			}
 
-		if (c instanceof cError) {
-			return c;
-		}
+			var r = c.Exp();
 
-		c.Exp();
+			if (r instanceof cError) {
+				return r;
+			}
 
-		var res = new cString(c.toString());
-		res.numFormat = 0;
+			var res = new cString(c.toString());
+			res.numFormat = 0;
 
-		return res;
+			return res;
+		};
+
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 
 	};
 
@@ -6140,35 +6143,35 @@ function (window, undefined) {
 	cIMLN.prototype.argumentsMax = 1;
 	cIMLN.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			var c = new Complex(val.toString());
 
-		var c = new Complex(arg0.toString());
+			if (c instanceof cError) {
+				return c;
+			}
 
-		if (c instanceof cError) {
-			return c;
-		}
+			var r = c.Ln();
 
-		var r = c.Ln();
+			if (r instanceof cError) {
+				return r;
+			}
 
-		if (r instanceof cError) {
-			return r;
-		}
+			var res = new cString(c.toString());
+			res.numFormat = 0;
 
-		var res = new cString(c.toString());
-		res.numFormat = 0;
+			return res;
+		};
 
-		return res;
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 
 	};
 
@@ -6186,35 +6189,35 @@ function (window, undefined) {
 	cIMLOG10.prototype.argumentsMax = 1;
 	cIMLOG10.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			var c = new Complex(val.toString());
 
-		var c = new Complex(arg0.toString());
+			if (c instanceof cError) {
+				return c;
+			}
 
-		if (c instanceof cError) {
-			return c;
-		}
+			var r = c.Log10();
 
-		var r = c.Log10();
+			if (r instanceof cError) {
+				return r;
+			}
 
-		if (r instanceof cError) {
-			return r;
-		}
+			var res = new cString(c.toString());
+			res.numFormat = 0;
 
-		var res = new cString(c.toString());
-		res.numFormat = 0;
+			return res;
+		};
 
-		return res;
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 
 	};
 
@@ -6232,35 +6235,35 @@ function (window, undefined) {
 	cIMLOG2.prototype.argumentsMax = 1;
 	cIMLOG2.prototype.Calculate = function (arg) {
 
-		var arg0 = arg[0];
+		var func = function (val) {
+			if (val.value === true || val.value === false) {
+				return new cError(cErrorType.wrong_value_type);
+			}
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			val = val.tocString();
+			if (val instanceof cError) {
+				return val;
+			}
 
-		arg0 = arg0.tocString();
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			var c = new Complex(val.toString());
 
-		var c = new Complex(arg0.toString());
+			if (c instanceof cError) {
+				return c;
+			}
 
-		if (c instanceof cError) {
-			return c;
-		}
+			var r = c.Log2();
 
-		var r = c.Log2();
+			if (r instanceof cError) {
+				return r;
+			}
 
-		if (r instanceof cError) {
-			return r;
-		}
+			var res = new cString(c.toString());
+			res.numFormat = 0;
 
-		var res = new cString(c.toString());
-		res.numFormat = 0;
+			return res;
+		};
 
-		return res;
+		return this.calculateOneArgument(arg[0], arguments[1], func);
 
 	};
 

@@ -3560,6 +3560,81 @@ $( function () {
 		testArrayFormula("IMREAL");
 	} );
 
+	test( "Test: \"IMLOG2\"", function () {
+		//TODO в excel результат данной формулы - "2.32192809488736+1.33780421245098i"
+		oParser = new parserFormula( 'IMLOG2("3+4i")', "A2", ws );
+		ok( oParser.parse(), 'IMLOG2("3+4i")' );
+		strictEqual( oParser.calculate().getValue(), "2.321928094887362+1.3378042124509761i", 'IMLOG2("3+4i")' );
+
+		testArrayFormula("IMLOG2");
+	} );
+
+	test( "Test: \"IMLOG10\"", function () {
+		//TODO в excel результат данной формулы - "0.698970004336019+0.402719196273373i"
+		oParser = new parserFormula( 'IMLOG10("3+4i")', "A2", ws );
+		ok( oParser.parse(), 'IMLOG10("3+4i")' );
+		strictEqual( oParser.calculate().getValue(), "0.6989700043360186+0.40271919627337305i", 'IMLOG10("3+4i")' );
+
+		testArrayFormula("IMLOG10");
+	} );
+
+	test( "Test: \"IMLN\"", function () {
+		//TODO в excel результат данной формулы - "1.6094379124341+0.927295218001612i"
+		oParser = new parserFormula( 'IMLN("3+4i")', "A2", ws );
+		ok( oParser.parse(), 'IMLN("3+4i")' );
+		strictEqual( oParser.calculate().getValue(), "1.6094379124341003+0.9272952180016123i", 'IMLN("3+4i")' );
+
+		testArrayFormula("IMLN");
+	} );
+
+	test( "Test: \"IMEXP\"", function () {
+		//TODO в excel результат данной формулы - "1.46869393991589+2.28735528717884i"
+		oParser = new parserFormula( 'IMEXP("1+i")', "A2", ws );
+		ok( oParser.parse(), 'IMEXP("1+i")' );
+		strictEqual( oParser.calculate().getValue(), "1.4686939399158851+2.2873552871788423i", 'IMEXP("1+i")' );
+
+		testArrayFormula("IMEXP");
+	} );
+
+	test( "Test: \"IMCONJUGATE\"", function () {
+		oParser = new parserFormula( 'IMCONJUGATE("3+4i")', "A2", ws );
+		ok( oParser.parse(), 'IMCONJUGATE("3+4i")' );
+		strictEqual( oParser.calculate().getValue(), "3-4i", 'IMCONJUGATE("3+4i")' );
+
+		testArrayFormula("IMCONJUGATE");
+	} );
+
+	test( "Test: \"IMARGUMENT\"", function () {
+		oParser = new parserFormula( 'IMARGUMENT("3+4i")', "A2", ws );
+		ok( oParser.parse(), 'IMARGUMENT("3+4i")' );
+		strictEqual( oParser.calculate().getValue().toFixed(8) - 0, 0.92729522, 'IMARGUMENT("3+4i")' );
+
+		testArrayFormula("IMARGUMENT");
+	} );
+
+	test( "Test: \"IMAGINARY\"", function () {
+		oParser = new parserFormula( 'IMAGINARY("3+4i")', "A2", ws );
+		ok( oParser.parse(), 'IMAGINARY("3+4i")' );
+		strictEqual( oParser.calculate().getValue(), 4, 'IMAGINARY("3+4i")' );
+
+		oParser = new parserFormula( 'IMAGINARY("0-j")', "A2", ws );
+		ok( oParser.parse(), 'IMAGINARY("0-j")' );
+		strictEqual( oParser.calculate().getValue(), -1, 'IMAGINARY("0-j")' );
+
+		oParser = new parserFormula( 'IMAGINARY("4")', "A2", ws );
+		ok( oParser.parse(), 'IMAGINARY("4")' );
+		strictEqual( oParser.calculate().getValue(), 0, 'IMAGINARY("4")' );
+
+		testArrayFormula("IMAGINARY");
+	} );
+
+	test( "Test: \"IMABS\"", function () {
+		oParser = new parserFormula( 'IMABS("5+12i")', "A2", ws );
+		ok( oParser.parse(), 'IMABS("5+12i"' );
+		strictEqual( oParser.calculate().getValue(), 13, 'IMABS("5+12i"' );
+
+		testArrayFormula("IMABS");
+	} );
 
 	test( "Test: \"TAN\"", function () {
 
