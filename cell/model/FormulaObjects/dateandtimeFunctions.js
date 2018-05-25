@@ -719,7 +719,7 @@
 			}
 		};
 
-		return this.calculateOneArgument(arg[0], arguments[1], func);
+		return this.calculateOneArgument(arg[0], arguments[1], func, true);
 	};
 
 	/**
@@ -1629,27 +1629,23 @@
 	cTIMEVALUE.prototype.argumentsMax = 1;
 	cTIMEVALUE.prototype.numFormat = AscCommonExcel.cNumFormatNone;
 	cTIMEVALUE.prototype.Calculate = function (arg) {
-		var arg0 = arg[0];
+		var func = function (val) {
+			val = val.tocString();
 
-		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
-			arg0 = arg0.cross(arguments[1]);
-		} else if (arg0 instanceof cArray) {
-			arg0 = arg0.getElementRowCol(0, 0);
-		}
+			if (val instanceof cError) {
+				return val;
+			}
 
-		arg0 = arg0.tocString();
+			var res = g_oFormatParser.parse(val.getValue());
 
-		if (arg0 instanceof cError) {
-			return arg0;
-		}
+			if (res && res.bDateTime) {
+				return new cNumber(res.value - parseInt(res.value));
+			} else {
+				return new cError(cErrorType.wrong_value_type);
+			}
+		};
 
-		var res = g_oFormatParser.parse(arg0.getValue());
-
-		if (res && res.bDateTime) {
-			return new cNumber(res.value - parseInt(res.value));
-		} else {
-			return new cError(cErrorType.wrong_value_type);
-		}
+		return this.calculateOneArgument(arg[0], arguments[1], func, true);
 	};
 
 	/**

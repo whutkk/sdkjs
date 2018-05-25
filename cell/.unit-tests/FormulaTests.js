@@ -2497,6 +2497,8 @@ $( function () {
             strictEqual( oParser.calculate().getValue(), 37340 );
         else
             strictEqual( oParser.calculate().getValue(), 38802 );
+
+        testArrayFormula("DATEVALUE");
     } );
 
     test( "Test: \"EDATE\"", function () {
@@ -3041,6 +3043,8 @@ $( function () {
         oParser = new parserFormula( "timevalue(\"22:02\")", "A2", ws );
         ok( oParser.parse() );
         ok( Math.abs( oParser.calculate().getValue() - 0.9180555555555560 ) < dif );
+
+		testArrayFormula("TIMEVALUE");
     } );
 
     test( "Test: \"DAYS360\"", function () {
