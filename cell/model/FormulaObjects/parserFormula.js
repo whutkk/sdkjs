@@ -2724,7 +2724,7 @@ parserHelp.setDigitSeparator(AscCommon.g_oDefaultCultureInfo.NumberDecimalSepara
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
 			if(convertAreaToArray) {
 				//***array-formula***
-				arg0 = this.prepareAreaArg(arg0, arguments[1]);
+				arg0 = this.prepareAreaArg(arg0, arguments1);
 			} else {
 				arg0 = arg0.cross(arguments1);
 			}
@@ -2743,6 +2743,151 @@ parserHelp.setDigitSeparator(AscCommon.g_oDefaultCultureInfo.NumberDecimalSepara
 		} else {
 			return func(arg0);
 		}
+	};
+
+	cBaseFunction.prototype.calculateTwoArguments = function(arg0, arg1, arguments1, func, convertAreaToArray) {
+
+		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
+			if(convertAreaToArray) {
+				//***array-formula***
+				arg0 = this.prepareAreaArg(arg0, arguments1);
+			} else {
+				arg0 = arg0.cross(arguments1);
+			}
+		}
+		if (arg1 instanceof cArea || arg1 instanceof cArea3D) {
+			if(convertAreaToArray) {
+				//***array-formula***
+				arg1 = this.prepareAreaArg(arg1, arguments1);
+			} else {
+				arg1 = arg1.cross(arguments1);
+			}
+		}
+
+		if (arg0 instanceof cError) {
+			return arg0;
+		}
+		if (arg1 instanceof cError) {
+			return arg1;
+		}
+
+		if (arg0 instanceof cRef || arg0 instanceof cRef3D) {
+			arg0 = arg0.getValue();
+			if (arg0 instanceof cError) {
+				return arg0;
+			} else if (arg0 instanceof cString) {
+				return new cError(cErrorType.wrong_value_type);
+			} else {
+				arg0 = arg0.tocNumber();
+			}
+		} else {
+			arg0 = arg0.tocNumber();
+		}
+
+		if (arg1 instanceof cRef || arg1 instanceof cRef3D) {
+			arg1 = arg1.getValue();
+			if (arg1 instanceof cError) {
+				return arg1;
+			} else if (arg1 instanceof cString) {
+				return new cError(cErrorType.wrong_value_type);
+			} else {
+				arg1 = arg1.tocNumber();
+			}
+		} else {
+			arg1 = arg1.tocNumber();
+		}
+
+		var array;
+		if (arg0 instanceof cArray && arg1 instanceof cArray) {
+			//TODO пересмотреть и упростить обработку
+			array = new cArray();
+			//в случае, если первый аргумент состоит из одно строки/столбца - тогда цикл по второму аргменту
+			if(1 === arg0.getRowCount() || 1 === arg0.getCountElementInRow()) {
+				arg1.foreach(function (elem, r, c) {
+					var b = elem, res;
+					//если аргумент - строка/столбец
+					var rowArg1 = r, colArg1 = c;
+					if(1 === arg0.getRowCount()) {
+						rowArg1 = 0;
+					}
+					if(1 === arg0.getCountElementInRow()) {
+						colArg1 = 0;
+					}
+					if ( !array.array[r] ) {
+						array.addRow();
+					}
+					var a = arg0.array[rowArg1] ? arg0.getElementRowCol(rowArg1, colArg1) : null;
+					if(!a) {
+						res = new cError(cErrorType.not_available);
+					} else if (a instanceof cNumber && b instanceof cNumber) {
+						res = func(a.getValue(), b.getValue());
+					} else {
+						res = new cError(cErrorType.wrong_value_type);
+					}
+					array.addElement(res);
+				});
+				return array;
+			} else {
+				arg0.foreach(function (elem, r, c) {
+					var a = elem, res;
+					var rowArg1 = r, colArg1 = c;
+					if(1 === arg1.getRowCount()) {
+						rowArg1 = 0;
+					}
+					if(1 === arg1.getCountElementInRow()) {
+						colArg1 = 0;
+					}
+					if ( !array.array[r] ) {
+						array.addRow();
+					}
+					var b = arg1.array[rowArg1] ? arg1.getElementRowCol(rowArg1, colArg1) : null;
+					if(!b) {
+						res = new cError(cErrorType.not_available);
+					} else if (a instanceof cNumber && b instanceof cNumber) {
+						res = func(a.getValue(), b.getValue());
+					} else {
+						res = new cError(cErrorType.wrong_value_type);
+					}
+					array.addElement(res);
+				});
+				return array;
+			}
+		} else if (arg0 instanceof cArray) {
+			array = new cArray();
+			arg0.foreach(function (elem, r, c) {
+				var a = elem, res;
+				var b = arg1;
+				if ( !array.array[r] ) {
+					array.addRow();
+				}
+				if (a instanceof cNumber && b instanceof cNumber) {
+					res = func(a.getValue(), b.getValue())
+				} else {
+					res = new cError(cErrorType.wrong_value_type);
+				}
+				array.addElement(res);
+			});
+			return array;
+		} else if (arg1 instanceof cArray) {
+			array = new cArray();
+			arg1.foreach(function (elem, r, c) {
+				var a = arg0, res;
+				var b = elem;
+				if ( !array.array[r] ) {
+					array.addRow();
+				}
+				if (a instanceof cNumber && b instanceof cNumber) {
+					res = func(a.getValue(), b.getValue())
+				} else {
+					res = new cError(cErrorType.wrong_value_type);
+				}
+				array.addElement(res);
+			});
+			return array;
+		} else {
+			return func(arg0.getValue(), arg1.getValue());
+		}
+
 	};
 
 	/** @constructor */
