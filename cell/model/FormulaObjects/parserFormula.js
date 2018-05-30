@@ -5695,6 +5695,32 @@ parserFormula.prototype.setFormula = function(formula) {
 						}
 						arg.unshift(elemArr.pop());
 					}
+
+
+					/*//если данная функция не может возвращать массив, проходимся по всем элементам аргументов и формируем массив
+					if(true === currentElement.bArrayFormula && !currentElement.bReturnArray) {
+
+						//вначале перебираем все аргументы и преобразовываем из cellsRange в массив или значение в зависимости от того, как должна работать функция
+						var tempArgs = [], tempArg, convertAreaToArray = true, firstArray;
+						for (var j = 0; j < argumentsCount; j++) {
+							tempArg = arg[j];
+							if(cElementType.cellsRange === tempArg.type || cElementType.cellsRange3D === tempArg.type) {
+								if(convertAreaToArray) {
+									tempArg = window['AscCommonExcel'].convertAreaToArray(tempArg);
+								} else {
+									tempArg = tempArg.cross(opt_bbox);
+								}
+							}
+
+							tempArgs.push(tempArg);
+						}
+
+
+						_tmp = currentElement.Calculate(arg, opt_bbox, opt_defName, this.ws, bIsSpecialFunction);
+					} else {
+						_tmp = currentElement.Calculate(arg, opt_bbox, opt_defName, this.ws, bIsSpecialFunction);
+					}*/
+
 					_tmp = currentElement.Calculate(arg, opt_bbox, opt_defName, this.ws, bIsSpecialFunction);
 					if (cNumFormatNull !== _tmp.numFormat) {
 						numFormat = _tmp.numFormat;
