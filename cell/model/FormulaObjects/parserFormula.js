@@ -5655,7 +5655,7 @@ parserFormula.prototype.setFormula = function(formula) {
 			opt_bbox = new Asc.Range(0, 0, 0, 0);
 		}
 
-		var elemArr = [], _tmp, numFormat = cNumFormatFirstCell, currentElement = null, bIsSpecialFunction, argumentsCount;
+		var elemArr = [], _tmp, numFormat = cNumFormatFirstCell, currentElement = null, bIsSpecialFunction, argumentsCount, t = this;
 		for (var i = 0; i < this.outStack.length; i++) {
 			currentElement = this.outStack[i];
 			if (currentElement.name === "(") {
@@ -5697,8 +5697,9 @@ parserFormula.prototype.setFormula = function(formula) {
 					}
 
 
-					/*//если данная функция не может возвращать массив, проходимся по всем элементам аргументов и формируем массив
-					if(true === currentElement.bArrayFormula && !currentElement.bReturnArray) {
+					//***array-formula***
+					//если данная функция не может возвращать массив, проходимся по всем элементам аргументов и формируем массив
+					if(true === currentElement.bArrayFormula && !currentElement.bReturnArray && false) {
 
 						//вначале перебираем все аргументы и преобразовываем из cellsRange в массив или значение в зависимости от того, как должна работать функция
 						var tempArgs = [], tempArg, convertAreaToArray = true, firstArray;
@@ -5712,16 +5713,59 @@ parserFormula.prototype.setFormula = function(formula) {
 								}
 							}
 
+							if(cElementType.array === tempArg.type) {
+								//пытаемся найти массив, которые имеет более 1 столбца и более 1 строки
+								if (!firstArray ||
+									((1 === firstArray.getRowCount() || 1 === firstArray.getCountElementInRow()) &&
+									1 !== tempArg.getRowCount() && 1 !== tempArg.getCountElementInRow())) {
+									firstArray = tempArg;
+								}
+							}
 							tempArgs.push(tempArg);
 						}
 
+						if(firstArray) {
+							var array = new cArray();
+							firstArray.foreach(function (elem, r, c) {
+								if ( !array.array[r] ) {
+									array.addRow();
+								}
 
-						_tmp = currentElement.Calculate(arg, opt_bbox, opt_defName, this.ws, bIsSpecialFunction);
+								//формируем новые аргументы(берем r/c элмент массива у каждого аргумента)
+								var newArgs = [], newArg;
+								for (var j = 0; j < argumentsCount; j++) {
+									newArg = tempArgs[j];
+									if(cElementType.array === newArg.type) {
+										if(1 === newArg.getRowCount() && 1 === newArg.getCountElementInRow()) {
+											newArg = newArg.array[0] ? newArg.array[0][0] : null;
+										} else if(1 === newArg.getRowCount()) {
+											newArg = newArg.array[0] ? newArg.array[0][c] : null;
+										} else if(1 === newArg.getCountElementInRow()) {
+											newArg = newArg.array[r] ? newArg.array[r][0] : null;
+										} else {
+											newArg = newArg.array[r] ? newArg.array[r][c] : null;
+										}
+										if(!newArg) {
+											newArg = new cError(cErrorType.not_available);
+										}
+									}
+
+									newArgs.push(newArg);
+								}
+
+								array.addElement(currentElement.Calculate(newArgs, opt_bbox, opt_defName, t.ws, bIsSpecialFunction));
+							});
+
+							_tmp = array;
+
+						} else {
+							_tmp = currentElement.Calculate(arg, opt_bbox, opt_defName, this.ws, bIsSpecialFunction);
+						}
 					} else {
 						_tmp = currentElement.Calculate(arg, opt_bbox, opt_defName, this.ws, bIsSpecialFunction);
-					}*/
+					}
 
-					_tmp = currentElement.Calculate(arg, opt_bbox, opt_defName, this.ws, bIsSpecialFunction);
+					//_tmp = currentElement.Calculate(arg, opt_bbox, opt_defName, this.ws, bIsSpecialFunction);
 					if (cNumFormatNull !== _tmp.numFormat) {
 						numFormat = _tmp.numFormat;
 					} else if (0 > numFormat || cNumFormatNone === currentElement.numFormat) {
