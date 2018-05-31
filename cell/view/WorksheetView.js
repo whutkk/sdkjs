@@ -11265,10 +11265,18 @@
 			//***array-formula***
 			var ret = true;
 			changeRangesIfArrayFormula();
+			if(flags.bApplyByArray) {
+				this.model.workbook.dependencyFormulas.lockRecal();
+			}
 
 			c.setValue(ftext, function (r) {
 				ret = r;
 			}, null, flags.bApplyByArray ? bbox : null);
+
+			//***array-formula***
+			if(flags.bApplyByArray) {
+				this.model.workbook.dependencyFormulas.unlockRecal();
+			}
 
 			if (!ret) {
 				this.isFormulaEditMode = oldMode;

@@ -7222,7 +7222,18 @@
 					if (!isCalc) {
 						//***array-formula***
 						//добавлен последний параметр для обработки формулы массива
-						parsed.calculate(null, null, null, t);
+						if(parsed.getArrayFormulaRef()) {
+							if(parsed.checkFirstCellArray(t)) {
+								parsed.calculate(null, null, null, t);
+							} else {
+								var oldParent = parsed.parent;
+								parsed.parent = new AscCommonExcel.CCellWithFormula(t.ws, t.nRow, t.nCol);
+								parsed._endCalculate();
+								parsed.parent = oldParent;
+							}
+						} else {
+							parsed.calculate();
+						}
 					} else {
 						parsed.calculateCycleError();
 		}
