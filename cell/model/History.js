@@ -150,6 +150,8 @@ function (window, undefined) {
 	window['AscCH'].historyitem_SharedFormula_ChangeFormula = 1;
 	window['AscCH'].historyitem_SharedFormula_ChangeShared = 2;
 
+	window['AscCH'].historyitem_ArrayFromula_AddFormula = 1;
+	window['AscCH'].historyitem_ArrayFromula_DeleteFormula = 2;
 
 function CHistory()
 {
