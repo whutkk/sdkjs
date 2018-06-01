@@ -703,6 +703,7 @@
 	cDATEVALUE.prototype.argumentsMin = 1;
 	cDATEVALUE.prototype.argumentsMax = 1;
 	cDATEVALUE.prototype.numFormat = AscCommonExcel.cNumFormatNone;
+	cDATEVALUE.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.array;
 	cDATEVALUE.prototype.Calculate = function (arg) {
 		var func = function (val) {
 			val = val.tocString();

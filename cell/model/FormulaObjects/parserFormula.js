@@ -438,6 +438,22 @@ var cErrorType = {
 		not_available       : 7,
 		getting_data        : 8
   };
+
+
+//добавляю константу cReturnFormulaType для корректной обработки формул массива
+// value - функция умеет возвращать только значение(не массив)
+// в этом случае данная функция вызывается множество раз для каждого элемента внутренних массивов
+// предварительно area и area3d преобразуются в массив
+// value_convert_area - аналогично value, но area и area3d не преобразуются в массив
+// array - умеет возвращать массив
+// используоется в returnValueType у каждой формулы
+/** @enum */
+var cReturnFormulaType = {
+		value: 0,
+		value_replace_area: 1,
+		array: 2
+};
+
 var cExcelSignificantDigits = 15; //количество цифр в числе после запятой
 var cExcelMaxExponent = 308;
 var cExcelMinExponent = -308;
@@ -5699,17 +5715,19 @@ parserFormula.prototype.setFormula = function(formula) {
 
 					//***array-formula***
 					//если данная функция не может возвращать массив, проходимся по всем элементам аргументов и формируем массив
-					if(true === currentElement.bArrayFormula && !currentElement.bReturnArray && false) {
+					var returnFormulaType = currentElement.returnValueType;
+					if(true === currentElement.bArrayFormula && (cReturnFormulaType.value === returnFormulaType || cReturnFormulaType.value_convert_area === returnFormulaType)) {
 
 						//вначале перебираем все аргументы и преобразовываем из cellsRange в массив или значение в зависимости от того, как должна работать функция
-						var tempArgs = [], tempArg, convertAreaToArray = true, firstArray;
+						var tempArgs = [], tempArg, firstArray;
+						var replaceAreaByValue = cReturnFormulaType.value_replace_area === returnFormulaType;
 						for (var j = 0; j < argumentsCount; j++) {
 							tempArg = arg[j];
 							if(cElementType.cellsRange === tempArg.type || cElementType.cellsRange3D === tempArg.type) {
-								if(convertAreaToArray) {
-									tempArg = window['AscCommonExcel'].convertAreaToArray(tempArg);
-								} else {
+								if(replaceAreaByValue) {
 									tempArg = tempArg.cross(opt_bbox);
+								} else {
+									tempArg = window['AscCommonExcel'].convertAreaToArray(tempArg);
 								}
 							}
 
@@ -7065,6 +7083,7 @@ function rtl_math_erfc( x ) {
 	window['AscCommonExcel'].cNumFormatNone = cNumFormatNone;
 	window['AscCommonExcel'].g_cCalcRecursion = g_cCalcRecursion;
 	window['AscCommonExcel'].g_ProcessShared = false;
+	window['AscCommonExcel'].cReturnFormulaType = cReturnFormulaType;
 
 	window['AscCommonExcel'].cNumber = cNumber;
 	window['AscCommonExcel'].cString = cString;

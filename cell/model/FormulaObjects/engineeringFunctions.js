@@ -5666,6 +5666,7 @@ function (window, undefined) {
 	cIMABS.prototype.name = 'IMABS';
 	cIMABS.prototype.argumentsMin = 1;
 	cIMABS.prototype.argumentsMax = 1;
+	cIMABS.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMABS.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -5705,6 +5706,7 @@ function (window, undefined) {
 	cIMAGINARY.prototype.name = 'IMAGINARY';
 	cIMAGINARY.prototype.argumentsMin = 1;
 	cIMAGINARY.prototype.argumentsMax = 1;
+	cIMAGINARY.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMAGINARY.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -5745,6 +5747,7 @@ function (window, undefined) {
 	cIMARGUMENT.prototype.name = 'IMARGUMENT';
 	cIMARGUMENT.prototype.argumentsMin = 1;
 	cIMARGUMENT.prototype.argumentsMax = 1;
+	cIMARGUMENT.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMARGUMENT.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -5785,6 +5788,7 @@ function (window, undefined) {
 	cIMCONJUGATE.prototype.name = 'IMCONJUGATE';
 	cIMCONJUGATE.prototype.argumentsMin = 1;
 	cIMCONJUGATE.prototype.argumentsMax = 1;
+	cIMCONJUGATE.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMCONJUGATE.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -5825,6 +5829,7 @@ function (window, undefined) {
 	cIMCOS.prototype.name = 'IMCOS';
 	cIMCOS.prototype.argumentsMin = 1;
 	cIMCOS.prototype.argumentsMax = 1;
+	cIMCOS.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMCOS.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -5867,6 +5872,7 @@ function (window, undefined) {
 	cIMCOSH.prototype.argumentsMin = 1;
 	cIMCOSH.prototype.argumentsMax = 1;
 	cIMCOSH.prototype.isXLFN = true;
+	cIMCOSH.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMCOSH.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -5910,6 +5916,7 @@ function (window, undefined) {
 	cIMCOT.prototype.argumentsMin = 1;
 	cIMCOT.prototype.argumentsMax = 1;
 	cIMCOT.prototype.isXLFN = true;
+	cIMCOT.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMCOT.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -5957,6 +5964,7 @@ function (window, undefined) {
 	cIMCSC.prototype.argumentsMin = 1;
 	cIMCSC.prototype.argumentsMax = 1;
 	cIMCSC.prototype.isXLFN = true;
+	cIMCSC.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMCSC.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -6000,6 +6008,7 @@ function (window, undefined) {
 	cIMCSCH.prototype.argumentsMin = 1;
 	cIMCSCH.prototype.argumentsMax = 1;
 	cIMCSCH.prototype.isXLFN = true;
+	cIMCSCH.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMCSCH.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -6095,6 +6104,7 @@ function (window, undefined) {
 	cIMEXP.prototype.name = 'IMEXP';
 	cIMEXP.prototype.argumentsMin = 1;
 	cIMEXP.prototype.argumentsMax = 1;
+	cIMEXP.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMEXP.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -6141,6 +6151,7 @@ function (window, undefined) {
 	cIMLN.prototype.name = 'IMLN';
 	cIMLN.prototype.argumentsMin = 1;
 	cIMLN.prototype.argumentsMax = 1;
+	cIMLN.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMLN.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -6187,6 +6198,7 @@ function (window, undefined) {
 	cIMLOG10.prototype.name = 'IMLOG10';
 	cIMLOG10.prototype.argumentsMin = 1;
 	cIMLOG10.prototype.argumentsMax = 1;
+	cIMLOG10.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMLOG10.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -6233,6 +6245,7 @@ function (window, undefined) {
 	cIMLOG2.prototype.name = 'IMLOG2';
 	cIMLOG2.prototype.argumentsMin = 1;
 	cIMLOG2.prototype.argumentsMax = 1;
+	cIMLOG2.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMLOG2.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -6434,6 +6447,7 @@ function (window, undefined) {
 	cIMREAL.prototype.name = 'IMREAL';
 	cIMREAL.prototype.argumentsMin = 1;
 	cIMREAL.prototype.argumentsMax = 1;
+	cIMREAL.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMREAL.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -6475,6 +6489,7 @@ function (window, undefined) {
 	cIMSEC.prototype.argumentsMin = 1;
 	cIMSEC.prototype.argumentsMax = 1;
 	cIMSEC.prototype.isXLFN = true;
+	cIMSEC.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMSEC.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -6518,6 +6533,7 @@ function (window, undefined) {
 	cIMSECH.prototype.argumentsMin = 1;
 	cIMSECH.prototype.argumentsMax = 1;
 	cIMSECH.prototype.isXLFN = true;
+	cIMSECH.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMSECH.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -6560,6 +6576,7 @@ function (window, undefined) {
 	cIMSIN.prototype.name = 'IMSIN';
 	cIMSIN.prototype.argumentsMin = 1;
 	cIMSIN.prototype.argumentsMax = 1;
+	cIMSIN.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMSIN.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -6602,6 +6619,7 @@ function (window, undefined) {
 	cIMSINH.prototype.argumentsMin = 1;
 	cIMSINH.prototype.argumentsMax = 1;
 	cIMSINH.prototype.isXLFN = true;
+	cIMSINH.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMSINH.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -6644,6 +6662,7 @@ function (window, undefined) {
 	cIMSQRT.prototype.name = 'IMSQRT';
 	cIMSQRT.prototype.argumentsMin = 1;
 	cIMSQRT.prototype.argumentsMax = 1;
+	cIMSQRT.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMSQRT.prototype.Calculate = function (arg) {
 
 		var func = function (val) {
@@ -6840,6 +6859,7 @@ function (window, undefined) {
 	cIMTAN.prototype.argumentsMin = 1;
 	cIMTAN.prototype.argumentsMax = 1;
 	cIMTAN.prototype.isXLFN = true;
+	cIMTAN.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cIMTAN.prototype.Calculate = function (arg) {
 
 		var func = function (val) {

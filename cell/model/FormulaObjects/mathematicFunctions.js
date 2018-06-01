@@ -149,6 +149,7 @@
 	cACOS.prototype.name = 'ACOS';
 	cACOS.prototype.argumentsMin = 1;
 	cACOS.prototype.argumentsMax = 1;
+	cACOS.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.array;
 	cACOS.prototype.Calculate = function (arg) {
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
@@ -186,6 +187,7 @@
 	cACOSH.prototype.name = 'ACOSH';
 	cACOSH.prototype.argumentsMin = 1;
 	cACOSH.prototype.argumentsMax = 1;
+	cACOSH.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.array;
 	cACOSH.prototype.Calculate = function (arg) {
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
@@ -1681,6 +1683,7 @@
 	cFACTDOUBLE.prototype.name = 'FACTDOUBLE';
 	cFACTDOUBLE.prototype.argumentsMin = 1;
 	cFACTDOUBLE.prototype.argumentsMax = 1;
+	cFACTDOUBLE.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cFACTDOUBLE.prototype.Calculate = function (arg) {
 		function factDouble(n) {
 			if (n == 0) {
@@ -4172,6 +4175,7 @@
 	cSQRTPI.prototype.name = 'SQRTPI';
 	cSQRTPI.prototype.argumentsMin = 1;
 	cSQRTPI.prototype.argumentsMax = 1;
+	cSQRTPI.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.value_replace_area;
 	cSQRTPI.prototype.Calculate = function (arg) {
 		var arg0 = arg[0];
 		if (arg0 instanceof cArea || arg0 instanceof cArea3D) {
