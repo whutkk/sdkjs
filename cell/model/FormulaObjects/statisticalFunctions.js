@@ -6280,6 +6280,7 @@ function (window, undefined) {
 	cFREQUENCY.prototype.argumentsMin = 2;
 	cFREQUENCY.prototype.argumentsMax = 2;
 	cFREQUENCY.prototype.numFormat = AscCommonExcel.cNumFormatNone;
+	cFREQUENCY.prototype.returnValueType = AscCommonExcel.cReturnFormulaType.array;
 	cFREQUENCY.prototype.Calculate = function (arg) {
 
 		function frequency(A, B) {

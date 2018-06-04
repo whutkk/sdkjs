@@ -1260,6 +1260,8 @@ $( function () {
 		oParser = new parserFormula( 'COMBINA(10,-3)', "A1", ws );
 		ok( oParser.parse(), 'COMBINA(10,-3)' );
 		strictEqual( oParser.calculate().getValue(), "#NUM!", 'COMBINA(10,-3)' );
+
+		testArrayFormula2("COMBIN", 2, 2)
 	} );
 
 	test( "Test: \"DECIMAL\"", function () {
@@ -1871,6 +1873,8 @@ $( function () {
 		oParser = new parserFormula( "BESSELJ(-1.9, -2.4)", "A1", ws );
 		ok( oParser.parse(), "BESSELJ(-1.9, -2.4)" );
 		strictEqual( oParser.calculate().getValue(), "#NUM!" );
+
+		testArrayFormula2("BESSELJ", 2, 2, true);
 	} );
 
 	test( "Test: \"BESSELK\"", function () {
@@ -1891,6 +1895,8 @@ $( function () {
 		ok( oParser.parse(), "BESSELK(1,-2)" );
 		strictEqual( oParser.calculate().getValue(), "#NUM!" );
 
+		testArrayFormula2("BESSELK", 2, 2, true);
+
 	} );
 
 	test( "Test: \"BESSELY\"", function () {
@@ -1906,6 +1912,8 @@ $( function () {
 		oParser = new parserFormula( "BESSELY(-1,2)", "A1", ws );
 		ok( oParser.parse(), "BESSELY(-1,2)" );
 		strictEqual( oParser.calculate().getValue(), "#NUM!", "BESSELY(-1,2)" );
+
+		testArrayFormula2("BESSELY", 2, 2, true)
 
 	} );
 
@@ -1927,6 +1935,7 @@ $( function () {
 		ok( oParser.parse(), "BESSELI(-1,2)" );
 		strictEqual( oParser.calculate().getValue().toFixed(6) - 0, 0.135748, "BESSELI(-1,2)" );
 
+		testArrayFormula2("BESSELI", 2, 2, true)
 	} );
 
 	test( "Test: \"GAMMA.INV\"", function () {
@@ -3745,12 +3754,33 @@ $( function () {
 		testArrayFormula("IMAGINARY", true);
 	} );
 
+	test( "Test: \"IMDIV\"", function () {
+		oParser = new parserFormula( 'IMDIV("-238+240i","10+24i")', "A2", ws );
+		ok( oParser.parse(), 'IMDIV("-238+240i","10+24i")' );
+		strictEqual( oParser.calculate().getValue(), "5+12i", 'IMDIV("-238+240i","10+24i")' );
+
+		testArrayFormula2("IMDIV", 2, 2, true);
+	} );
+
+	test( "Test: \"IMPOWER\"", function () {
+
+		testArrayFormula2("IMPOWER", 2, 2, true);
+	} );
+
 	test( "Test: \"IMABS\"", function () {
 		oParser = new parserFormula( 'IMABS("5+12i")', "A2", ws );
 		ok( oParser.parse(), 'IMABS("5+12i"' );
 		strictEqual( oParser.calculate().getValue(), 13, 'IMABS("5+12i"' );
 
 		testArrayFormula("IMABS", true);
+	} );
+
+	test( "Test: \"IMSUB\"", function () {
+		oParser = new parserFormula( 'IMSUB("13+4i","5+3i")', "A2", ws );
+		ok( oParser.parse(), 'IMSUB("13+4i","5+3i")' );
+		strictEqual( oParser.calculate().getValue(), "8+i", 'IMSUB("13+4i","5+3i")' );
+
+		testArrayFormula2("IMSUB", 2, 2, true);
 	} );
 
 	test( "Test: \"TAN\"", function () {
@@ -3785,6 +3815,26 @@ $( function () {
 		strictEqual( oParser.calculate().getValue().toFixed(9) - 0, 0.785398163 );
 
 		testArrayFormula("ATAN");
+	} );
+
+	test( "Test: \"ATAN2\"", function () {
+		oParser = new parserFormula( 'ATAN2(1, 1)', "A1", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue().toFixed(9) - 0, 0.785398163);
+
+		oParser = new parserFormula( 'ATAN2(-1, -1)', "A1", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue().toFixed(9) - 0, -2.35619449);
+
+		oParser = new parserFormula( 'ATAN2(-1, -1)*180/PI()', "A1", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), -135);
+
+		oParser = new parserFormula( 'DEGREES(ATAN2(-1, -1))', "A1", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), -135);
+
+		testArrayFormula2("ATAN2", 2, 2);
 	} );
 
 	test( "Test: \"ATANH\"", function () {
@@ -4174,6 +4224,8 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), 0.24 );
 
+
+		testArrayFormula2("CEILING", 2, 2);
     } );
 
 
@@ -5378,7 +5430,6 @@ $( function () {
         strictEqual( a.getElement( 1 ).getValue(), 2 );
         strictEqual( a.getElement( 2 ).getValue(), 4 );
         strictEqual( a.getElement( 3 ).getValue(), 2 );
-
     } );
 
     test( "Test: \"GAMMALN\"", function () {
@@ -8851,6 +8902,8 @@ $( function () {
         ok( oParser.assemble() == "BIN2HEX(101010,\"Hello World!\")" );
         strictEqual( oParser.calculate().getValue(), "#VALUE!" );
 
+        testArrayFormula2("BIN2HEX", 1, 2, true)
+
     });
 
     test( "Test: \"BIN2OCT\"", function () {
@@ -8925,6 +8978,7 @@ $( function () {
         ok( oParser.assemble() == "BIN2OCT(101010,\"Hello World!\")" );
         strictEqual( oParser.calculate().getValue(), "#VALUE!" );
 
+		testArrayFormula2("BIN2OCT", 1, 2, true);
     });
 
     test( "Test: \"DEC2BIN\"", function () {
@@ -9009,6 +9063,7 @@ $( function () {
         ok( oParser.assemble() == "DEC2BIN(42,-8)" );
         strictEqual( oParser.calculate().getValue(), "#NUM!" );
 
+		testArrayFormula2("DEC2BIN", 1, 2, true)
     });
 
     test( "Test: \"DEC2HEX\"", function () {
@@ -9078,6 +9133,7 @@ $( function () {
         ok( oParser.assemble() == "DEC2HEX(\"2a\")" );
         strictEqual( oParser.calculate().getValue(), "#VALUE!" );
 
+		testArrayFormula2("DEC2HEX", 1, 2, true);
     });
 
     test( "Test: \"DEC2OCT\"", function () {
@@ -9167,6 +9223,7 @@ $( function () {
         ok( oParser.assemble() == "DEC2OCT(42,1)" );
         strictEqual( oParser.calculate().getValue(), "#NUM!" );
 
+		testArrayFormula2("DEC2OCT", 1, 2, true);
     });
 
     test( "Test: \"HEX2BIN\"", function () {
@@ -9251,6 +9308,7 @@ $( function () {
         ok( oParser.assemble() == "HEX2BIN(\"2a\",\"Hello World!\")" );
         strictEqual( oParser.calculate().getValue(), "#VALUE!" );
 
+		testArrayFormula2("HEX2BIN", 1, 2, true);
     });
 
     test( "Test: \"HEX2DEC\"", function () {
@@ -9295,6 +9353,7 @@ $( function () {
         ok( oParser.assemble() == "HEX2DEC(\"7fffffffff\")" );
         strictEqual( oParser.calculate().getValue(), 549755813887);
 
+		testArrayFormula2("HEX2DEC", 1, 1, true);
     });
 
     test( "Test: \"HEX2OCT\"", function () {
@@ -9359,6 +9418,7 @@ $( function () {
         ok( oParser.assemble() == "HEX2OCT(\"2a\",1)" );
         strictEqual( oParser.calculate().getValue(), "#NUM!");
 
+		testArrayFormula2("HEX2OCT", 1, 2, true);
     });
 
     test( "Test: \"OCT2BIN\"", function () {
@@ -9423,6 +9483,7 @@ $( function () {
         ok( oParser.assemble() == "OCT2BIN(\"52\",\"Hello World!\")" );
         strictEqual( oParser.calculate().getValue(), "#VALUE!");
 
+		testArrayFormula2("OCT2BIN", 1, 2, true)
     });
 
     test( "Test: \"OCT2DEC\"", function () {
@@ -9536,6 +9597,8 @@ $( function () {
         ok( oParser.assemble() == "OCT2HEX(\"52\",\"Hello World!\")" );
         strictEqual( oParser.calculate().getValue(), "#VALUE!");
 
+		testArrayFormula2("OCT2HEX", 1, 2, true)
+
     });
 
     test( "Test: \"COMPLEX\"", function () {
@@ -9585,6 +9648,7 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), 1);
 
+		testArrayFormula2("DELTA", 1, 2, true);
     });
 
     test( "Test: \"ERF\"", function () {
@@ -9605,7 +9669,29 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue().toFixed(14)-0, 0.9190394169576684.toFixed(14)-0 );
 
+		testArrayFormula2("ERF", 1, 2, true);
     });
+
+	test( "Test: \"GESTEP\"", function () {
+
+		oParser = new parserFormula( "GESTEP(5, 4)", "A2", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), 1);
+
+		oParser = new parserFormula( "GESTEP(5, 5)", "A2", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), 1);
+
+		oParser = new parserFormula( "GESTEP(-4, -5)", "A2", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), 1);
+
+		oParser = new parserFormula( "GESTEP(-1)", "A2", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), 0);
+
+		testArrayFormula2("GESTEP", 1, 2, true);
+	});
 
 	test( "Test: \"ERF.PRECISE\"", function () {
 

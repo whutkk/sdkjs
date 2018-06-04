@@ -5716,7 +5716,7 @@ parserFormula.prototype.setFormula = function(formula) {
 					//***array-formula***
 					//если данная функция не может возвращать массив, проходимся по всем элементам аргументов и формируем массив
 					var returnFormulaType = currentElement.returnValueType;
-					if(true === currentElement.bArrayFormula && (cReturnFormulaType.value === returnFormulaType || cReturnFormulaType.value_convert_area === returnFormulaType)) {
+					if(true === currentElement.bArrayFormula && (!returnFormulaType || cReturnFormulaType.value_replace_area === returnFormulaType)) {
 
 						//вначале перебираем все аргументы и преобразовываем из cellsRange в массив или значение в зависимости от того, как должна работать функция
 						var tempArgs = [], tempArg, firstArray;
