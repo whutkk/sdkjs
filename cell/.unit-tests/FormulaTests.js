@@ -1347,6 +1347,8 @@ $( function () {
 		oParser = new parserFormula( "T.DIST.2T(A2,A3)", "A1", ws );
 		ok( oParser.parse(), "T.DIST.2T(A2,A3)" );
 		strictEqual( oParser.calculate().getValue().toFixed(9) - 0, 0.054644930, "T.DIST.2T(A2,A3)" );
+
+		testArrayFormula2("T.DIST.2T", 2, 2)
 	} );
 
 	test( "Test: \"T.DIST.RT\"", function () {
@@ -5849,6 +5851,7 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), 4 );
 
+		//TODO нужна другая функция для тестирования
         //testArrayFormula2("LARGE", 2, 2)
     } );
 
@@ -6326,6 +6329,8 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), percentile( [1, 3, 2, 4], 0.75 ) );
 
+        //TODO нужна другая функция для тестирования
+        //testArrayFormula2("PERCENTILE", 2, 2, null, true);
     } );
 
 	test( "Test: \"PERCENTILE.INC\"", function () {
@@ -6365,6 +6370,9 @@ $( function () {
 		oParser = new parserFormula( "PERCENTILE.EXC(A202:A210, 2)", "A1", ws );
 		ok( oParser.parse(), "PERCENTILE.EXC(A202:A210, 2)" );
 		strictEqual( oParser.calculate().getValue(), "#NUM!", "PERCENTILE.EXC(A202:A210, 2)" );
+
+		//TODO нужна другая функция для тестирования
+		//testArrayFormula2("PERCENTILE.EXC", 2, 2, null, true)
 	} );
 
     test( "Test: \"PERCENTRANK\"", function () {
@@ -6487,6 +6495,8 @@ $( function () {
 		oParser = new parserFormula( "PERMUT(3,2)", "A1", ws );
 		ok( oParser.parse(), "PERMUT(3,2)" );
 		strictEqual( oParser.calculate().getValue(), 6, "PERMUT(3,2)" );
+
+		testArrayFormula2("PERMUT", 2, 2);
 	} );
 
 	test( "Test: \"PERMUTATIONA\"", function () {
@@ -6497,6 +6507,8 @@ $( function () {
 		oParser = new parserFormula( "PERMUTATIONA(2,2)", "A1", ws );
 		ok( oParser.parse(), "PERMUTATIONA(2,2)" );
 		strictEqual( oParser.calculate().getValue(), 4, "PERMUTATIONA(2,2)" );
+
+		testArrayFormula2("PERMUTATIONA", 2, 2);
 	} );
 
 	test( "Test: \"PHI\"", function () {
@@ -6671,6 +6683,9 @@ $( function () {
 		oParser = new parserFormula( "QUARTILE(A202:A209,1)", "A1", ws );
 		ok( oParser.parse(), "QUARTILE(A202:A209,1)" );
 		strictEqual( oParser.calculate().getValue(), 3.5, "QUARTILE(A202:A209,1)" );
+
+		//TODO нужна другая функция для тестирования
+		//testArrayFormula2("QUARTILE", 2, 2)
 	} );
 
     test( "Test: \"QUARTILE.INC\"", function () {
@@ -6708,6 +6723,9 @@ $( function () {
 		oParser = new parserFormula( "QUARTILE.EXC(A202:A212,3)", "A1", ws );
 		ok( oParser.parse(), "QUARTILE.EXC(A202:A212,3)" );
 		strictEqual( oParser.calculate().getValue(), 43, "QUARTILE.EXC(A202:A212,3)" );
+
+		//TODO нужна другая функция для тестирования
+		//testArrayFormula2("QUARTILE.EXC", 2, 2)
 	} );
 
     test( "Test: \"RSQ\"", function () {
@@ -6750,6 +6768,7 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), rsq( [2, 3, 9, 1, 8, 7, 5], [6, 5, 11, 7, 5, 4, 4] ) );
 
+		testArrayFormula2("RSQ", 2, 2, null, true)
     } );
 
     test( "Test: \"SKEW\"", function () {
@@ -6824,6 +6843,8 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), 5 );
 
+		//TODO нужна другая функция для тестирования
+        //testArrayFormula2("SMALL", 2, 2)
     } );
 
     test( "Test: \"SLOPE\"", function () {
@@ -6865,7 +6886,32 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), slope( [2, 3, 9, 1, 8, 7, 5], [6, 5, 11, 7, 5, 4, 4] ) );
 
+        testArrayFormula2("SLOPE", 2, 2, null, true);
     } );
+
+	test( "Test: \"STEYX\"", function () {
+		ws.getRange2( "A203" ).setValue( "2" );
+		ws.getRange2( "A204" ).setValue( "3" );
+		ws.getRange2( "A205" ).setValue( "9" );
+		ws.getRange2( "A206" ).setValue( "1" );
+		ws.getRange2( "A207" ).setValue( "8" );
+		ws.getRange2( "A208" ).setValue( "7" );
+		ws.getRange2( "A209" ).setValue( "5" );
+
+		ws.getRange2( "B203" ).setValue( "6" );
+		ws.getRange2( "B204" ).setValue( "5" );
+		ws.getRange2( "B205" ).setValue( "11" );
+		ws.getRange2( "B206" ).setValue( "7" );
+		ws.getRange2( "B207" ).setValue( "5" );
+		ws.getRange2( "B208" ).setValue( "4" );
+		ws.getRange2( "B209" ).setValue( "4" );
+
+		oParser = new parserFormula( "STEYX(A203:A209,B203:B209)", "A1", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue().toFixed(6) - 0, 3.305719 );
+
+		testArrayFormula2("STEYX", 2, 2, null, true);
+	} );
 
     test( "Test: \"STANDARDIZE\"", function () {
 
