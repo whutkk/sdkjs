@@ -261,6 +261,7 @@
 		ApiDrawing.call(this, Image.parent);
         this.Image = Image
     }
+
 	ApiImage.prototype = Object.create(ApiDrawing.prototype);
 	ApiImage.prototype.constructor = ApiImage;
 
@@ -3180,9 +3181,10 @@
     {
         return "numbering";
     };
+
     /**
      * Get the specified level of the current numbering.
-     * @param {number} nLevel - Index of the numbering level. This value MUST BE from 0 to 8.
+     * @param {number} nLevel - The numbering level index. This value MUST BE from 0 to 8.
      * @returns {ApiNumberingLevel}
      */
     ApiNumbering.prototype.GetLevel = function(nLevel)
@@ -3204,14 +3206,16 @@
     {
         return "numberingLevel";
     };
+
     /**
-     * Get a numbering defenition.
+     * Get the numbering definition.
      * @returns {ApiNumbering}
      */
     ApiNumberingLevel.prototype.GetNumbering = function()
     {
         return new ApiNumbering(this.Num);
     };
+
     /**
      * Get level index.
      * @returns {number}
@@ -3220,27 +3224,30 @@
     {
         return this.Lvl;
     };
+
     /**
-     * Specifies the run properties which shall be applied to the numbering level's text.
+     * Specify the text properties which will be applied to the text in the current numbering level itself, not to the text in the subsequent paragraph.
+     * <note>To change the text style for the paragraph, a style must be applied to it using the ApiRun.SetStyle method.</note>
      * @returns {ApiTextPr}
      */
     ApiNumberingLevel.prototype.GetTextPr = function()
     {
         return new ApiTextPr(this, this.Num.GetLvl(this.Lvl).TextPr.Copy());
     };
+
     /**
-     * This paragraph properties are applied to any numbered paragraph that references the given numbering definition
-     * and numbering level.
+     * The paragraph properties which are applied to any numbered paragraph that references the given numbering definition and numbering level.
      * @returns {ApiParaPr}
      */
     ApiNumberingLevel.prototype.GetParaPr = function()
     {
         return new ApiParaPr(this, this.Num.GetLvl(this.Lvl).ParaPr.Copy());
     };
+
     /**
-     * Set one of the predefined numbering templates.
-     * @param {("none" | "bullet" | "1)" | "1." | "I." | "A." | "a)" | "a." | "i." )} sType - Type of the numbering
-     * @param {string} [sSymbol=""] - This parameter have a meaning only if <code>sType="bullet"</code>
+     * Set one of the existing predefined numbering templates.
+     * @param {("none" | "bullet" | "1)" | "1." | "I." | "A." | "a)" | "a." | "i." )} sType - Set one of the existing predefined numbering templates.
+     * @param {string} [sSymbol=""] - The symbol used for the list numbering. This parameter have a meaning only if the sType="bullet" property is selected.
      */
     ApiNumberingLevel.prototype.SetTemplateType = function(sType, sSymbol)
     {
@@ -3275,16 +3282,14 @@
                 break;
         }
     };
+
     /**
-     * Set the custom type of the numbering.
+     * Set your own customized numbering type.
      * @param {("none" | "bullet" | "decimal" | "lowerRoman" | "upperRoman" | "lowerLetter" | "upperLetter" |
-     *     "decimalZero")} sType
-     * @param {string} sTextFormatString - All text in this parameter shall be taken as literal text to be repeated in
-     * each instance of this numbering level, except for any use of the percent symbol (%) followed by a number,
-     * which shall be used to indicate the one-based index of the number to be used at this level. Any number of a
-     *     level
+     *     "decimalZero")} sType - The custom numbering type used for the current numbering definition.
+     * @param {string} sTextFormatString - Any text in this parameter will be taken as literal text to be repeated in each instance of this numbering level, except for any use of the percent symbol (%) followed by a number, which will be used to indicate the one-based index of the number to be used at this level. Any number of a level higher than this level will be ignored.
      * higher than this level shall be ignored.
-     * @param {("left" | "right" | "center")} sAlign - Type of justification used on a numbering level's text.
+     * @param {("left" | "right" | "center")} sAlign - Type of justification applied to the text run in the current numbering level.
      */
     ApiNumberingLevel.prototype.SetCustomType = function(sType, sTextFormatString, sAlign)
     {
@@ -3316,29 +3321,28 @@
 
         this.Num.SetLvlByFormat(this.Lvl, nType, sTextFormatString, nAlign);
     };
+
     /**
-     * This element specifies a one-based index which determines when a numbering level should restart to its start
-     * value. A numbering level restarts when an instance of the specified numbering level, which shall be
-     * higher (earlier than the this level) is used in the given document's contents. By default this value is true.
-     * @param {boolean} isRestart
+     * Specify a one-based index which determines when a numbering level should restart to its starting value. A numbering level restarts when an instance of the specified numbering level, which will be higher (earlier than the this level) is used in the given document contents. By default this value is true.
+     * @param {boolean} isRestart - The true value will enable the SetRestart method use.
      */
     ApiNumberingLevel.prototype.SetRestart = function(isRestart)
     {
         this.Num.SetLvlRestart(this.Lvl, private_GetBoolean(isRestart, true));
     };
+
     /**
-     * This element specifies the starting value for the numbering used by the parent numbering level within a given
-     * numbering level definition. By default this value is 1.
-     * @param {number} nStart
+     * Specify the starting value for the numbering used by the parent numbering level within a given numbering level definition. By default this value is 1.
+     * @param {number} nStart - The starting value for the numbering used by the parent numbering level.
      */
     ApiNumberingLevel.prototype.SetStart = function(nStart)
     {
         this.Num.SetLvlStart(this.Lvl, private_GetInt(nStart));
     };
+
     /**
-     * Specifies the content which shall be added between a given numbering level's text and the text of every numbered
-     * paragraph which references that numbering level. By default this value is "tab".
-     * @param {("space" | "tab" | "none")} sType
+     * Specify the content which will be added between a given numbering level text and the text of every numbered paragraph which references that numbering level. By default this value is "tab".
+     * @param {("space" | "tab" | "none")} sType - The content added between the numbering level text and the text in the numbered paragraph.
      */
     ApiNumberingLevel.prototype.SetSuff = function(sType)
     {
@@ -3932,17 +3936,18 @@
     //------------------------------------------------------------------------------------------------------------------
 
     /**
-     * Get the type of this class.
+     * Get the type of the class based on this base class.
      * @returns {"drawing"}
      */
     ApiDrawing.prototype.GetClassType = function()
     {
         return "drawing";
     };
+
     /**
-     * Set the size of the bounding box.
-     * @param {EMU} nWidth
-     * @param {EMU} nHeight
+     * Set the size of the object (image, shape, chart) bounding box.
+     * @param {EMU} nWidth - The object width measured in English measure units.
+     * @param {EMU} nHeight - The object height measured in English measure units.
      */
     ApiDrawing.prototype.SetSize = function(nWidth, nHeight)
     {
@@ -3955,8 +3960,17 @@
             this.Drawing.GraphicObj.spPr.xfrm.setExtY(fHeight);
         }
     };
+
     /**
-     * Set the wrapping type of this drawing object.
+     * Set the wrapping type of this object (image, shape, chart). One of the following wrapping style types can be set:
+     * * <b>"inline"</b> - the object is considered to be a part of the text, like a character, so when the text moves, the object moves as well. In this case the positioning options are inaccessible.
+     * If one of the following styles is selected, the object can be moved independently of the text and positioned on the page exactly:
+     * * <b>"square"</b> - the text wraps the rectangular box that bounds the object.
+     * * <b>"tight"</b> - the text wraps the actual object edges.
+     * * <b>"through"</b> - the text wraps around the object edges and fills in the open white space within the object.
+     * * <b>"topAndBottom"</b> - the text is only above and below the object.
+     * * <b>"behind"</b> - the text overlaps the object.
+     * * <b>"inFront"</b> - the object overlaps the text.
      * @param {"inline" | "square" | "tight" | "through" | "topAndBottom" | "behind" | "inFront"} sType
      */
     ApiDrawing.prototype.SetWrappingStyle = function(sType)
@@ -4014,9 +4028,9 @@
     };
 
     /**
-     * Specifies how a floating object shall be horizontally aligned.
-     * @param {RelFromH} [sRelativeFrom="page"]
-     * @param {("left" | "right" | "center")} [sAlign="left"]
+     * Specify how the floating object will be horizontally aligned.
+     * @param {RelFromH} [sRelativeFrom="page"] - The document element which will be taken as a countdown point for the object horizontal alignment.
+     * @param {("left" | "right" | "center")} [sAlign="left"] - The alingment type which will be used for the object horizontal alignment.
      */
     ApiDrawing.prototype.SetHorAlign = function(sRelativeFrom, sAlign)
     {
@@ -4024,10 +4038,11 @@
         var nRelativeFrom = private_GetRelativeFromH(sRelativeFrom);
         this.Drawing.Set_PositionH(nRelativeFrom, true, nAlign, false);
     };
+
     /**
-     * Specifies how a floating object shall be vertically aligned.
-     * @param {RelFromV} [sRelativeFrom="page"]
-     * @param {("top" | "bottom" | "center")} [sAlign="top"]
+     * Specify how the floating object will be vertically aligned.
+     * @param {RelFromV} [sRelativeFrom="page"] - The document element which will be taken as a countdown point for the object vertical alignment.
+     * @param {("top" | "bottom" | "center")} [sAlign="top"] - The alingment type which will be used for the object vertical alignment.
      */
     ApiDrawing.prototype.SetVerAlign = function(sRelativeFrom, sAlign)
     {
@@ -4035,10 +4050,11 @@
         var nRelativeFrom = private_GetRelativeFromV(sRelativeFrom);
         this.Drawing.Set_PositionV(nRelativeFrom, true, nAlign, false);
     };
+
     /**
-     * Set an absolute measurement for the horizontal positioning of a floating object.
-     * @param {RelFromH} sRelativeFrom
-     * @param {EMU} nDistance
+     * Set an absolute measurement for the horizontal positioning of the floating object.
+     * @param {RelFromH} sRelativeFrom - The document element which will be taken as a countdown point for the object horizontal alignment.
+     * @param {EMU} nDistance - The distance from the right side of the document element to the floating object measured in English measure units.
      */
     ApiDrawing.prototype.SetHorPosition = function(sRelativeFrom, nDistance)
     {
@@ -4046,10 +4062,11 @@
         var nRelativeFrom = private_GetRelativeFromH(sRelativeFrom);
         this.Drawing.Set_PositionH(nRelativeFrom, false, nValue, false);
     };
+
     /**
-     * Set an absolute measurement for the vertical positioning of a floating object.
-     * @param {RelFromH} sRelativeFrom
-     * @param {EMU} nDistance
+     * Set an absolute measurement for the vertical positioning of the floating object.
+     * @param {RelFromH} sRelativeFrom - The document element which will be taken as a countdown point for the object vertical alignment.
+     * @param {EMU} nDistance - The distance from the bottom part of the document element to the floating object measured in English measure units.
      */
     ApiDrawing.prototype.SetVerPosition = function(sRelativeFrom, nDistance)
     {
@@ -4057,13 +4074,14 @@
         var nRelativeFrom = private_GetRelativeFromV(sRelativeFrom);
         this.Drawing.Set_PositionV(nRelativeFrom, false, nValue, false);
     };
+
     /**
-     * Specifies the minimum distance which shall be maintained between the edges of this drawing object and any
+     * Specify the minimum distance which will be maintained between the edges of this drawing object and any
      * subsequent text.
-     * @param {EMU} nLeft
-     * @param {EMU} nTop
-     * @param {EMU} nRight
-     * @param {EMU} nBottom
+     * @param {EMU} nLeft - The distance from the left side of the current object and the subsequent text run measured in English measure units.
+     * @param {EMU} nTop - The distance from the top side of the current object and the preceding text run measured in English measure units.
+     * @param {EMU} nRight - The distance from the right side of the current object and the subsequent text run measured in English measure units.
+     * @param {EMU} nBottom - The distance from the bottom side of the current object and the subsequent text run measured in English measure units.
      */
     ApiDrawing.prototype.SetDistances = function(nLeft, nTop, nRight, nBottom)
     {
@@ -4487,6 +4505,7 @@
     {
         return "gradientStop"
     };
+
     //------------------------------------------------------------------------------------------------------------------
     //
     // ApiUniColor
