@@ -279,7 +279,6 @@
     /**
      * Class representing a Chart.
      * @constructor
-     *
      */
     function ApiChart(Chart)
     {
@@ -1116,6 +1115,7 @@
 	{
 		return new ApiBlockLvlSdt(new CBlockLvlSdt());
 	};
+
     //------------------------------------------------------------------------------------------------------------------
     //
     // ApiUnsupported
@@ -1145,16 +1145,18 @@
     {
         return "documentContent";
     };
+
     /**
-     * Get the number of elements.
+     * Get the number of elements in the current document.
      * @returns {number}
      */
     ApiDocumentContent.prototype.GetElementsCount = function()
     {
         return this.Document.Content.length;
     };
+
     /**
-     * Get element by position
+     * Get the element by its position in the document.
      * @returns {?DocumentElement}
      */
     ApiDocumentContent.prototype.GetElement = function(nPos)
@@ -1172,10 +1174,11 @@
 
         return null;
     };
+
     /**
-     * Add paragraph or table by position
-     * @param {number} nPos
-     * @param {DocumentElement} oElement
+     * Add paragraph or table using its position in the document.
+     * @param {number} nPos - The position where the current element will be added.
+     * @param {DocumentElement} oElement - The document element which will be added at the current position.
      */
     ApiDocumentContent.prototype.AddElement = function(nPos, oElement)
     {
@@ -1184,9 +1187,10 @@
             this.Document.Internal_Content_Add(nPos, oElement.private_GetImpl());
         }
     };
+
     /**
-     * Push paragraph or table
-     * @param {DocumentElement} oElement
+     * Push a paragraph or a table to actually add it to the document.
+     * @param {DocumentElement} oElement - The type of the element which will be pushed to the document.
      */
     ApiDocumentContent.prototype.Push = function(oElement)
     {
@@ -1198,16 +1202,18 @@
 
         return false;
     };
+
     /**
-     * Remove all elements from the current document.
+     * Remove all elements from the current document or from the current document element.
      */
     ApiDocumentContent.prototype.RemoveAllElements = function()
     {
         this.Document.Internal_Content_Remove(0, this.Document.Content.length);
     };
+
     /**
-     * Remove element by specified position.
-     * @param {number} nPos
+     * Remove element using the position specified.
+     * @param {number} nPos - The element number (position) in the document or inside other element.
      */
     ApiDocumentContent.prototype.RemoveElement = function(nPos)
     {
@@ -1231,6 +1237,7 @@
     {
         return "document";
     };
+
     /**
      * Create new history point.
      */
@@ -1238,9 +1245,10 @@
     {
         this.Document.Create_NewHistoryPoint(AscDFH.historydescription_Document_ApiBuilder);
     };
+
     /**
-     * Get style by style name
-     * @param {string} sStyleName
+     * Get a style by the style name.
+     * @param {string} sStyleName - The name using which it is possible to address the style.
      * @returns {?ApiStyle}
      */
     ApiDocument.prototype.GetStyle = function(sStyleName)
@@ -1249,11 +1257,12 @@
         var oStyleId = oStyles.GetStyleIdByName(sStyleName, true);
         return new ApiStyle(oStyles.Get(oStyleId));
     };
+
     /**
-     * Create a new style with the specified type and name. If there is a style with the same name it will be replaced
+     * Create a new style with the specified type and name. If there is a style with the same name it will be replaced with a new one.
      * with a new one.
-     * @param {string} sStyleName
-     * @param {StyleType} [sType="paragraph"]
+     * @param {string} sStyleName - The name of the style which will be created.
+     * @param {StyleType} [sType="paragraph"] - The document element which the style will be applied to.
      * @returns {ApiStyle}
      */
     ApiDocument.prototype.CreateStyle = function(sStyleName, sType)
@@ -1286,9 +1295,10 @@
         oStyles.Add(oStyle);
         return new ApiStyle(oStyle);
     };
+
     /**
-     * Get the default style for the specified style type.
-     * @param {StyleType} sStyleType
+     * Get the default style parameters for the specified document element.
+     * @param {StyleType} sStyleType - The document element which we want to get the style for.
      * @returns {?ApiStyle}
      */
     ApiDocument.prototype.GetDefaultStyle = function(sStyleType)
@@ -1306,8 +1316,9 @@
 
         return null;
     };
+
     /**
-     * A set of default run properties for the current document.
+     * Get a set of default properties for the text run in the current document.
      * @returns {ApiTextPr}
      */
     ApiDocument.prototype.GetDefaultTextPr = function()
@@ -1315,8 +1326,9 @@
         var oStyles = this.Document.Get_Styles();
         return new ApiTextPr(this, oStyles.Get_DefaultTextPr().Copy());
     };
+
     /**
-     * A set of default paragraph properties for the current document.
+     * Get a set of default paragraph properties in the current document.
      * @returns {ApiParaPr}
      */
     ApiDocument.prototype.GetDefaultParaPr = function()
@@ -1324,6 +1336,7 @@
         var oStyles = this.Document.Get_Styles();
         return new ApiParaPr(this, oStyles.Get_DefaultParaPr().Copy());
     };
+
     /**
      * Get document final section
      * @return {ApiSection}
@@ -1333,8 +1346,8 @@
         return new ApiSection(this.Document.SectPr);
     };
     /**
-     * Create a new section of the document, which ends at the specified paragraph.
-     * @param {ApiParagraph} oParagraph
+     * Create a new document section which ends at the specified paragraph. Allows to set local parameters for the current section - page size, footer, header, columns, etc.
+     * @param {ApiParagraph} oParagraph - The paragraph after which the new document section will be inserted.
      * @returns {ApiSection}
      */
     ApiDocument.prototype.CreateSection = function(oParagraph)
@@ -1346,18 +1359,20 @@
         oParagraph.private_GetImpl().Set_SectionPr(oSectPr);
         return new ApiSection(oSectPr);
     };
+
     /**
-     * Specifies whether sections in this document shall have different headers and footers for even and odd pages
-     * (an odd page header/footer and an even page header/footer).
-     * @param {boolean} isEvenAndOdd
+     * Specify whether sections in this document will have different headers and footers for even and
+     * odd pages (one header/footer for odd pages and another header/footer for even pages).
+     * @param {boolean} isEvenAndOdd - If true the header/footer will be different for odd and even pages, if false they will be the same.
      */
     ApiDocument.prototype.SetEvenAndOddHdrFtr = function(isEvenAndOdd)
     {
         this.Document.Set_DocumentEvenAndOddHeaders(isEvenAndOdd);
     };
+
     /**
-     * Creating an abstract multilevel numbering with specified type.
-     * @param {("bullet" | "numbered")} [sType="bullet"]
+     * Create an abstract multilevel numbering with a specified type.
+     * @param {("bullet" | "numbered")} [sType="bullet"] - 	The type of the numbering which will be created.
      * @returns {ApiNumbering}
      */
     ApiDocument.prototype.CreateNumbering = function(sType)
@@ -1424,7 +1439,7 @@
     };
 
     /**
-     * Receive a report about all comments collected in the document.
+     * Get a report about all the comments added to the document.
 	 * @returns {object}
      */
     ApiDocument.prototype.GetCommentsReport = function()
@@ -1467,7 +1482,7 @@
     };
 
 	/**
-	 * Receive a report about every change which was made in review mode in the document.
+	 * Get a report about every change which was made to the document in the review mode.
 	 * @returns {object}
 	 */
 	ApiDocument.prototype.GetReviewReport = function()
@@ -1536,6 +1551,7 @@
 		}
 		return oResult;
 	};
+
 	/**
 	 * Find and replace text.
 	 * @param {Object} oProperties The properties for find and replace.
@@ -1556,6 +1572,7 @@
 
 		this.Document.Search_Replace(sReplace, true, null, false);
 	};
+
 	/**
 	 * Get the list of all content controls in the document
 	 * @returns {ApiBlockLvlSdt[] | ApiInlineLvlSdt[]}
@@ -1576,6 +1593,7 @@
 
 		return arrResult;
 	};
+
     //------------------------------------------------------------------------------------------------------------------
     //
     // ApiParagraph
@@ -4182,8 +4200,8 @@
 
     /**
      *  Specifies a chart title
-     *  @param {string} sTitle
-     *  @param {hps} nFontSize
+     *  @param {string} sTitle - The title which will be displayed for the current chart.
+     *  @param {hps} nFontSize - The text size value measured in points.
      *  @param {?bool} bIsBold
      */
     ApiChart.prototype.SetTitle = function (sTitle, nFontSize, bIsBold)
@@ -4193,8 +4211,8 @@
 
     /**
      *  Specifies a horizontal axis title
-     *  @param {string} sTitle
-     *  @param {hps} nFontSize
+     *  @param {string} sTitle - The title which will be displayed for the horizontal axis of the current chart.
+     *  @param {hps} nFontSize - The text size value measured in points.
      *  @param {?bool} bIsBold
      * */
     ApiChart.prototype.SetHorAxisTitle = function (sTitle, nFontSize, bIsBold)
@@ -4204,8 +4222,8 @@
 
     /**
      *  Specifies a vertical axis title
-     *  @param {string} sTitle
-     *  @param {hps} nFontSize
+     *  @param {string} sTitle - The title which will be displayed for the vertical axis of the current chart.
+     *  @param {hps} nFontSize - The text size value measured in points.
      *  @param {?bool} bIsBold
      * */
     ApiChart.prototype.SetVerAxisTitle = function (sTitle, nFontSize, bIsBold)
@@ -4231,7 +4249,7 @@
 
     /**
      * Specifies a legend position
-     * @param {"left" | "top" | "right" | "bottom" | "none"} sLegendPos
+     * @param {"left" | "top" | "right" | "bottom" | "none"} sLegendPos - The position of the chart legend inside the chart window.
      * */
     ApiChart.prototype.SetLegendPos = function(sLegendPos)
     {
@@ -4297,11 +4315,11 @@
     };
 
     /**
-     * Spicifies a show options for data labels
-     * @param {boolean} bShowSerName
-     * @param {boolean} bShowCatName
-     * @param {boolean} bShowVal
-     * @param {boolean} bShowPercent
+     * Specifies which chart data labels are shown for the chart.
+     * @param {boolean} bShowSerName - Whether to show or hide the source table column names used for the data which the chart will be build from.
+     * @param {boolean} bShowCatName - Whether to show or hide the source table row names used for the data which the chart will be build from.
+     * @param {boolean} bShowVal - Whether to show or hide the chart data values.
+     * @param {boolean} bShowPercent - Whether to show or hide the percent for the data values (works with stacked chart types).
      * */
     ApiChart.prototype.SetShowDataLabels = function(bShowSerName, bShowCatName, bShowVal, bShowPercent)
     {
