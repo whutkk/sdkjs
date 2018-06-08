@@ -34,6 +34,7 @@
 (function(window, builder)
 {
     /**
+     * Base class
      * @global
      * @class
      * @name Api
@@ -71,7 +72,6 @@
         this.Parent = Parent;
         this.ParaPr = ParaPr;
     }
-
 
     /*
      * Class representing paragraph bullet
@@ -362,7 +362,6 @@
         this.UniFill = UniFill;
     }
 
-
     /**
      * Class represent a stroke class
      * @constructor
@@ -371,7 +370,6 @@
     {
         this.Ln = oLn;
     }
-
 
     /**
      * Class represent gradient stop
@@ -559,7 +557,6 @@
      *     "greenYellow" | "grey" | "honeydew" | "hotPink" | "indianRed" | "indigo" | "ivory" | "khaki" | "lavender" | "lavenderBlush" | "lawnGreen" | "lemonChiffon" | "lightBlue" | "lightCoral" | "lightCyan" | "lightGoldenrodYellow" | "lightGray" | "lightGreen" | "lightGrey" | "lightPink" | "lightSalmon" | "lightSeaGreen" | "lightSkyBlue" | "lightSlateGray" | "lightSlateGrey" | "lightSteelBlue" | "lightYellow" | "lime" | "limeGreen" | "linen" | "ltBlue" | "ltCoral" | "ltCyan" | "ltGoldenrodYellow" | "ltGray" | "ltGreen" | "ltGrey" | "ltPink" | "ltSalmon" | "ltSeaGreen" | "ltSkyBlue" | "ltSlateGray" | "ltSlateGrey" | "ltSteelBlue" | "ltYellow" | "magenta" | "maroon" | "medAquamarine" | "medBlue" | "mediumAquamarine" | "mediumBlue" | "mediumOrchid" | "mediumPurple" | "mediumSeaGreen" | "mediumSlateBlue" | "mediumSpringGreen" | "mediumTurquoise" | "mediumVioletRed" | "medOrchid" | "medPurple" | "medSeaGreen" | "medSlateBlue" | "medSpringGreen" | "medTurquoise" | "medVioletRed" | "midnightBlue" | "mintCream" | "mistyRose" | "moccasin" | "navajoWhite" | "navy" | "oldLace" | "olive" | "oliveDrab" | "orange" | "orangeRed" | "orchid" | "paleGoldenrod" | "paleGreen" | "paleTurquoise" | "paleVioletRed" | "papayaWhip" | "peachPuff" | "peru" | "pink" | "plum" | "powderBlue" | "purple" | "red" | "rosyBrown" | "royalBlue" | "saddleBrown" | "salmon" | "sandyBrown" | "seaGreen" | "seaShell" | "sienna" | "silver" | "skyBlue" | "slateBlue" | "slateGray" | "slateGrey" | "snow" | "springGreen" | "steelBlue" | "tan" | "teal" | "thistle" | "tomato" | "turquoise" | "violet" | "wheat" | "white" | "whiteSmoke" | "yellow" | "yellowGreen")} PresetColor
      * */
 
-
     /**
      *
      * @typedef {("none" | "nextTo" | "low" | "high")} TickLabelPosition
@@ -599,7 +596,6 @@
      * @returns {ApiDocument}
      */
 
-
     /**
      * @typedef {("cross" | "in" | "none" | "out")} TickMark
      * */
@@ -618,10 +614,10 @@
         return new ApiParagraph(new Paragraph(private_GetDrawingDocument(), private_GetLogicDocument()));
     };
     /**
-     * Create a new table.
+     * Create a new table with a specified number of rows and columns.
      * @memberof Api
-     * @param {number} nCols
-     * @param {number} nRows
+     * @param {number} nCols - Number of columns.
+     * @param {number} nRows - Number of rows.
      * @returns {ApiTable}
      */
     Api.prototype.CreateTable = function(nCols, nRows)
@@ -636,7 +632,7 @@
         return new ApiTable(oTable);
     };
     /**
-     * Create a new text block.
+     * Create a new smaller text block to be inserted to the current paragraph or table.
      * @memberof Api
      * @returns {ApiRun}
      */
@@ -646,11 +642,11 @@
     };
 
     /**
-     * Create a image.
+     * Create an image with the parameters specified.
      * @memberof Api
-     * @param {string} sImageSrc
-     * @param {EMU} nWidth
-     * @param {EMU} nHeight
+     * @param {string} sImageSrc - The image source where the image to be inserted should be taken from (currently only internet URL or Base64 encoded images are supported).
+     * @param {EMU} nWidth - The image width in English measure units.
+     * @param {EMU} nHeight - The image height in English measure units.
      * @returns {ApiImage}
      */
     Api.prototype.CreateImage = function(sImageSrc, nWidth, nHeight)
@@ -666,13 +662,13 @@
     };
 
     /**
-     * Create a shape.
+     * Create a shape with the parameters specified.
      * @memberof Api
-     * @param {ShapeType} [sType="rect"]
-     * @param {EMU} nWidth
-     * @param {EMU} nHeight
-     * @param {ApiFill} oFill
-     * @param {ApiStroke} oStroke
+     * @param {ShapeType} [sType="rect"] - The shape type which specifies the preset shape geometry.
+     * @param {EMU} nWidth - The shape width in English measure units.
+     * @param {EMU} nHeight - The shape height in English measure units.
+     * @param {ApiFill} oFill - The color or pattern used to fill the shape.
+     * @param {ApiStroke} oStroke - The stroke used to create the element shadow.
      * @returns {ApiShape}
      * */
     Api.prototype.CreateShape = function(sType, nWidth, nHeight, oFill, oStroke)
@@ -694,15 +690,15 @@
     };
 
     /**
-     * Create a chart.
+     * Create a chart with the parameters specified.
      * @memberof Api
-     * @param {ChartType} [sType="bar"]
-     * @param {Array} aSeries
-     * @param {Array} aSeriesNames
-     * @param {Array} aCatNames
-     * @param {EMU} nWidth
-     * @param {EMU} nHeight
-     * @param {number} nStyleIndex
+     * @param {ChartType} [sType="bar"] - The chart type used for the chart display.
+     * @param {Array} aSeries - The array of the data used to build the chart from.
+     * @param {Array} aSeriesNames - The array of the names (the source table column names) used for the data which the chart will be build from.
+     * @param {Array} aCatNames - The array of the names (the source table row names) used for the data which the chart will be build from.
+     * @param {EMU} nWidth - The chart width in English measure units.
+     * @param {EMU} nHeight - The chart height in English measure units.
+     * @param {number} nStyleIndex - The chart color style index (can be 1 - 48, as described in OOXML specification).
      * @returns {ApiChart}
      * */
     Api.prototype.CreateChart = function(sType, aSeries, aSeriesNames, aCatNames, nWidth, nHeight, nStyleIndex)
@@ -896,11 +892,11 @@
     };
 
     /**
-     * Create a RGB color
+     * Create an RGB color setting the appropriate values for the red, green and blue color components.
      * @memberof Api
-     * @param {byte} r
-     * @param {byte} g
-     * @param {byte} b
+     * @param {byte} r - Red color component value.
+     * @param {byte} g - Green color component value.
+     * @param {byte} b - Blue color component value.
      * @returns {ApiRGBColor}
      */
     Api.prototype.CreateRGBColor = function(r, g, b)
@@ -909,9 +905,9 @@
     };
 
     /**
-     * Create a scheme color
+     * Create a complex color scheme selecting from one of the available schemes.
      * @memberof Api
-     * @param {SchemeColorId} sSchemeColorId
+     * @param {SchemeColorId} sSchemeColorId - The color scheme identifier.
      * @returns {ApiSchemeColor}
      */
     Api.prototype.CreateSchemeColor = function(sSchemeColorId)
@@ -920,9 +916,9 @@
     };
 
     /**
-     * Create preset color
+     * Create a color selecting it from one of the available color presets.
      * @memberof Api
-     * @param {PresetColor} sPresetColor
+     * @param {PresetColor} sPresetColor - A preset selected from the list of the available color preset names.
      * @returns {ApiPresetColor};
      * */
     Api.prototype.CreatePresetColor = function(sPresetColor)
@@ -931,9 +927,9 @@
     };
 
     /**
-     * Create a solid fill
+     * Create a solid fill which allows to fill the object using a selected solid color as the object background.
      * @memberof Api
-     * @param {ApiUniColor} oUniColor
+     * @param {ApiUniColor} oUniColor - The color used for the element fill.
      * @returns {ApiFill}
      * */
     Api.prototype.CreateSolidFill = function(oUniColor)
@@ -942,10 +938,10 @@
     };
 
     /**
-     * Create a linear gradient fill
+     * Create a linear gradient fill which allows to fill the object using a selected linear gradient as the object background.
      * @memberof Api
-     * @param {Array} aGradientStop
-     * @param {PositiveFixedAngle} Angle
+     * @param {Array} aGradientStop - The angle measured in 60000th of a degree that will define the gradient direction.
+     * @param {PositiveFixedAngle} Angle - The angle measured in 60000th of a degree that will define the gradient direction.
      * @returns {ApiFill}
      */
     Api.prototype.CreateLinearGradientFill = function(aGradientStop, Angle)
@@ -955,9 +951,9 @@
 
 
     /**
-     * Create a radial gradient fill
+     * Create a radial gradient fill which allows to fill the object using a selected radial gradient as the object background.
      * @memberof Api
-     * @param {Array} aGradientStop
+     * @param {Array} aGradientStop - The array of gradient color stops measured in 1000th of percent.
      * @returns {ApiFill}
      */
     Api.prototype.CreateRadialGradientFill = function(aGradientStop)
@@ -966,11 +962,11 @@
     };
 
     /**
-     * Create a pattern fill
+     * Create a pattern fill which allows to fill the object using a selected pattern as the object background.
      * @memberof Api
-     * @param {PatternType} sPatternType
-     * @param {ApiUniColor} BgColor
-     * @param {ApiUniColor} FgColor
+     * @param {PatternType} sPatternType - The pattern type used for the fill selected from one of the available pattern types.
+     * @param {ApiUniColor} BgColor - The background color used for the pattern creation.
+     * @param {ApiUniColor} FgColor - The foreground color used for the pattern creation.
      * @returns {ApiFill}
      */
     Api.prototype.CreatePatternFill = function(sPatternType, BgColor, FgColor)
@@ -979,10 +975,10 @@
     };
 
     /**
-     * Create a blip fill
+     * Create a blip fill which allows to fill the object using a selected image as the object background.
      * @memberof Api
-     * @param {string} sImageUrl
-     * @param {BlipFillType} sBlipFillType
+     * @param {string} sImageUrl - The path to the image used for the blip fill (currently only internet URL or Base64 encoded images are supported).
+     * @param {BlipFillType} sBlipFillType - The type of the fill used for the blip fill (tile or stretch).
      * @returns {ApiFill}
      * */
     Api.prototype.CreateBlipFill = function(sImageUrl, sBlipFillType)
@@ -991,7 +987,7 @@
     };
 
     /**
-     * Create no fill
+     * Create no fill and remove the fill from the element.
      * @memberof Api
      * @returns {ApiFill}
      * */
@@ -1001,10 +997,10 @@
     };
 
     /**
-     * Create a stroke
+     * Create a stroke adding shadows to the element.
      * @memberof Api
-     * @param {EMU} nWidth
-     * @param {ApiFill} oFill
+     * @param {EMU} nWidth - The width of the shadow measured in English measure units.
+     * @param {ApiFill} oFill - The fill type used to create the shadow.
      * @returns {ApiStroke}
      * */
     Api.prototype.CreateStroke = function(nWidth, oFill)
@@ -1013,10 +1009,10 @@
     };
 
     /**
-     * Create a stroke
+     * Create a gradient stop used for different types of gradients.
      * @memberof Api
-     * @param {ApiUniColor} oUniColor
-     * @param {PositivePercentage} nPos
+     * @param {ApiUniColor} oUniColor - The color used for the gradient stop.
+     * @param {PositivePercentage} nPos - The position of the gradient stop measured in 1000th of percent.
      * @returns {ApiGradientStop}
      * */
     Api.prototype.CreateGradientStop = function(oUniColor, nPos)
@@ -1025,8 +1021,9 @@
     };
 
     /**
-     * Create a new bullet
+     * Create a bullet for a paragraph with the character or symbol specified with the sBullet parameter.
      * @memberof Api
+     * @param {string} sSymbol - The type of the fill used for the blip fill (tile or stretch).
      * @returns {ApiBullet}
      * */
     Api.prototype.CreateBullet = function(sSymbol){
@@ -1866,6 +1863,7 @@
 		private_PushElementToParagraph(this.Paragraph, oSdt.Sdt);
 		return oSdt;
 	};
+
     //------------------------------------------------------------------------------------------------------------------
     //
     // ApiRun
@@ -1945,7 +1943,6 @@
 
         this.Run.Add_ToContent(this.Run.Content.length, oDrawing.Drawing);
     };
-
 
     //------------------------------------------------------------------------------------------------------------------
     //
@@ -2612,7 +2609,6 @@
         return new ApiTableStylePr(sType, this, this.Style.TableWholeTable.Copy());
     };
 
-
     //------------------------------------------------------------------------------------------------------------------
     //
     // ApiTextPr
@@ -2819,7 +2815,6 @@
         this.private_OnChange();
     };
 
-
     /**
      * Set fill of run
      * @param {ApiFill} oApiFill
@@ -2829,7 +2824,6 @@
         this.TextPr.Unifill = oApiFill.UniFill;
         this.private_OnChange();
     };
-
 
     //------------------------------------------------------------------------------------------------------------------
     //
@@ -3140,7 +3134,6 @@
         this.private_OnChange();
     };
 
-
     /**
     * Specifies paragraph bullet
     * @param {?ApiBullet} oBullet
@@ -3154,7 +3147,6 @@
         }
         this.private_OnChange();
     };
-
 
     //------------------------------------------------------------------------------------------------------------------
     //
@@ -4060,7 +4052,6 @@
         this.Drawing.Set_Distance(private_EMU2MM(nLeft), private_EMU2MM(nTop), private_EMU2MM(nRight), private_EMU2MM(nBottom));
     };
 
-
     //------------------------------------------------------------------------------------------------------------------
     //
     // ApiImage
@@ -4090,7 +4081,6 @@
     {
         return "shape";
     };
-
 
     /**
      * Get content of this shape.
@@ -4134,9 +4124,6 @@
         }
     };
 
-
-	
-	
     /**
      * Set text paddings
      * @param {?EMU} nLeft
@@ -4157,13 +4144,12 @@
         }
     };
 
-
-	
     //------------------------------------------------------------------------------------------------------------------
     //
     // ApiChart
     //
     //------------------------------------------------------------------------------------------------------------------
+
     /**
      * Get the type of this class.
      * @returns {"chart"}
@@ -4172,7 +4158,6 @@
     {
         return "chart";
     };
-
 
     ApiChart.prototype.CreateTitle = function(sTitle, nFontSize){
         if(!this.Chart)
@@ -4194,7 +4179,6 @@
         }
         return null;
     };
-
 
     /**
      *  Specifies a chart title
@@ -4324,7 +4308,6 @@
         AscFormat.builder_SetShowDataLabels(this.Chart, bShowSerName, bShowCatName, bShowVal, bShowPercent);
     };
 
-
     /**
      * Spicifies a show options for data labels
      * @param {number} nSeriesIndex
@@ -4355,7 +4338,6 @@
     {
         AscFormat.builder_SetChartHorAxisTickLablePosition(this.Chart, sTickLabelPosition);
     };
-
 
     /**
      * Specifies major tick mark for horizontal axis
@@ -4391,8 +4373,6 @@
         AscFormat.builder_SetChartVerAxisMinorTickMark(this.Chart, sTickMark);
     };
 
-
-
     /**
      * Specifies major vertical gridline's visual properties
      * @param {?ApiStroke} oStroke
@@ -4410,7 +4390,6 @@
     {
         AscFormat.builder_SetVerAxisMinorGridlines(this.Chart, oStroke ?  oStroke.Ln : null);
     };
-
 
     /**
      * Specifies major horizontal gridline's visual properties
@@ -4430,7 +4409,6 @@
         AscFormat.builder_SetHorAxisMinorGridlines(this.Chart, oStroke ?  oStroke.Ln : null);
     };
 
-
     /**
      * Specifies font size for labels of horizontal axis
      * @param {number} nFontSize
@@ -4447,12 +4425,12 @@
         AscFormat.builder_SetVerAxisFontSize(this.Chart, nFontSize);
     };
 
-
     //------------------------------------------------------------------------------------------------------------------
     //
     // ApiFill
     //
     //------------------------------------------------------------------------------------------------------------------
+
     /**
      * Get the type of this class.
      * @returns {"fill"}
@@ -4467,6 +4445,7 @@
     // ApiStroke
     //
     //------------------------------------------------------------------------------------------------------------------
+
     /**
      * Get the type of this class.
      * @returns {"stroke"}
@@ -4481,6 +4460,7 @@
     // ApiGradientStop
     //
     //------------------------------------------------------------------------------------------------------------------
+
     /**
      * Get the type of this class.
      * @returns {"gradientStop"}
@@ -4508,6 +4488,7 @@
     // ApiRGBColor
     //
     //------------------------------------------------------------------------------------------------------------------
+
     /**
      * Get the type of this class.
      * @returns {"rgbColor"}
@@ -4522,6 +4503,7 @@
     // ApiSchemeColor
     //
     //------------------------------------------------------------------------------------------------------------------
+
     /**
      * Get the type of this class.
      * @returns {"schemeColor"}
@@ -4536,6 +4518,7 @@
     // ApiPresetColor
     //
     //------------------------------------------------------------------------------------------------------------------
+
     /**
      * Get the type of this class.
      * @returns {"presetColor"}
@@ -4559,6 +4542,7 @@
 	// ApiInlineLvlSdt
 	//
 	//------------------------------------------------------------------------------------------------------------------
+
 	/**
 	 * Get the type of this class.
 	 * @returns {"inlineLvlSdt"}
@@ -4567,6 +4551,7 @@
 	{
 		return "inlineLvlSdt";
 	};
+
 	/**
 	 * Set the lock type of this container
 	 * @param {SdtLock} sLockType
@@ -4583,6 +4568,7 @@
 
 		this.Sdt.SetContentControlLock(nLock);
 	};
+
 	/**
 	 * Get the lock type of this container
 	 * @returns {SdtLock}
@@ -4602,6 +4588,7 @@
 
 		return sResult;
 	};
+
 	/**
 	 * Set the tag attribute for this container
 	 * @param {string} sTag
@@ -4610,6 +4597,7 @@
 	{
 		this.Sdt.SetTag(sTag);
 	};
+
 	/**
 	 * Get the tag attribute for this container
 	 * @returns {string}
@@ -4618,6 +4606,7 @@
 	{
 		return this.Sdt.GetTag();
 	};
+
 	/**
 	 * Set the label attribute for this container
 	 * @param {string} sLabel
@@ -4626,6 +4615,7 @@
 	{
 		this.Sdt.SetLabel(sLabel);
 	};
+
 	/**
 	 * Get the label attribute for this container
 	 * @returns {string}
@@ -4642,6 +4632,7 @@
 	{
 		this.Sdt.SetAlias(sAlias);
 	};
+
 	/**
 	 * Get the alias attribute for this container
 	 * @returns {string}
@@ -4650,6 +4641,7 @@
 	{
 		return this.Sdt.GetAlias();
 	};
+
 	/**
 	 * Get the number of elements in the current container.
 	 * @returns {number}
@@ -4658,6 +4650,7 @@
 	{
 		return this.Sdt.Content.length;
 	};
+
 	/**
 	 * Get the element of the container content by specified position.
 	 * @param {number} nPos
@@ -4670,6 +4663,7 @@
 
 		return private_GetSupportedParaElement(this.Sdt.Content[nPos]);
 	};
+
 	/**
 	 * Remove element by specified position.
 	 * @param {number} nPos
@@ -4681,6 +4675,7 @@
 
 		this.Sdt.Remove_FromContent(nPos, 1);
 	};
+
 	/**
 	 * Remove all elements.
 	 */
@@ -4689,6 +4684,7 @@
 		if (this.Sdt.Content.length > 0)
 			this.Sdt.Remove_FromContent(0, this.Sdt.Content.length);
 	};
+
 	/**
 	 * Add an element to inline container.
 	 * @param {ParagraphContent} oElement
@@ -4719,6 +4715,7 @@
 	// ApiBlockLvlSdt
 	//
 	//------------------------------------------------------------------------------------------------------------------
+
 	/**
 	 * Get the type of this class.
 	 * @returns {"blockLvlSdt"}
@@ -4727,6 +4724,7 @@
 	{
 		return "blockLvlSdt";
 	};
+
 	/**
 	 * Set the lock type of this container
 	 * @param {SdtLock} sLockType
@@ -4762,6 +4760,7 @@
 
 		return sResult;
 	};
+
 	/**
 	 * Set the tag attribute for this container
 	 * @param {string} sTag
@@ -4770,6 +4769,7 @@
 	{
 		this.Sdt.SetTag(sTag);
 	};
+
 	/**
 	 * Get the tag attribute for this container
 	 * @returns {string}
@@ -4778,6 +4778,7 @@
 	{
 		return this.Sdt.GetTag();
 	};
+
 	/**
 	 * Set the label attribute for this container
 	 * @param {string} sLabel
@@ -4786,6 +4787,7 @@
 	{
 		this.Sdt.SetLabel(sLabel);
 	};
+
 	/**
 	 * Get the label attribute for this container
 	 * @returns {string}
@@ -4794,6 +4796,7 @@
 	{
 		return this.Sdt.GetLabel();
 	};
+
 	/**
 	 * Set the alias attribute for this container
 	 * @param {string} sAlias
@@ -4802,6 +4805,7 @@
 	{
 		this.Sdt.SetAlias(sAlias);
 	};
+
 	/**
 	 * Get the alias attribute for this container
 	 * @returns {string}
@@ -4810,6 +4814,7 @@
 	{
 		return this.Sdt.GetAlias();
 	};
+
 	/**
 	 * Get the content of this container
 	 * @returns {ApiDocumentContent}
@@ -4818,9 +4823,11 @@
 	{
 		return new ApiDocumentContent(this.Sdt.GetContent());
 	};
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Export
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     Api.prototype["GetDocument"]                     = Api.prototype.GetDocument;
     Api.prototype["CreateParagraph"]                 = Api.prototype.CreateParagraph;
     Api.prototype["CreateTable"]                     = Api.prototype.CreateTable;
@@ -5138,6 +5145,7 @@
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Private area
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     function private_GetDrawingDocument()
     {
         return editor.WordControl.m_oLogicDocument.DrawingDocument;
@@ -5324,10 +5332,12 @@
     {
         private_GetLogicDocument().Start_SilentMode();
     }
+
     function private_EndSilentMode()
     {
         private_GetLogicDocument().End_SilentMode(false);
     }
+
     function private_GetAlignH(sAlign)
     {
         if ("left" === sAlign)
@@ -5351,6 +5361,7 @@
 
         return c_oAscAlignV.Center;
     }
+
     function private_GetRelativeFromH(sRel)
     {
         if ("character" === sRel)
@@ -5472,7 +5483,6 @@
         return oApiShape;
     }
 
-
     function privateInsertWatermarkToContent(oApi, oContent, sText, bIsDiagonal){
         if(oContent){
             var nElementsCount = oContent.GetElementsCount();
@@ -5497,39 +5507,47 @@
         oStyles.Set_DefaultParaPr(oApiParaPr.ParaPr);
         oApiParaPr.ParaPr = oStyles.Get_DefaultParaPr().Copy();
     };
+
     ApiDocument.prototype.OnChangeTextPr = function(oApiTextPr)
     {
         var oStyles = this.Document.Get_Styles();
         oStyles.Set_DefaultTextPr(oApiTextPr.TextPr);
         oApiTextPr.TextPr = oStyles.Get_DefaultTextPr().Copy();
     };
+
     ApiParagraph.prototype.private_GetImpl = function()
     {
         return this.Paragraph;
     };
+
     ApiParagraph.prototype.OnChangeParaPr = function(oApiParaPr)
     {
         this.Paragraph.Set_Pr(oApiParaPr.ParaPr);
         oApiParaPr.ParaPr = this.Paragraph.Pr.Copy();
     };
+
     ApiParagraph.prototype.OnChangeTextPr = function(oApiTextPr)
     {
         this.Paragraph.TextPr.Set_Value(oApiTextPr.TextPr);
         oApiTextPr.TextPr = this.Paragraph.TextPr.Value.Copy();
     };
+
     ApiRun.prototype.private_GetImpl = function()
     {
         return this.Run;
     };
+
     ApiRun.prototype.OnChangeTextPr = function(oApiTextPr)
     {
         this.Run.Set_Pr(oApiTextPr.TextPr);
         oApiTextPr.TextPr = this.Run.Pr.Copy();
     };
+
     ApiTable.prototype.private_GetImpl = function()
     {
         return this.Table;
     };
+
     ApiTable.prototype.OnChangeTablePr = function(oApiTablePr)
     {
         this.Table.Set_Pr(oApiTablePr.TablePr);
@@ -5540,16 +5558,19 @@
         this.Table.private_RecalculateGrid();
         this.Table.private_UpdateCellsGrid();
     };
+
     ApiStyle.prototype.OnChangeTextPr = function(oApiTextPr)
     {
         this.Style.Set_TextPr(oApiTextPr.TextPr);
         oApiTextPr.TextPr = this.Style.TextPr.Copy();
     };
+
     ApiStyle.prototype.OnChangeParaPr = function(oApiParaPr)
     {
         this.Style.Set_ParaPr(oApiParaPr.ParaPr);
         oApiParaPr.ParaPr = this.Style.ParaPr.Copy();
     };
+
     ApiStyle.prototype.OnChangeTablePr = function(oApiTablePr)
     {
         this.Style.Set_TablePr(oApiTablePr.TablePr);
@@ -5560,11 +5581,13 @@
         this.Style.Set_TableRowPr(oApiTableRowPr.RowPr);
         oApiTableRowPr.RowPr = this.Style.TableRowPr.Copy();
     };
+
     ApiStyle.prototype.OnChangeTableCellPr = function(oApiTableCellPr)
     {
         this.Style.Set_TableCellPr(oApiTableCellPr.CellPr);
         oApiTableCellPr.CellPr = this.Style.TableCellPr.Copy();
     };
+
     ApiStyle.prototype.OnChangeTableStylePr = function(oApiTableStylePr)
     {
         var sType = oApiTableStylePr.GetType();
@@ -5650,74 +5673,91 @@
             }
         }
     };
+
     ApiNumberingLevel.prototype.OnChangeTextPr = function(oApiTextPr)
     {
         this.Num.SetTextPr(this.Lvl, oApiTextPr.TextPr);
         oApiTextPr.TextPr = this.Num.GetLvl(this.Lvl).GetTextPr().Copy();
     };
+
     ApiNumberingLevel.prototype.OnChangeParaPr = function(oApiParaPr)
     {
         this.Num.SetParaPr(this.Lvl, oApiParaPr.ParaPr);
         oApiParaPr.ParaPr = this.Num.GetLvl(this.Lvl).GetParaPr().Copy();
     };
+
     ApiTableRow.prototype.OnChangeTableRowPr = function(oApiTableRowPr)
     {
         this.Row.Set_Pr(oApiTableRowPr.RowPr);
         oApiTableRowPr.RowPr = this.Row.Pr.Copy();
     };
+
     ApiTableCell.prototype.OnChangeTableCellPr = function(oApiTableCellPr)
     {
         this.Cell.Set_Pr(oApiTableCellPr.CellPr);
         oApiTableCellPr.CellPr = this.Cell.Pr.Copy();
     };
+
     ApiTextPr.prototype.private_OnChange = function()
     {
         this.Parent.OnChangeTextPr(this);
     };
+
     ApiParaPr.prototype.private_OnChange = function()
     {
         this.Parent.OnChangeParaPr(this);
     };
+
     ApiTablePr.prototype.private_OnChange = function()
     {
         this.Parent.OnChangeTablePr(this);
     };
+
     ApiTableRowPr.prototype.private_OnChange = function()
     {
         this.Parent.OnChangeTableRowPr(this);
     };
+
     ApiTableCellPr.prototype.private_OnChange = function()
     {
         this.Parent.OnChangeTableCellPr(this);
     };
+
     ApiTableStylePr.prototype.private_OnChange = function()
     {
         this.Parent.OnChangeTableStylePr(this);
     };
+
     ApiTableStylePr.prototype.OnChangeTextPr = function()
     {
         this.private_OnChange();
     };
+
     ApiTableStylePr.prototype.OnChangeParaPr = function()
     {
         this.private_OnChange();
     };
+
     ApiTableStylePr.prototype.OnChangeTablePr = function()
     {
         this.private_OnChange();
     };
+
     ApiTableStylePr.prototype.OnChangeTableRowPr = function()
     {
         this.private_OnChange();
     };
+
     ApiTableStylePr.prototype.OnChangeTableCellPr = function()
     {
         this.private_OnChange();
     };
+
     ApiInlineLvlSdt.prototype.private_GetImpl = function()
 	{
 		return this.Sdt;
 	};
+
     ApiBlockLvlSdt.prototype.private_GetImpl = function()
 	{
 		return this.Sdt;
