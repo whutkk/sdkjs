@@ -3662,12 +3662,12 @@
         return "tableCellPr";
     };
     /**
-     * Specify the shading which shall be applied to the extents of the current table cell.
-     * @param {ShdType} sType
-     * @param {byte} r
-     * @param {byte} g
-     * @param {byte} b
-     * @param {boolean} [isAuto=false]
+     * Specify the shading applied to the contents of the table cell.
+     * @param {ShdType} sType - The shading type which will be applied to the contents of the current table cell.
+     * @param {byte} r - Red color component value.
+     * @param {byte} g - Green color component value.
+     * @param {byte} b - Blue color component value.
+     * @param {boolean} [isAuto=false] - The true value will disable table cell contents shading.
      */
     ApiTableCellPr.prototype.SetShd = function(sType, r, g, b, isAuto)
     {
@@ -3675,10 +3675,11 @@
         this.private_OnChange();
     };
     /**
-     * Specifies the amount of space which shall be left between the bottom extent of the cell contents and the border
+     * Specify the amount of space which will be left between the bottom extent of the cell contents and the border
      * of a specific table cell within a table.
-     * @param {?twips} nValue - If this value is <code>null</code>, then default table cell bottom margin shall be used,
-     * otherwise override the table cell bottom margin with specified value for the current cell.
+     * @param {?twips} nValue - The value for the amount of space below the bottom extent of the cell measured in twentieths
+     * of a point (1/1440 of an inch). If this value is <code>null</code>, then default table cell bottom margin will be used, otherwise
+     * the table cell bottom margin will be overridden with the specified value for the current cell.
      */
     ApiTableCellPr.prototype.SetCellMarginBottom = function(nValue)
     {
@@ -3700,10 +3701,11 @@
         this.private_OnChange();
     };
     /**
-     * Specifies the amount of space which shall be left between the left extent of the current cell contents and the
-     * left edge border of a specific individual table cell within a table.
-     * @param {?twips} nValue - If this value is <code>null</code>, then default table cell bottom margin shall be used,
-     * otherwise override the table cell bottom margin with specified value for the current cell.
+     * Specify the amount of space which will be left between the right extent of the cell contents and the border of
+     * a specific table cell within a table.
+     * @param {?twips} nValue - The value for the amount of space to the right extent of the cell measured in twentieths
+     * of a point (1/1440 of an inch). If this value is <code>null</code>, then default table cell right margin will be used, otherwise
+     * the table cell right margin will be overridden with the specified value for the current cell.
      */
     ApiTableCellPr.prototype.SetCellMarginLeft = function(nValue)
     {
@@ -3750,10 +3752,11 @@
         this.private_OnChange();
     };
     /**
-     * Specifies the amount of space which shall be left between the top extent of the current cell contents and the
-     * top edge border of a specific individual table cell within a table.
-     * @param {?twips} nValue - If this value is <code>null</code>, then default table cell bottom margin shall be used,
-     * otherwise override the table cell bottom margin with specified value for the current cell.
+     * Specify the amount of space which will be left between the upper extent of the cell contents and the border
+     * of a specific table cell within a table.
+     * @param {?twips} nValue - The value for the amount of space above the upper extent of the cell measured in twentieths
+     * of a point (1/1440 of an inch). If this value is <code>null</code>, then default table cell top margin will be used, otherwise
+     * the table cell top margin will be overridden with the specified value for the current cell.
      */
     ApiTableCellPr.prototype.SetCellMarginTop = function(nValue)
     {
@@ -3775,13 +3778,13 @@
         this.private_OnChange();
     };
     /**
-     * Set the border which shall be displayed at the bottom of the current table cell.
-     * @param {BorderType} sType - The style of border.
-     * @param {pt_8} nSize - The width of the current border.
-     * @param {pt} nSpace - The spacing offset that shall be used to place this border.
-     * @param {byte} r
-     * @param {byte} g
-     * @param {byte} b
+     * Set the border which will be displayed at the bottom of the current table cell.
+     * @param {BorderType} sType - The cell bottom border style.
+     * @param {pt_8} nSize - The width of the current cell bottom border measured in eighths of a point.
+     * @param {pt} nSpace - The spacing offset in the bottom part of the table cell measured in points used to place this border.
+     * @param {byte} r - Red color component value.
+     * @param {byte} g - Green color component value.
+     * @param {byte} b - Blue color component value.
      */
     ApiTableCellPr.prototype.SetCellBorderBottom = function(sType, nSize, nSpace, r, g, b)
     {
@@ -3789,13 +3792,13 @@
         this.private_OnChange();
     };
     /**
-     * Set the border which shall be displayed on the left edge of the current table cell.
-     * @param {BorderType} sType - The style of border.
-     * @param {pt_8} nSize - The width of the current border.
-     * @param {pt} nSpace - The spacing offset that shall be used to place this border.
-     * @param {byte} r
-     * @param {byte} g
-     * @param {byte} b
+     * Set the border which will be displayed to the left of the current table cell.
+     * @param {BorderType} sType - The cell left border style.
+     * @param {pt_8} nSize - The width of the current cell left border measured in eighths of a point.
+     * @param {pt} nSpace - The spacing offset in the left part of the table cell measured in points used to place this border.
+     * @param {byte} r - Red color component value.
+     * @param {byte} g - Green color component value.
+     * @param {byte} b - Blue color component value.
      */
     ApiTableCellPr.prototype.SetCellBorderLeft = function(sType, nSize, nSpace, r, g, b)
     {
@@ -3803,13 +3806,13 @@
         this.private_OnChange();
     };
     /**
-     * Set the border which shall be displayed on the right edge of the current table cell.
-     * @param {BorderType} sType - The style of border.
-     * @param {pt_8} nSize - The width of the current border.
-     * @param {pt} nSpace - The spacing offset that shall be used to place this border.
-     * @param {byte} r
-     * @param {byte} g
-     * @param {byte} b
+     * Set the border which will be displayed to the right of the current table cell.
+     * @param {BorderType} sType - The cell right border style.
+     * @param {pt_8} nSize - The width of the current cell right border measured in eighths of a point.
+     * @param {pt} nSpace - The spacing offset in the right part of the table cell measured in points used to place this border.
+     * @param {byte} r - Red color component value.
+     * @param {byte} g - Green color component value.
+     * @param {byte} b - Blue color component value.
      */
     ApiTableCellPr.prototype.SetCellBorderRight = function(sType, nSize, nSpace, r, g, b)
     {
@@ -3817,13 +3820,13 @@
         this.private_OnChange();
     };
     /**
-     * Set the border which shall be displayed at the top of the current table cell.
-     * @param {BorderType} sType - The style of border.
-     * @param {pt_8} nSize - The width of the current border.
-     * @param {pt} nSpace - The spacing offset that shall be used to place this border.
-     * @param {byte} r
-     * @param {byte} g
-     * @param {byte} b
+     * Set the border which will be displayed at the top of the current table cell.
+     * @param {BorderType} sType - The cell top border style.
+     * @param {pt_8} nSize - The width of the current cell top border measured in eighths of a point.
+     * @param {pt} nSpace - The spacing offset in the top part of the table cell measured in points used to place this border.
+     * @param {byte} r - Red color component value.
+     * @param {byte} g - Green color component value.
+     * @param {byte} b - Blue color component value.
      */
     ApiTableCellPr.prototype.SetCellBorderTop = function(sType, nSize, nSpace, r, g, b)
     {
@@ -3831,9 +3834,9 @@
         this.private_OnChange();
     };
     /**
-     * Set the preferred width for this cell.
-     * @param {TableWidth} sType - Specifies the meaning of the width value.
-     * @param {number} [nValue]
+     * Set the preferred width for the current table cell.
+     * @param {TableWidth} sType - Type of the width value from one of the available width values types.
+     * @param {number} [nValue] - The table cell width value measured in positive integers.
      */
     ApiTableCellPr.prototype.SetWidth = function(sType, nValue)
     {
@@ -3841,8 +3844,8 @@
         this.private_OnChange();
     };
     /**
-     * Specify the vertical alignment for text within the current table cell.
-     * @param {("top" | "center" | "bottom")} sType
+     * Specify the vertical alignment for text contents within the current table cell.
+     * @param {("top" | "center" | "bottom")} sType - The available types of the vertical alignment for the text contents of the current table cell.
      */
     ApiTableCellPr.prototype.SetVerticalAlign = function(sType)
     {
@@ -3857,7 +3860,9 @@
     };
     /**
      * Specify the direction of the text flow for this table cell.
-     * @param {("lrtb" | "tbrl" | "btlr")} sType
+     * @param {("lrtb" | "tbrl" | "btlr")} sType - The available types of the text direction in the table cell: <code>"lrtb"</code>
+     * - text direction left-to-right moving from top to bottom, <code>"tbrl"</code> - text direction top-to-bottom moving from right
+     * to left, "btlr" - text direction bottom-to-top moving from left to right.
      */
     ApiTableCellPr.prototype.SetTextDirection = function(sType)
     {
@@ -3871,10 +3876,10 @@
         this.private_OnChange();
     };
     /**
-     * Specifies how this table cell shall be laid out when the parent table is displayed in a document. This setting
-     * only affects the behavior of the cell when the table layout for this table {@link ApiTablePr#SetTableLayout} is
+     * Specify how this table cell is laid out when the parent table is displayed in a document. This setting
+     * only affects the behavior of the cell when the {@link ApiTablePr#SetTableLayout} table layout for this table is
      * set to use the <code>"autofit"</code> algorithm.
-     * @param {boolean} isNoWrap
+     * @param {boolean} isNoWrap - The true value will enable the SetNoWrap method use.
      */
     ApiTableCellPr.prototype.SetNoWrap = function(isNoWrap)
     {
