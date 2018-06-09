@@ -1347,7 +1347,8 @@
         return new ApiSection(this.Document.SectPr);
     };
     /**
-     * Create a new document section which ends at the specified paragraph. Allows to set local parameters for the current section - page size, footer, header, columns, etc.
+     * Create a new document section which ends at the specified paragraph. Allows to set local parameters for the current
+     * section - page size, footer, header, columns, etc.
      * @param {ApiParagraph} oParagraph - The paragraph after which the new document section will be inserted.
      * @returns {ApiSection}
      */
@@ -1736,7 +1737,8 @@
 	};
 
     /**
-     * Get the text properties of the paragraph mark which is used to mark the paragraph end. The mark can also acquire common text properties like bold, italic, underline, etc.
+     * Get the text properties of the paragraph mark which is used to mark the paragraph end. The mark can also acquire
+     * common text properties like bold, italic, underline, etc.
      * @returns {ApiTextPr}
      */
     ApiParagraph.prototype.GetParagraphMarkTextPr = function()
@@ -1832,8 +1834,10 @@
 
     /**
      * Add an element to the current paragraph.
-     * @param {ParagraphContent} The document element which will be added at the current position. Returns false if the type of oElement is not supported by a paragraph.
-     * @param {number} [nPos] The number of the paragraph where the current element will be added. If this value is not specified then the element will be added at the end of the current paragraph.
+     * @param {ParagraphContent} The document element which will be added at the current position. Returns false if the
+     * type of oElement is not supported by a paragraph.
+     * @param {number} [nPos] The number of the paragraph where the current element will be added. If this value is not
+     * specified then the element will be added at the end of the current paragraph.
      * @returns {boolean} Returns <code>false</code> if the type of <code>oElement</code> is not supported by paragraph
      * content.
      */
@@ -1933,8 +1937,8 @@
         this.Run.Remove_FromContent(0, this.Run.Content.length);
     };
     /**
-     * Add text to this run.
-     * @param {string} sText
+     * Add some text to this run.
+     * @param {string} sText - The text which will be added to the current run.
      */
     ApiRun.prototype.AddText = function(sText)
     {
@@ -1944,36 +1948,36 @@
         this.Run.AddText(sText);
     };
     /**
-     * Add a page break.
+     * Add a page break and start the next element from a new page.
      */
     ApiRun.prototype.AddPageBreak = function()
     {
         this.Run.Add_ToContent(this.Run.Content.length, new ParaNewLine(break_Page));
     };
     /**
-     * Add a line break.
+     * Add a line break to the current run position and start the next element from a new line.
      */
     ApiRun.prototype.AddLineBreak = function()
     {
         this.Run.Add_ToContent(this.Run.Content.length, new ParaNewLine(break_Line));
     };
     /**
-     * Add a column break.
+     * Add a column break to the current run position and start the next element from a new column.
      */
     ApiRun.prototype.AddColumnBreak = function()
     {
         this.Run.Add_ToContent(this.Run.Content.length, new ParaNewLine(break_Column));
     };
     /**
-     * Add a tab stop.
+     * Add a tab stop to the current run.
      */
     ApiRun.prototype.AddTabStop = function()
     {
         this.Run.Add_ToContent(this.Run.Content.length, new ParaTab());
     };
     /**
-     * Add a drawing.
-     * @param {ApiDrawing} oDrawing
+     * Add an object (image, shape or chart) to the current text run.
+     * @param {ApiDrawing} oDrawing - The object which will be added to the current run.
      */
     ApiRun.prototype.AddDrawing = function(oDrawing)
     {
@@ -1999,17 +2003,17 @@
     };
     /**
      * Specify the section type of the current section. The section type specifies how the contents of the current
-     * section shall be placed relative to the previous section.
+     * section shall be placed relative to the previous section.<br/>
      * WordprocessingML supports five distinct types of section breaks:<br/>
-     *   <b>Next page</b> section breaks (the default if type is not specified), which begin the new section on the
+     *   * <b>Next page</b> section breaks (the default if type is not specified), which begin the new section on the
      *   following page.<br/>
-     *   <b>Odd</b> page section breaks, which begin the new section on the next odd-numbered page.<br/>
-     *   <b>Even</b> page section breaks, which begin the new section on the next even-numbered page.<br/>
-     *   <b>Continuous</b> section breaks, which begin the new section on the following paragraph. This means that
+     *   * <b>Odd</b> page section breaks, which begin the new section on the next odd-numbered page.<br/>
+     *   * <b>Even</b> page section breaks, which begin the new section on the next even-numbered page.<br/>
+     *   * <b>Continuous</b> section breaks, which begin the new section on the following paragraph. This means that
      *   continuous section breaks might not specify certain page-level section properties, since they shall be
      *   inherited from the following section. These breaks, however, can specify other section properties, such
      *   as line numbering and footnote/endnote settings.<br/>
-     *   <b>Column</b> section breaks, which begin the new section on the next column on the page.
+     *   * <b>Column</b> section breaks, which begin the new section on the next column on the page.
      * @param {("nextPage" | "oddPage" | "evenPage" | "continuous" | "nextColumn")} sType - Type of the section break
      */
     ApiSection.prototype.SetType = function(sType)
@@ -2026,9 +2030,9 @@
             this.Section.Set_Type(c_oAscSectionBreakType.NextPage);
     };
     /**
-     * Specify all text columns in the current section are of equal width.
-     * @param {number} nCount - Number of columns
-     * @param {twips} nSpace - Distance between columns
+     * Specify that all text columns in the current section are of equal width.
+     * @param {number} nCount - Number of columns.
+     * @param {twips} nSpace - Distance between columns measured in twentieths of a point (1/1440 of an inch).
      */
     ApiSection.prototype.SetEqualColumns = function(nCount, nSpace)
     {
@@ -2040,8 +2044,8 @@
      * Set all columns of this section are of different widths. Count of columns are equal length of
      * <code>aWidth</code> array. The length of <code>aSpaces</code> array <b>MUST BE</b> (<code>aWidth.length -
      * 1</code>).
-     * @param {twips[]} aWidths - An array of column width
-     * @param {twips[]} aSpaces - An array of distances between the columns
+     * @param {twips[]} aWidths - An array of column width values measured in twentieths of a point (1/1440 of an inch).
+     * @param {twips[]} aSpaces - An array of distances values between the columns measured in twentieths of a point (1/1440 of an inch).
      */
     ApiSection.prototype.SetNotEqualColumns = function(aWidths, aSpaces)
     {
@@ -2063,9 +2067,9 @@
     };
     /**
      * Specify the properties (size and orientation) for all pages in the current section.
-     * @param {twips} nWidth - width
-     * @param {twips} nHeight - height
-     * @param {boolean} [isPortrait=false] - Specifies the orientation of all pages in this section.
+     * @param {twips} nWidth - 	The page width measured in twentieths of a point (1/1440 of an inch).
+     * @param {twips} nHeight - The page height measured in twentieths of a point (1/1440 of an inch).
+     * @param {boolean} [isPortrait=false] - Specifies the orientation of all pages in this section (if set to true then the portrait orientation is chosen).
      */
     ApiSection.prototype.SetPageSize = function(nWidth, nHeight, isPortrait)
     {
@@ -2074,37 +2078,38 @@
     };
     /**
      * Specify the page margins for all pages in this section.
-     * @param {twips} nLeft - Left margin
-     * @param {twips} nTop - Top margin
-     * @param {twips} nRight - Right margin
-     * @param {twips} nBottom - Bottom margin
+     * @param {twips} nLeft - The left margin width measured in twentieths of a point (1/1440 of an inch).
+     * @param {twips} nTop - The top margin height measured in twentieths of a point (1/1440 of an inch).
+     * @param {twips} nRight - The right margin width measured in twentieths of a point (1/1440 of an inch).
+     * @param {twips} nBottom - The bottom margin height measured in twentieths of a point (1/1440 of an inch).
      */
     ApiSection.prototype.SetPageMargins = function(nLeft, nTop, nRight, nBottom)
     {
         this.Section.Set_PageMargins(private_Twips2MM(nLeft), private_Twips2MM(nTop), private_Twips2MM(nRight), private_Twips2MM(nBottom));
     };
     /**
-     * Specifies the distance (in twentieths of a point) from the top edge of the page to the top edge of the header.
-     * @param {twips} nDistance
+     * Specify the distance from the top edge of the page to the top edge of the header.
+     * @param {twips} nDistance - The distance from the top edge of the page to the top edge of the header measured in twentieths of a point (1/1440 of an inch).
      */
     ApiSection.prototype.SetHeaderDistance = function(nDistance)
     {
         this.Section.Set_PageMargins_Header(private_Twips2MM(nDistance));
     };
     /**
-     * Specifies the distance (in twentieths of a point) from the bottom edge of the page to the bottom edge of the
+     * Specify the distance from the bottom edge of the page to the bottom edge of the footer.
      * footer.
-     * @param {twips} nDistance
+     * @param {twips} nDistance - The distance from the bottom edge of the page to the bottom edge of the footer measured
+     * in twentieths of a point (1/1440 of an inch).
      */
     ApiSection.prototype.SetFooterDistance = function(nDistance)
     {
         this.Section.Set_PageMargins_Footer(private_Twips2MM(nDistance));
     };
     /**
-     * Get the content for the specified type of header.
-     * @param {HdrFtrType} sType - Type of header.
-     * @param {boolean} [isCreate=false] - Create a header or not if there is no header with specified type in the
-     *     current section.
+     * Get the content for the specified header type.
+     * @param {HdrFtrType} sType - Type of header to get the content from.
+     * @param {boolean} [isCreate=false] - Whether to create a new header or not with the specified header type in case
+     * no header with such a type could be found in the current section.
      * @returns {?ApiDocumentContent}
      */
     ApiSection.prototype.GetHeader = function(sType, isCreate)
@@ -2137,10 +2142,9 @@
         return new ApiDocumentContent(oHeader.Get_DocumentContent());
     };
     /**
-     * Remove a header of the specified type from the current section. After removing the header will be inherited from
-     * the previous section or, if this is the first section in the document, there won't be no header of the specified
-     * type.
-     * @param {HdrFtrType} sType - Type of header.
+     * Remove the header of the specified type from the current section. After removal the header will be inherited from
+     * the previous section or, if this is the first section in the document, no header of the specified type will be present.
+     * @param {HdrFtrType} sType - Type of header to be removed.
      */
     ApiSection.prototype.RemoveHeader = function(sType)
     {
@@ -2152,10 +2156,10 @@
             this.Section.Set_Header_Default(null);
     };
     /**
-     * Get the content for the specified type of footer.
-     * @param {HdrFtrType} sType - Type of footer.
-     * @param {boolean} [isCreate=false] - Create a footer or not if there is no footer with specified type in the
-     *     current section.
+     * Get the content for the specified footer type.
+     * @param {HdrFtrType} sType - Type of footer to get the content from.
+     * @param {boolean} [isCreate=false] - Whether to create a new footer or not with the specified footer type in case
+     * no footer with such a type could be found in the current section.
      * @returns {?ApiDocumentContent}
      */
     ApiSection.prototype.GetFooter = function(sType, isCreate)
@@ -2201,9 +2205,8 @@
             this.Section.Set_Footer_Default(null);
     };
     /**
-     * Specifies whether the current section in this document shall have a different header and footer for its first
-     * page.
-     * @param {boolean} isTitlePage
+     * Specify whether the current section in this document have different header and footer for the section first page.
+     * @param {boolean} isTitlePage - If true the first page of the section will have header and footer that will differ from the other pages of the same section.
      */
     ApiSection.prototype.SetTitlePage = function(isTitlePage)
     {
@@ -2232,8 +2235,8 @@
         return this.Table.Content.length;
     };
     /**
-     * Get table row by position.
-     * @param {number} nPos
+     * Get the table row by its position in the table.
+     * @param {number} nPos - The row position within the tabl
      * @returns {ApiTableRow}
      */
     ApiTable.prototype.GetRow = function(nPos)
@@ -2245,7 +2248,7 @@
     };
     /**
      * Merge array of cells. If merge was done successfully it will return merged cell, otherwise "null".
-     * <b>Warning</b>: The number of cells in any row and the numbers of rows in the current table may be changed.
+     * <note><b>Please note</b>: the number of cells in any row and the number of rows in the current table may be changed.</note>
      * @param {ApiTableCell[]} aCells
      * @returns {?ApiTableCell}
      */
@@ -2319,16 +2322,12 @@
      *
      * The default setting is to apply the row and column banding formatting, but not the first row, last row, first
      * column, or last column formatting.
-     * @param {boolean} isFirstColumn - Specifies that the first column conditional formatting shall be applied to the
-     *     table.
-     * @param {boolean} isFirstRow - Specifies that the first row conditional formatting shall be applied to the table.
-     * @param {boolean} isLastColumn - Specifies that the last column conditional formatting shall be applied to the
-     *     table.
-     * @param {boolean} isLastRow - Specifies that the last row conditional formatting shall be applied to the table.
-     * @param {boolean} isHorBand - Specifies that the horizontal banding conditional formatting shall not be applied
-     *     to the table.
-     * @param {boolean} isVerBand - Specifies that the vertical banding conditional formatting shall not be applied to
-     *     the table.
+     * @param {boolean} isFirstColumn - Specifies that the first column conditional formatting will be applied to the table.
+     * @param {boolean} isFirstRow - Specifies that the first row conditional formatting will be applied to the table.
+     * @param {boolean} isLastColumn - Specifies that the last column conditional formatting will be applied to the table.
+     * @param {boolean} isLastRow - Specifies that the last row conditional formatting will be applied to the table.
+     * @param {boolean} isHorBand - Specifies that the horizontal banding conditional formatting will not be applied to the table.
+     * @param {boolean} isVerBand - Specifies that the vertical banding conditional formatting will not be applied to the table.
      */
     ApiTable.prototype.SetTableLook = function(isFirstColumn, isFirstRow, isLastColumn, isLastRow, isHorBand, isVerBand)
     {
@@ -2342,9 +2341,10 @@
     };
     /**
      * Add a new row to the current table.
-     * @param {ApiTableCell} [oCell] - If not specified a new row will be added to the end of the table.
-     * @param {boolean} [isBefore=false] - Add a new row before or after the specified cell. If no cell is specified
-     * then this parameter will be ignored.
+     * @param {ApiTableCell} [oCell] - The cell after which the new row will be added. If not specified the new row will
+     * be added at the end of the table.
+     * @param {boolean} [isBefore=false] - Add a new row before or after the specified cell. If no cell is specified then
+     * this parameter will be ignored.
      * @returns {ApiTableRow}
      */
     ApiTable.prototype.AddRow = function(oCell, isBefore)
@@ -2373,8 +2373,8 @@
         return new ApiTableRow(this.Table.Content[nRowIndex]);
     };
     /**
-     * Add a new column to the end of the current table.
-     * @param {ApiTableCell} [oCell] - If not specified a new column will be added to the end of the table.
+     * Add a new column to the current table.
+     * @param {ApiTableCell} [oCell] - The cell after which the new column will be added. If not specified the new column will be added at the end of the table.
      * @param {boolean} [isBefore=false] - Add a new column before or after the specified cell. If no cell is specified
      * then this parameter will be ignored.
      */
@@ -2402,7 +2402,7 @@
     };
     /**
      * Remove the table row with a specified cell.
-     * @param {ApiTableCell} oCell
+     * @param {ApiTableCell} oCell - The cell which is present in the row that will be removed.
      * @returns {boolean} Is the table empty after removing.
      */
     ApiTable.prototype.RemoveRow = function(oCell)
@@ -2422,7 +2422,7 @@
     };
     /**
      * Remove the table column with a specified cell.
-     * @param {ApiTableCell} oCell
+     * @param {ApiTableCell} oCell - 	The cell which is present in the column that will be removed.
      * @returns {boolean} Is the table empty after removing.
      */
     ApiTable.prototype.RemoveColumn = function(oCell)
@@ -2523,7 +2523,7 @@
     };
     /**
      * Set the name of the current style.
-     * @param {string} sStyleName
+     * @param {string} sStyleName - The name which will be used for the current style.
      */
     ApiStyle.prototype.SetName = function(sStyleName)
     {
@@ -2600,8 +2600,8 @@
         return new ApiTableCellPr(this, this.Style.TableCellPr.Copy());
     };
     /**
-     * Specifies the reference of the parent style from which this style inherits in the style inheritance.
-     * @param {ApiStyle} oStyle
+     * Specify the reference to the parent style which this style inherits from in the style hierarchy.
+     * @param {ApiStyle} oStyle - The parent style which the style inherits properties from.
      */
     ApiStyle.prototype.SetBasedOn = function(oStyle)
     {
@@ -2613,7 +2613,7 @@
     /**
      * Get a set of formatting properties which shall be conditionally applied to the parts of a table which match the
      * requirement specified on the <code>sType</code> parameter.
-     * @param {TableStyleOverrideType} [sType="wholeTable"]
+     * @param {TableStyleOverrideType} [sType="wholeTable"] - The part of the table which the formatting properties must be applied to.
      * @returns {ApiTableStylePr}
      */
     ApiStyle.prototype.GetConditionalTableStyle = function(sType)
@@ -2931,7 +2931,8 @@
     };
     /**
      * Set paragraph contents justification.
-     * @param {("left" | "right" | "both" | "center")} sJc - The parameters will define the justification type that will be applied to the paragraph contents.
+     * @param {("left" | "right" | "both" | "center")} sJc - The parameters will define the justification type that
+     * will be applied to the paragraph contents.
      */
     ApiParaPr.prototype.SetJc = function(sJc)
     {
@@ -2948,8 +2949,10 @@
         this.private_OnChange();
     };
     /**
-     * Specify that when rendering this document using a paginated view, the contents of this paragraph are at least partly rendered on the same page as the following paragraph whenever possible.
-     * @param {boolean} isKeepNext - The true value will enable the option to keep lines of the paragraph on the same page as the following paragraph.
+     * Specify that when rendering this document using a paginated view, the contents of this paragraph are at least
+     * partly rendered on the same page as the following paragraph whenever possible.
+     * @param {boolean} isKeepNext - The true value will enable the option to keep lines of the paragraph on the same
+     * page as the following paragraph.
      */
     ApiParaPr.prototype.SetKeepNext = function(isKeepNext)
     {
@@ -2957,8 +2960,10 @@
         this.private_OnChange();
     };
     /**
-     * Specify that when rendering this document using a paginated view, the contents of this paragraph are rendered at the beginning of a new page in the document.
-     * @param {boolean} isPageBreakBefore - The true value will enable the option to render the contents of the paragraph at the beginning of the a new page in the document.
+     * Specify that when rendering this document using a paginated view, the contents of this paragraph are rendered at
+     * the beginning of a new page in the document.
+     * @param {boolean} isPageBreakBefore - The true value will enable the option to render the contents of the paragraph
+     * at the beginning of the a new page in the document.
      */
     ApiParaPr.prototype.SetPageBreakBefore = function(isPageBreakBefore)
     {
@@ -3047,7 +3052,8 @@
     };
     /**
      * Specify the border which will be displayed below a set of paragraphs which have the same paragraph border settings.
-     * <note>The paragraphs of the same style going one by one are considered as a single block, so the border is added to the whole block rather than to every paragraph in this block.</note>
+     * <note>The paragraphs of the same style going one by one are considered as a single block, so the border is added
+     * to the whole block rather than to every paragraph in this block.</note>
      * @param {BorderType} sType - The border style.
      * @param {pt_8} nSize - The width of the current bottom border measured in eighths of a point.
      * @param {pt} nSpace - The spacing offset below the paragraph measured in points used to place this border.
@@ -4134,7 +4140,7 @@
     };
 
     /**
-     * Get content of this shape.
+     * Get the shape inner contents where a paragraph or text runs can be inserted.
      * @returns {?ApiDocumentContent}
      */
     ApiShape.prototype.GetDocContent = function()
@@ -4147,8 +4153,8 @@
     };
 
     /**
-     * Set shape's content vertical align
-     * @param {VerticalTextAlign} VerticalAlign
+     * Set the vertical alignment for the shape content where a paragraph or text runs can be inserted.
+     * @param {VerticalTextAlign} VerticalAlign - The type of the vertical alignment for the shape inner contents.
      */
     ApiShape.prototype.SetVerticalTextAlign = function(VerticalAlign)
     {
