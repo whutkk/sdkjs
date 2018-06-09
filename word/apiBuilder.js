@@ -2879,8 +2879,9 @@
         return "paraPr";
     };
     /**
-     * Set paragraph style.
-     * @param {ApiStyle} oStyle
+     * The paragraph style base method.
+     * <note>This method is not used by itself, as it only forms the basis for the {@link ApiParagraph#SetStyle} method which sets the selected or created style for the paragraph.</note>
+     * @param {ApiStyle} oStyle - The style of the paragraph to be set.
      */
     ApiParaPr.prototype.SetStyle = function(oStyle)
     {
@@ -2894,7 +2895,7 @@
      * Specifies that any space specified before or after this paragraph, specified using the spacing element
      * {@link ApiParaPr#SetSpacingBefore}{@link ApiParaPr#SetSpacingAfter}, should not be applied when the preceding and
      * following paragraphs are of the same paragraph style, affecting the top and bottom spacing respectively.
-     * @param {boolean} isContextualSpacing
+     * @param {boolean} isContextualSpacing - The true value will enable the paragraph contextual spacing.
      */
     ApiParaPr.prototype.SetContextualSpacing = function(isContextualSpacing)
     {
@@ -2902,8 +2903,8 @@
         this.private_OnChange();
     };
     /**
-     * Set left indentation.
-     * @param {twips} nValue
+     * Set the paragraph left side indentation.
+     * @param {twips} nValue - The paragraph left side indentation value measured in twentieths of a point (1/1440 of an inch).
      */
     ApiParaPr.prototype.SetIndLeft = function(nValue)
     {
@@ -2911,8 +2912,8 @@
         this.private_OnChange();
     };
     /**
-     * Set right indentation.
-     * @param {twips} nValue
+     * Set the paragraph right side indentation.
+     * @param {twips} nValue - The paragraph right side indentation value measured in twentieths of a point (1/1440 of an inch).
      */
     ApiParaPr.prototype.SetIndRight = function(nValue)
     {
@@ -2920,8 +2921,8 @@
         this.private_OnChange();
     };
     /**
-     * Set first line indentation.
-     * @param {twips} nValue
+     * Set the paragraph first line indentation.
+     * @param {twips} nValue - The paragraph first line indentation value measured in twentieths of a point (1/1440 of an inch).
      */
     ApiParaPr.prototype.SetIndFirstLine = function(nValue)
     {
@@ -2929,8 +2930,8 @@
         this.private_OnChange();
     };
     /**
-     * Set paragraph justification
-     * @param {("left" | "right" | "both" | "center")} sJc
+     * Set paragraph contents justification.
+     * @param {("left" | "right" | "both" | "center")} sJc - The parameters will define the justification type that will be applied to the paragraph contents.
      */
     ApiParaPr.prototype.SetJc = function(sJc)
     {
@@ -2938,9 +2939,8 @@
         this.private_OnChange();
     };
     /**
-     * This element specifies that when rendering this document in a page view, all lines of this paragraph are
-     * maintained on a single page whenever possible.
-     * @param {boolean} isKeepLines
+     * Specify that when rendering this document using a page view, all lines of this paragraph are maintained on a single page whenever possible.
+     * @param {boolean} isKeepLines - The true value will enable the option to keep lines of the paragraph on a single page.
      */
     ApiParaPr.prototype.SetKeepLines = function(isKeepLines)
     {
@@ -2948,9 +2948,8 @@
         this.private_OnChange();
     };
     /**
-     * This element specifies that when rendering this document in a paginated view, the contents of this paragraph
-     * are at least partly rendered on the same page as the following paragraph whenever possible.
-     * @param {boolean} isKeepNext
+     * Specify that when rendering this document using a paginated view, the contents of this paragraph are at least partly rendered on the same page as the following paragraph whenever possible.
+     * @param {boolean} isKeepNext - The true value will enable the option to keep lines of the paragraph on the same page as the following paragraph.
      */
     ApiParaPr.prototype.SetKeepNext = function(isKeepNext)
     {
@@ -2958,9 +2957,8 @@
         this.private_OnChange();
     };
     /**
-     * This element specifies that when rendering this document in a paginated view, the contents of this paragraph
-     * are rendered on the start of a new page in the document.
-     * @param {boolean} isPageBreakBefore
+     * Specify that when rendering this document using a paginated view, the contents of this paragraph are rendered at the beginning of a new page in the document.
+     * @param {boolean} isPageBreakBefore - The true value will enable the option to render the contents of the paragraph at the beginning of the a new page in the document.
      */
     ApiParaPr.prototype.SetPageBreakBefore = function(isPageBreakBefore)
     {
@@ -2973,8 +2971,8 @@
      * or <code>"exact"</code>, then the value of <code>nLine</code> shall be interpreted as twentieths of a point. If
      * the value of the <code>sLineRule</code> parameter is <code>"auto"</code>, then the value of the
      * <code>nLine</code> attribute shall be interpreted as 240ths of a line.
-     * @param {(twips | line240)} nLine
-     * @param {("auto" | "atLeast" | "exact")} sLineRule
+     * @param {(twips | line240)} nLine - The line spacing value measured either in twentieths of a point (1/1440 of an inch) or in 240ths of a line.
+     * @param {("auto" | "atLeast" | "exact")} sLineRule - The rule that determines the measuring units of the nLine parameter.
      */
     ApiParaPr.prototype.SetSpacingLine = function(nLine, sLineRule)
     {
@@ -3004,8 +3002,8 @@
      * Set paragraph spacing before. If the value of the <code>isBeforeAuto</code> parameter is <code>true</code>, then
      * any value of the <code>nBefore</code> is ignored. If <code>isBeforeAuto</code> parameter is not specified, then
      * it will be interpreted as <code>false</code>.
-     * @param {twips} nBefore
-     * @param {boolean} [isBeforeAuto=false]
+     * @param {twips} nBefore - The value of the spacing before the current paragraph measured in twentieths of a point (1/1440 of an inch).
+     * @param {boolean} [isBeforeAuto=false] - The true value will disable the nBefore parameter.
      */
     ApiParaPr.prototype.SetSpacingBefore = function(nBefore, isBeforeAuto)
     {
@@ -3021,8 +3019,8 @@
      * Set paragraph spacing after. If the value of the <code>isAfterAuto</code> parameter is <code>true</code>, then
      * any value of the <code>nAfter</code> is ignored. If <code>isAfterAuto</code> parameter is not specified, then it
      * will be interpreted as <code>false</code>.
-     * @param {twips} nAfter
-     * @param {boolean} [isAfterAuto=false]
+     * @param {twips} nAfter - The value of the spacing after the current paragraph measured in twentieths of a point (1/1440 of an inch).
+     * @param {boolean} [isAfterAuto=false] - The true value will disable the nAfter parameter.
      */
     ApiParaPr.prototype.SetSpacingAfter = function(nAfter, isAfterAuto)
     {
@@ -3035,12 +3033,12 @@
         this.private_OnChange();
     };
     /**
-     * Specifies the shading applied to the contents of the paragraph.
-     * @param {ShdType} sType
-     * @param {byte} r
-     * @param {byte} g
-     * @param {byte} b
-     * @param {boolean} [isAuto=false]
+     * Specify the shading applied to the contents of the paragraph.
+     * @param {ShdType} sType - The shading type which will be applied to the contents of the current paragraph.
+     * @param {byte} r - Red color component value.
+     * @param {byte} g - Green color component value.
+     * @param {byte} b - Blue color component value.
+     * @param {boolean} [isAuto=false] - The true value will disable paragraph contents shading.
      */
     ApiParaPr.prototype.SetShd = function(sType, r, g, b, isAuto)
     {
@@ -3048,14 +3046,14 @@
         this.private_OnChange();
     };
     /**
-     * Specifies the border which shall be displayed below a set of paragraphs which have the same paragraph border
-     * settings.
-     * @param {BorderType} sType - The style of border.
-     * @param {pt_8} nSize - The width of the current border.
-     * @param {pt} nSpace - The spacing offset that shall be used to place this border.
-     * @param {byte} r
-     * @param {byte} g
-     * @param {byte} b
+     * Specify the border which will be displayed below a set of paragraphs which have the same paragraph border settings.
+     * <note>The paragraphs of the same style going one by one are considered as a single block, so the border is added to the whole block rather than to every paragraph in this block.</note>
+     * @param {BorderType} sType - The border style.
+     * @param {pt_8} nSize - The width of the current bottom border measured in eighths of a point.
+     * @param {pt} nSpace - The spacing offset below the paragraph measured in points used to place this border.
+     * @param {byte} r - Red color component value.
+     * @param {byte} g - Green color component value.
+     * @param {byte} b - Blue color component value.
      */
     ApiParaPr.prototype.SetBottomBorder = function(sType, nSize, nSpace, r, g, b)
     {
@@ -3063,13 +3061,13 @@
         this.private_OnChange();
     };
     /**
-     * Specifies the border which shall be displayed on the left side of the page around the specified paragraph.
+     * Specify the border which will be displayed at the left side of the page around the specified paragraph.
      * @param {BorderType} sType - The style of border.
-     * @param {pt_8} nSize - The width of the current border.
-     * @param {pt} nSpace - The spacing offset that shall be used to place this border.
-     * @param {byte} r
-     * @param {byte} g
-     * @param {byte} b
+     * @param {pt_8} nSize - The width of the current left border measured in eighths of a point.
+     * @param {pt} nSpace - The spacing offset to the left of the paragraph measured in points used to place this border.
+     * @param {byte} r - Red color component value.
+     * @param {byte} g - Green color component value.
+     * @param {byte} b - Blue color component value.
      */
     ApiParaPr.prototype.SetLeftBorder = function(sType, nSize, nSpace, r, g, b)
     {
@@ -3077,13 +3075,13 @@
         this.private_OnChange();
     };
     /**
-     * Specifies the border which shall be displayed on the right side of the page around the specified paragraph.
-     * @param {BorderType} sType - The style of border.
-     * @param {pt_8} nSize - The width of the current border.
-     * @param {pt} nSpace - The spacing offset that shall be used to place this border.
-     * @param {byte} r
-     * @param {byte} g
-     * @param {byte} b
+     * Specify the border which will be displayed at the right side of the page around the specified paragraph.
+     * @param {BorderType} sType - The border style.
+     * @param {pt_8} nSize - The width of the current right border measured in eighths of a point.
+     * @param {pt} nSpace - The spacing offset to the right of the paragraph measured in points used to place this border.
+     * @param {byte} r - Red color component value.
+     * @param {byte} g - Green color component value.
+     * @param {byte} b - Blue color component value.
      */
     ApiParaPr.prototype.SetRightBorder = function(sType, nSize, nSpace, r, g, b)
     {
@@ -3091,14 +3089,14 @@
         this.private_OnChange();
     };
     /**
-     * Specifies the border which shall be displayed above a set of paragraphs which have the same set of paragraph
-     * border settings.
-     * @param {BorderType} sType - The style of border.
-     * @param {pt_8} nSize - The width of the current border.
-     * @param {pt} nSpace - The spacing offset that shall be used to place this border.
-     * @param {byte} r
-     * @param {byte} g
-     * @param {byte} b
+     * Specify the border which will be displayed above a set of paragraphs which have the same set of paragraph border settings.
+     * <note>The paragraphs of the same style going one by one are considered as a single block, so the border is added to the whole block rather than to every paragraph in this block.</note>
+     * @param {BorderType} sType - The border style.
+     * @param {pt_8} nSize - The width of the current top border measured in eighths of a point.
+     * @param {pt} nSpace - The spacing offset above the paragraph measured in points used to place this border.
+     * @param {byte} r - Red color component value.
+     * @param {byte} g - Green color component value.
+     * @param {byte} b - Blue color component value.
      */
     ApiParaPr.prototype.SetTopBorder = function(sType, nSize, nSpace, r, g, b)
     {
@@ -3106,14 +3104,13 @@
         this.private_OnChange();
     };
     /**
-     * Specifies the border which shall be displayed between each paragraph in a set of paragraphs which have the same
-     * set of paragraph border settings.
-     * @param {BorderType} sType - The style of border.
-     * @param {pt_8} nSize - The width of the current border.
-     * @param {pt} nSpace - The spacing offset that shall be used to place this border.
-     * @param {byte} r
-     * @param {byte} g
-     * @param {byte} b
+     * Specify the border which will be displayed between each paragraph in a set of paragraphs which have the same set of paragraph border settings.
+     * @param {BorderType} sType - The border style.
+     * @param {pt_8} nSize - The width of the current border measured in eighths of a point.
+     * @param {pt} nSpace - The spacing offset between the paragraphs measured in points used to place this border.
+     * @param {byte} r - Red color component value.
+     * @param {byte} g - Green color component value.
+     * @param {byte} b - Blue color component value.
      */
     ApiParaPr.prototype.SetBetweenBorder = function(sType, nSize, nSpace, r, g, b)
     {
@@ -3121,9 +3118,8 @@
         this.private_OnChange();
     };
     /**
-     * This element specifies whether a consumer shall prevent a single line of this paragraph from being displayed on
-     * a separate page from the remaining content at display time by moving the line onto the following page.
-     * @param {boolean} isWidowControl
+     * Specify whether a single line of this paragraph will be prevented from being displayed on a separate page from the remaining content at display time by moving the line onto the following page.
+     * @param {boolean} isWidowControl - The true value will enable the SetWidowControl method use.
      */
     ApiParaPr.prototype.SetWidowControl = function(isWidowControl)
     {
@@ -3133,9 +3129,8 @@
     /**
      * Specifies a sequence of custom tab stops which shall be used for any tab characters in the current paragraph.
      * <b>Warning</b>: The lengths of aPos array and aVal array <b>MUST BE</b> equal.
-     * @param {twips[]} aPos - An array of the positions of custom tab stops with respect to the current page margins.
-     * @param {TabJc[]} aVal - An array of the styles of custom tab stops, which determines the behavior of the tab
-     *     stop and the alignment which shall be applied to text entered at the current custom tab stop.
+     * @param {twips[]} aPos - An array of the positions of custom tab stops with respect to the current page margins measured in twentieths of a point (1/1440 of an inch).
+     * @param {TabJc[]} aVal - An array of the styles of custom tab stops, which determines the behavior of the tab stop and the alignment which will be applied to text entered at the current custom tab stop.
      */
     ApiParaPr.prototype.SetTabs = function(aPos, aVal)
     {
@@ -3151,11 +3146,11 @@
         this.private_OnChange();
     };
     /**
-     * Specifies that the current paragraph references a numbering definition instance in the current document.
+     * Specify that the current paragraph references a numbering definition instance in the current document.
      * @param {ApiNumbering} oNumPr - Specifies a numbering definition.
-     * @param {number} [nLvl=0] - Specifies a numbering level reference. If the current instance of the class ApiParaPr
-     *     is direct formatting of a paragraph, then this parameter <b>MUST BE</b> specified. Otherwise if the current
-     *     instance of the class ApiParaPr is the part of ApiStyle properties, then this parameter will be ignored.
+     * @param {number} [nLvl=0] - Specifies a numbering level reference. If the current instance of the ApiParaPr class is direct
+     * formatting of a paragraph, then this parameter MUST BE specified. Otherwise if the current instance of the ApiParaPr class
+     * is the part of ApiStyle properties, this parameter will be ignored.
      */
     ApiParaPr.prototype.SetNumPr = function(oNumPr, nLvl)
     {
