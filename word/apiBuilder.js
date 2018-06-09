@@ -2464,8 +2464,8 @@
         return this.Row.Content.length;
     };
     /**
-     * Get cell by position.
-     * @param {number} nPos
+     * Get the cell by its position.
+     * @param {number} nPos - The cell position in the current table.
      * @returns {ApiTableCell}
      */
     ApiTableRow.prototype.GetCell = function(nPos)
