@@ -1645,6 +1645,7 @@
             }
         }
     };
+
     /**
      * Get the type of this class.
      * @returns {"document"}
@@ -1653,9 +1654,10 @@
     {
         return "paragraph";
     };
+
     /**
-     * Add text
-     * @param {string} [sText=""]
+     * Add some text to the element.
+     * @param {string} [sText=""] - The text that we want to insert into the current document element.
      * @returns {ApiRun}
      */
     ApiParagraph.prototype.AddText = function(sText)
@@ -1670,8 +1672,9 @@
         private_PushElementToParagraph(this.Paragraph, oRun);
         return new ApiRun(oRun);
     };
+
     /**
-     * Add page break.
+     * Add page break and start the next element from the next page.
      * @returns {ApiRun}
      */
     ApiParagraph.prototype.AddPageBreak = function()
@@ -1681,8 +1684,9 @@
         private_PushElementToParagraph(this.Paragraph, oRun);
         return new ApiRun(oRun);
     };
+
     /**
-     * Add line break.
+     * Add line break to the current position and start the next element from a new line.
      * @returns {ApiRun}
      */
     ApiParagraph.prototype.AddLineBreak = function()
@@ -1692,8 +1696,9 @@
         private_PushElementToParagraph(this.Paragraph, oRun);
         return new ApiRun(oRun);
     };
+
     /**
-     * Add column break.
+     * Add column break to the current position and start the next element from a new column.
      * @returns {ApiRun}
      */
     ApiParagraph.prototype.AddColumnBreak = function()
@@ -1703,8 +1708,10 @@
         private_PushElementToParagraph(this.Paragraph, oRun);
         return new ApiRun(oRun);
     };
+
 	/**
-	 * Add a page number field to this paragraph.
+	 * Insert the number of the current document page into the paragraph.
+     * <note>This method works for the paragraphs in the document header/footer only.</note>
 	 * @returns {ApiRun}
 	 */
 	ApiParagraph.prototype.AddPageNumber = function()
@@ -1714,8 +1721,10 @@
 		private_PushElementToParagraph(this.Paragraph, oRun);
 		return new ApiRun(oRun);
 	};
+
 	/**
-	 * Add a pages count field to this paragraph.
+	 * Insert the number of pages in the current document into the paragraph.
+     * <note>This method works for the paragraphs in the document header/footer only.</note>
 	 * @returns {ApiRun}
 	 */
 	ApiParagraph.prototype.AddPagesCount = function()
@@ -1725,14 +1734,16 @@
 		private_PushElementToParagraph(this.Paragraph, oRun);
 		return new ApiRun(oRun);
 	};
+
     /**
-     * Get text properties of the paragraph mark.
+     * Get the text properties of the paragraph mark which is used to mark the paragraph end. The mark can also acquire common text properties like bold, italic, underline, etc.
      * @returns {ApiTextPr}
      */
     ApiParagraph.prototype.GetParagraphMarkTextPr = function()
     {
         return new ApiTextPr(this, this.Paragraph.TextPr.Value.Copy());
     };
+
     /**
      * Get paragraph properties.
      * @returns {ApiParaPr}
@@ -1741,8 +1752,9 @@
     {
         return new ApiParaPr(this, this.Paragraph.Pr.Copy());
     };
+
     /**
-     * Get a numbering definition and numbering level.
+     * Get a numbering definition and numbering level for the numbered list.
      * @returns {?ApiNumberingLevel}
      */
     ApiParagraph.prototype.GetNumbering = function()
@@ -1759,6 +1771,7 @@
 
         return new ApiNumberingLevel(oNumbering, oNumPr.Lvl);
     };
+
     /**
      * Specifies that the current paragraph references a numbering definition instance in the current document.
      * @see Same as {@link ApiParagraph#SetNumPr}
@@ -1771,6 +1784,7 @@
 
         this.SetNumPr(oNumberingLevel.GetNumbering(), oNumberingLevel.GetLevelIndex());
     };
+
     /**
      * Get the number of elements in the current paragraph.
      * @returns {number}
@@ -1780,9 +1794,10 @@
         // TODO: ParaEnd
         return this.Paragraph.Content.length - 1;
     };
+
     /**
-     * Get the element of the paragraph content by specified position.
-     * @param {number} nPos
+     * Get the element of the paragraph using the position specified.
+     * @param {number} nPos - The position where the element which content we want to get must be located.
      * @returns {?ParagraphContent}
      */
     ApiParagraph.prototype.GetElement = function(nPos)
@@ -1793,9 +1808,10 @@
 
 		return private_GetSupportedParaElement(this.Paragraph.Content[nPos]);
     };
+
     /**
-     * Remove element by specified position.
-     * @param {number} nPos
+     * Remove the element using the position specified.
+     * @param {number} nPos - The position of the element which we want to remove in the paragraph.
      */
     ApiParagraph.prototype.RemoveElement = function(nPos)
     {
@@ -1804,18 +1820,20 @@
 
         this.Paragraph.Remove_FromContent(nPos, 1);
     };
+
     /**
-     * Remove all elements.
+     * Remove all elements from the current paragraph.
      */
     ApiParagraph.prototype.RemoveAllElements = function()
     {
         if (this.Paragraph.Content.length > 1)
             this.Paragraph.Remove_FromContent(0, this.Paragraph.Content.length - 1);
     };
+
     /**
-     * Add an element to paragraph content.
-     * @param {ParagraphContent} oElement
-     * @param {number} [nPos] If this value is not specified then element will be added to the end of this paragraph.
+     * Add an element to the current paragraph.
+     * @param {ParagraphContent} The document element which will be added at the current position. Returns false if the type of oElement is not supported by a paragraph.
+     * @param {number} [nPos] The number of the paragraph where the current element will be added. If this value is not specified then the element will be added at the end of the current paragraph.
      * @returns {boolean} Returns <code>false</code> if the type of <code>oElement</code> is not supported by paragraph
      * content.
      */
@@ -1837,8 +1855,9 @@
 
         return true;
     };
+
     /**
-     * Add a tab stop.
+     * Add a tab stop to the current paragraph.
      * @returns {ApiRun}
      */
     ApiParagraph.prototype.AddTabStop = function()
@@ -1848,9 +1867,10 @@
         private_PushElementToParagraph(this.Paragraph, oRun);
         return new ApiRun(oRun);
     };
+
     /**
-     * Add a drawing.
-     * @param {ApiDrawing} oDrawing
+     * Add an object (image, shape or chart) to the current paragraph.
+     * @param {ApiDrawing} oDrawing - The object which will be added to the current paragraph.
      * @returns {ApiRun}
      */
     ApiParagraph.prototype.AddDrawing = function(oDrawing)
@@ -3333,7 +3353,7 @@
 
     /**
      * Specify the starting value for the numbering used by the parent numbering level within a given numbering level definition. By default this value is 1.
-     * @param {number} nStart - The starting value for the numbering used by the parent numbering level.
+     * @param {number} nStart -
      */
     ApiNumberingLevel.prototype.SetStart = function(nStart)
     {
