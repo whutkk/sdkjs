@@ -73,6 +73,7 @@
         this.ParaPr = ParaPr;
     }
 
+
     /*
      * Class representing paragraph bullet
      * @constructor
@@ -261,7 +262,6 @@
 		ApiDrawing.call(this, Image.parent);
         this.Image = Image
     }
-
 	ApiImage.prototype = Object.create(ApiDrawing.prototype);
 	ApiImage.prototype.constructor = ApiImage;
 
@@ -280,6 +280,7 @@
     /**
      * Class representing a Chart.
      * @constructor
+     *
      */
     function ApiChart(Chart)
     {
@@ -362,6 +363,7 @@
         this.UniFill = UniFill;
     }
 
+
     /**
      * Class represent a stroke class
      * @constructor
@@ -370,6 +372,7 @@
     {
         this.Ln = oLn;
     }
+
 
     /**
      * Class represent gradient stop
@@ -557,6 +560,7 @@
      *     "greenYellow" | "grey" | "honeydew" | "hotPink" | "indianRed" | "indigo" | "ivory" | "khaki" | "lavender" | "lavenderBlush" | "lawnGreen" | "lemonChiffon" | "lightBlue" | "lightCoral" | "lightCyan" | "lightGoldenrodYellow" | "lightGray" | "lightGreen" | "lightGrey" | "lightPink" | "lightSalmon" | "lightSeaGreen" | "lightSkyBlue" | "lightSlateGray" | "lightSlateGrey" | "lightSteelBlue" | "lightYellow" | "lime" | "limeGreen" | "linen" | "ltBlue" | "ltCoral" | "ltCyan" | "ltGoldenrodYellow" | "ltGray" | "ltGreen" | "ltGrey" | "ltPink" | "ltSalmon" | "ltSeaGreen" | "ltSkyBlue" | "ltSlateGray" | "ltSlateGrey" | "ltSteelBlue" | "ltYellow" | "magenta" | "maroon" | "medAquamarine" | "medBlue" | "mediumAquamarine" | "mediumBlue" | "mediumOrchid" | "mediumPurple" | "mediumSeaGreen" | "mediumSlateBlue" | "mediumSpringGreen" | "mediumTurquoise" | "mediumVioletRed" | "medOrchid" | "medPurple" | "medSeaGreen" | "medSlateBlue" | "medSpringGreen" | "medTurquoise" | "medVioletRed" | "midnightBlue" | "mintCream" | "mistyRose" | "moccasin" | "navajoWhite" | "navy" | "oldLace" | "olive" | "oliveDrab" | "orange" | "orangeRed" | "orchid" | "paleGoldenrod" | "paleGreen" | "paleTurquoise" | "paleVioletRed" | "papayaWhip" | "peachPuff" | "peru" | "pink" | "plum" | "powderBlue" | "purple" | "red" | "rosyBrown" | "royalBlue" | "saddleBrown" | "salmon" | "sandyBrown" | "seaGreen" | "seaShell" | "sienna" | "silver" | "skyBlue" | "slateBlue" | "slateGray" | "slateGrey" | "snow" | "springGreen" | "steelBlue" | "tan" | "teal" | "thistle" | "tomato" | "turquoise" | "violet" | "wheat" | "white" | "whiteSmoke" | "yellow" | "yellowGreen")} PresetColor
      * */
 
+
     /**
      *
      * @typedef {("none" | "nextTo" | "low" | "high")} TickLabelPosition
@@ -595,6 +599,7 @@
      * @memberof Api
      * @returns {ApiDocument}
      */
+
 
     /**
      * @typedef {("cross" | "in" | "none" | "out")} TickMark
@@ -1116,7 +1121,6 @@
 	{
 		return new ApiBlockLvlSdt(new CBlockLvlSdt());
 	};
-
     //------------------------------------------------------------------------------------------------------------------
     //
     // ApiUnsupported
@@ -1146,7 +1150,6 @@
     {
         return "documentContent";
     };
-
     /**
      * Get the number of elements in the current document.
      * @returns {number}
@@ -1155,7 +1158,6 @@
     {
         return this.Document.Content.length;
     };
-
     /**
      * Get the element by its position in the document.
      * @returns {?DocumentElement}
@@ -1175,7 +1177,6 @@
 
         return null;
     };
-
     /**
      * Add paragraph or table using its position in the document.
      * @param {number} nPos - The position where the current element will be added.
@@ -1188,7 +1189,6 @@
             this.Document.Internal_Content_Add(nPos, oElement.private_GetImpl());
         }
     };
-
     /**
      * Push a paragraph or a table to actually add it to the document.
      * @param {DocumentElement} oElement - The type of the element which will be pushed to the document.
@@ -1203,7 +1203,6 @@
 
         return false;
     };
-
     /**
      * Remove all elements from the current document or from the current document element.
      */
@@ -1211,7 +1210,6 @@
     {
         this.Document.Internal_Content_Remove(0, this.Document.Content.length);
     };
-
     /**
      * Remove element using the position specified.
      * @param {number} nPos - The element number (position) in the document or inside other element.
@@ -1238,7 +1236,6 @@
     {
         return "document";
     };
-
     /**
      * Create new history point.
      */
@@ -1246,7 +1243,6 @@
     {
         this.Document.Create_NewHistoryPoint(AscDFH.historydescription_Document_ApiBuilder);
     };
-
     /**
      * Get a style by the style name.
      * @param {string} sStyleName - The name using which it is possible to address the style.
@@ -1258,7 +1254,6 @@
         var oStyleId = oStyles.GetStyleIdByName(sStyleName, true);
         return new ApiStyle(oStyles.Get(oStyleId));
     };
-
     /**
      * Create a new style with the specified type and name. If there is a style with the same name it will be replaced with a new one.
      * with a new one.
@@ -1296,7 +1291,6 @@
         oStyles.Add(oStyle);
         return new ApiStyle(oStyle);
     };
-
     /**
      * Get the default style parameters for the specified document element.
      * @param {StyleType} sStyleType - The document element which we want to get the style for.
@@ -1317,7 +1311,6 @@
 
         return null;
     };
-
     /**
      * Get a set of default properties for the text run in the current document.
      * @returns {ApiTextPr}
@@ -1327,7 +1320,6 @@
         var oStyles = this.Document.Get_Styles();
         return new ApiTextPr(this, oStyles.Get_DefaultTextPr().Copy());
     };
-
     /**
      * Get a set of default paragraph properties in the current document.
      * @returns {ApiParaPr}
@@ -1337,7 +1329,6 @@
         var oStyles = this.Document.Get_Styles();
         return new ApiParaPr(this, oStyles.Get_DefaultParaPr().Copy());
     };
-
     /**
      * Get document final section
      * @return {ApiSection}
@@ -1371,10 +1362,9 @@
     {
         this.Document.Set_DocumentEvenAndOddHeaders(isEvenAndOdd);
     };
-
     /**
      * Create an abstract multilevel numbering with a specified type.
-     * @param {("bullet" | "numbered")} [sType="bullet"] - 	The type of the numbering which will be created.
+     * @param {("bullet" | "numbered")} [sType="bullet"] - The type of the numbering which will be created.
      * @returns {ApiNumbering}
      */
     ApiDocument.prototype.CreateNumbering = function(sType)
@@ -1553,7 +1543,6 @@
 		}
 		return oResult;
 	};
-
 	/**
 	 * Find and replace text.
 	 * @param {Object} oProperties The properties for find and replace.
@@ -1574,7 +1563,6 @@
 
 		this.Document.Search_Replace(sReplace, true, null, false);
 	};
-
 	/**
 	 * Get the list of all content controls in the document
 	 * @returns {ApiBlockLvlSdt[] | ApiInlineLvlSdt[]}
@@ -1595,7 +1583,6 @@
 
 		return arrResult;
 	};
-
     //------------------------------------------------------------------------------------------------------------------
     //
     // ApiParagraph
@@ -1646,7 +1633,6 @@
             }
         }
     };
-
     /**
      * Get the type of this class.
      * @returns {"document"}
@@ -1655,7 +1641,6 @@
     {
         return "paragraph";
     };
-
     /**
      * Add some text to the element.
      * @param {string} [sText=""] - The text that we want to insert into the current document element.
@@ -1673,7 +1658,6 @@
         private_PushElementToParagraph(this.Paragraph, oRun);
         return new ApiRun(oRun);
     };
-
     /**
      * Add page break and start the next element from the next page.
      * @returns {ApiRun}
@@ -1685,7 +1669,6 @@
         private_PushElementToParagraph(this.Paragraph, oRun);
         return new ApiRun(oRun);
     };
-
     /**
      * Add line break to the current position and start the next element from a new line.
      * @returns {ApiRun}
@@ -1709,7 +1692,6 @@
         private_PushElementToParagraph(this.Paragraph, oRun);
         return new ApiRun(oRun);
     };
-
 	/**
 	 * Insert the number of the current document page into the paragraph.
      * <note>This method works for the paragraphs in the document header/footer only.</note>
@@ -1722,7 +1704,6 @@
 		private_PushElementToParagraph(this.Paragraph, oRun);
 		return new ApiRun(oRun);
 	};
-
 	/**
 	 * Insert the number of pages in the current document into the paragraph.
      * <note>This method works for the paragraphs in the document header/footer only.</note>
@@ -1735,7 +1716,6 @@
 		private_PushElementToParagraph(this.Paragraph, oRun);
 		return new ApiRun(oRun);
 	};
-
     /**
      * Get the text properties of the paragraph mark which is used to mark the paragraph end. The mark can also acquire
      * common text properties like bold, italic, underline, etc.
@@ -1745,7 +1725,6 @@
     {
         return new ApiTextPr(this, this.Paragraph.TextPr.Value.Copy());
     };
-
     /**
      * Get paragraph properties.
      * @returns {ApiParaPr}
@@ -1754,7 +1733,6 @@
     {
         return new ApiParaPr(this, this.Paragraph.Pr.Copy());
     };
-
     /**
      * Get a numbering definition and numbering level for the numbered list.
      * @returns {?ApiNumberingLevel}
@@ -1773,7 +1751,6 @@
 
         return new ApiNumberingLevel(oNumbering, oNumPr.Lvl);
     };
-
     /**
      * Specifies that the current paragraph references a numbering definition instance in the current document.
      * @see Same as {@link ApiParagraph#SetNumPr}
@@ -1786,7 +1763,6 @@
 
         this.SetNumPr(oNumberingLevel.GetNumbering(), oNumberingLevel.GetLevelIndex());
     };
-
     /**
      * Get the number of elements in the current paragraph.
      * @returns {number}
@@ -1796,7 +1772,6 @@
         // TODO: ParaEnd
         return this.Paragraph.Content.length - 1;
     };
-
     /**
      * Get the element of the paragraph using the position specified.
      * @param {number} nPos - The position where the element which content we want to get must be located.
@@ -1810,7 +1785,6 @@
 
 		return private_GetSupportedParaElement(this.Paragraph.Content[nPos]);
     };
-
     /**
      * Remove the element using the position specified.
      * @param {number} nPos - The position of the element which we want to remove in the paragraph.
@@ -1822,7 +1796,6 @@
 
         this.Paragraph.Remove_FromContent(nPos, 1);
     };
-
     /**
      * Remove all elements from the current paragraph.
      */
@@ -1831,7 +1804,6 @@
         if (this.Paragraph.Content.length > 1)
             this.Paragraph.Remove_FromContent(0, this.Paragraph.Content.length - 1);
     };
-
     /**
      * Add an element to the current paragraph.
      * @param {ParagraphContent} The document element which will be added at the current position. Returns false if the
@@ -1859,7 +1831,6 @@
 
         return true;
     };
-
     /**
      * Add a tab stop to the current paragraph.
      * @returns {ApiRun}
@@ -1871,7 +1842,6 @@
         private_PushElementToParagraph(this.Paragraph, oRun);
         return new ApiRun(oRun);
     };
-
     /**
      * Add an object (image, shape or chart) to the current paragraph.
      * @param {ApiDrawing} oDrawing - The object which will be added to the current paragraph.
@@ -1906,7 +1876,6 @@
 		private_PushElementToParagraph(this.Paragraph, oSdt.Sdt);
 		return oSdt;
 	};
-
     //------------------------------------------------------------------------------------------------------------------
     //
     // ApiRun
@@ -1986,6 +1955,7 @@
 
         this.Run.Add_ToContent(this.Run.Content.length, oDrawing.Drawing);
     };
+
 
     //------------------------------------------------------------------------------------------------------------------
     //
@@ -2067,7 +2037,7 @@
     };
     /**
      * Specify the properties (size and orientation) for all pages in the current section.
-     * @param {twips} nWidth - 	The page width measured in twentieths of a point (1/1440 of an inch).
+     * @param {twips} nWidth - The page width measured in twentieths of a point (1/1440 of an inch).
      * @param {twips} nHeight - The page height measured in twentieths of a point (1/1440 of an inch).
      * @param {boolean} [isPortrait=false] - Specifies the orientation of all pages in this section (if set to true then the portrait orientation is chosen).
      */
@@ -2422,7 +2392,7 @@
     };
     /**
      * Remove the table column with a specified cell.
-     * @param {ApiTableCell} oCell - 	The cell which is present in the column that will be removed.
+     * @param {ApiTableCell} oCell - The cell which is present in the column that will be removed.
      * @returns {boolean} Is the table empty after removing.
      */
     ApiTable.prototype.RemoveColumn = function(oCell)
@@ -2648,6 +2618,7 @@
         return new ApiTableStylePr(sType, this, this.Style.TableWholeTable.Copy());
     };
 
+
     //------------------------------------------------------------------------------------------------------------------
     //
     // ApiTextPr
@@ -2663,8 +2634,10 @@
         return "textPr";
     };
     /**
-     * Specifies the character style.
-     * @param {ApiStyle} oStyle
+     * The text style base method.
+     * <note>This method is not used by itself, as it only forms the basis for the ApiRun.SetStyle method which sets
+     * the selected or created style for the text.</note>
+     * @param {ApiStyle} oStyle - The style which must be applied to the text character.
      */
     ApiTextPr.prototype.SetStyle = function(oStyle)
     {
@@ -2675,8 +2648,8 @@
         this.private_OnChange();
     };
     /**
-     * Set the bold property.
-     * @param {boolean} isBold
+     * Set the bold property to the text character.
+     * @param {boolean} isBold - Specifies that the contents of this run are displayed bold.
      */
     ApiTextPr.prototype.SetBold = function(isBold)
     {
@@ -2684,8 +2657,8 @@
         this.private_OnChange();
     };
     /**
-     * Set the italic property.
-     * @param {boolean} isItalic
+     * Set the italic property to the text character.
+     * @param {boolean} isItalic - Specifies that the contents of the current run are displayed italicized.
      */
     ApiTextPr.prototype.SetItalic = function(isItalic)
     {
@@ -2693,9 +2666,8 @@
         this.private_OnChange();
     };
     /**
-     * Specify that the contents of this run shall be displayed with a single horizontal line through the center of
-     * the line.
-     * @param {boolean} isStrikeout
+     * Specify that the contents of this run are displayed with a single horizontal line through the center of the line.
+     * @param {boolean} isStrikeout - Specifies that the contents of the current run are displayed struck through.
      */
     ApiTextPr.prototype.SetStrikeout = function(isStrikeout)
     {
@@ -2703,9 +2675,9 @@
         this.private_OnChange();
     };
     /**
-     * Specify that the contents of this run should be displayed along with an underline appearing directly below the
-     * character height (less all spacing above and below the characters on the line).
-     * @param {boolean} isUnderline
+     * Specify that the contents of this run are displayed along with a line appearing directly below the character
+     * (less than all the spacing above and below the characters on the line).
+     * @param {boolean} isUnderline - Specifies that the contents of the current run are displayed underlined.
      */
     ApiTextPr.prototype.SetUnderline = function(isUnderline)
     {
@@ -2714,7 +2686,7 @@
     };
     /**
      * Set all 4 font slots with the specified font family.
-     * @param {string} sFontFamily
+     * @param {string} sFontFamily - The font family or families used for the current text run.
      */
     ApiTextPr.prototype.SetFontFamily = function(sFontFamily)
     {
@@ -2722,8 +2694,8 @@
         this.private_OnChange();
     };
     /**
-     * Set the font size.
-     * @param {hps} nSize
+     * Set the font size for the characters of the current text run.
+     * @param {hps} nSize - The text size value measured in half-points (1/144 of an inch).
      */
     ApiTextPr.prototype.SetFontSize = function(nSize)
     {
@@ -2731,11 +2703,11 @@
         this.private_OnChange();
     };
     /**
-     * Set text color in the rgb format.
-     * @param {byte} r
-     * @param {byte} g
-     * @param {byte} b
-     * @param {boolean} [isAuto=false]
+     * Set the text color for the current text run in the RGB format.
+     * @param {byte} r - Red color component value.
+     * @param {byte} g - Green color component value.
+     * @param {byte} b - Blue color component value.
+     * @param {boolean} [isAuto=false] - If this parameter is set to "true", then r,g,b parameters will be ignored.
      */
     ApiTextPr.prototype.SetColor = function(r, g, b, isAuto)
     {
@@ -2743,9 +2715,11 @@
         this.private_OnChange();
     };
     /**
-     * Specifies the alignment which shall be applied to the contents of this run in relation to the default
-     * appearance of the run's text.
-     * @param {("baseline" | "subscript" | "superscript")} sType
+     * Specify the alignment which will be applied to the contents of this run in relation to the default appearance of the run text:
+     * * <b>"baseline"</b> - the characters in the current text run will be aligned by the default text baseline.
+     * * <b>"subscript"</b> - the characters in the current text run will be aligned below the default text baseline.
+     * * <b>"superscript"</b> - the characters in the current text run will be aligned above the default text baseline.
+     * @param {("baseline" | "subscript" | "superscript")} sType - The vertical alignment type applied to the text contents.
      */
     ApiTextPr.prototype.SetVertAlign = function(sType)
     {
@@ -2759,11 +2733,11 @@
         this.private_OnChange();
     };
     /**
-     * Specify a highlighting color which is applied as a background behind the contents of this run.
-     * @param {byte} r
-     * @param {byte} g
-     * @param {byte} b
-     * @param {boolean} [isNone=false] If this parameter is true, then parameters r,g,b will be ignored.
+     * Specify a highlighting color in the RGB format which is applied as a background for the contents of the current run.
+     * @param {byte} r - Red color component value.
+     * @param {byte} g - Green color component value.
+     * @param {byte} b - Blue color component value.
+     * @param {boolean} [isNone=false] If this parameter is set to "true", then r,g,b parameters will be ignored.
      */
     ApiTextPr.prototype.SetHighlight = function(r, g, b, isNone)
     {
@@ -2778,8 +2752,8 @@
         this.private_OnChange();
     };
     /**
-     * Set text spacing.
-     * @param {twips} nSpacing
+     * Set text spacing measured in twentieths of a point.
+     * @param {twips} nSpacing - The value of the text spacing measured in twentieths of a point (1/1440 of an inch).
      */
     ApiTextPr.prototype.SetSpacing = function(nSpacing)
     {
@@ -2787,9 +2761,8 @@
         this.private_OnChange();
     };
     /**
-     * Specify that the contents of this run shall be displayed with two horizontal lines through each character
-     * displayed on the line.
-     * @param {boolean} isDoubleStrikeout
+     * Specify that the contents of this run is displayed with two horizontal lines through each character displayed on the line.
+     * @param {boolean} isDoubleStrikeout - Specifies that the contents of the current run are displayed double struck through.
      */
     ApiTextPr.prototype.SetDoubleStrikeout = function(isDoubleStrikeout)
     {
@@ -2797,9 +2770,8 @@
         this.private_OnChange();
     };
     /**
-     * Specify that any lowercase characters in this text run shall be formatted for display only as their capital
-     * letter character equivalents.
-     * @param {boolean} isCaps
+     * Specify that any lowercase characters in this text run are formatted for display only as their capital letter character equivalents.
+     * @param {boolean} isCaps - Specifies that the contents of the current run are displayed capitalized.
      */
     ApiTextPr.prototype.SetCaps = function(isCaps)
     {
@@ -2807,9 +2779,9 @@
         this.private_OnChange();
     };
     /**
-     * Specify that all small letter characters in this text run shall be formatted for display only as their capital
+     * Specify that all small letter characters in this text run are formatted for display only as their capital
      * letter character equivalents in a font size two points smaller than the actual font size specified for this text.
-     * @param {boolean} isSmallCaps
+     * @param {boolean} isSmallCaps - Specifies that the contents of the current run are displayed capitalized two points smaller.
      */
     ApiTextPr.prototype.SetSmallCaps = function(isSmallCaps)
     {
@@ -2817,9 +2789,10 @@
         this.private_OnChange();
     };
     /**
-     * Specify the amount by which text shall be raised or lowered for this run in relation to the default baseline of
-     * the surrounding non-positioned text.
-     * @param {hps} nPosition - Specifies a positive or negative measurement in half-points (1/144 of an inch).
+     * Specify the amount by which text is raised or lowered for this run in relation to the default
+     * baseline of the surrounding non-positioned text.
+     * @param {hps} nPosition - Specifies a positive (raised text) or negative (lowered text)
+     * measurement in half-points (1/144 of an inch).
      */
     ApiTextPr.prototype.SetPosition = function(nPosition)
     {
@@ -2827,10 +2800,10 @@
         this.private_OnChange();
     };
     /**
-     * Specifies the languages which shall be used to check spelling and grammar (if requested) when processing the
-     * contents of this run.
-     * @param {string} sLangId - The possible values for this parameter is a language identifier as defined by RFC
-     *     4646/BCP 47. Example: "en-CA".
+     * Specify the languages which will be used to check spelling and grammar (if requested) when processing
+     * the contents of this text run.
+     * @param {string} sLangId - The possible value for this parameter is a language identifier as defined by
+     * RFC 4646/BCP 47. Example: "en-CA".
      */
     ApiTextPr.prototype.SetLanguage = function(sLangId)
     {
@@ -2842,17 +2815,18 @@
         }
     };
     /**
-     * Specifies the shading applied to the contents of the run.
-     * @param {ShdType} sType
-     * @param {byte} r
-     * @param {byte} g
-     * @param {byte} b
+     * Specify the shading applied to the contents of the current text run.
+     * @param {ShdType} sType - The shading type applied to the contents of the current text run.
+     * @param {byte} r - Red color component value.
+     * @param {byte} g - Green color component value.
+     * @param {byte} b - Blue color component value.
      */
     ApiTextPr.prototype.SetShd = function(sType, r, g, b)
     {
         this.TextPr.Shd = private_GetShd(sType, r, g, b, false);
         this.private_OnChange();
     };
+
 
     /**
      * Set fill of run
@@ -2863,6 +2837,7 @@
         this.TextPr.Unifill = oApiFill.UniFill;
         this.private_OnChange();
     };
+
 
     //------------------------------------------------------------------------------------------------------------------
     //
@@ -3174,6 +3149,7 @@
         this.private_OnChange();
     };
 
+
     /**
     * Specifies paragraph bullet
     * @param {?ApiBullet} oBullet
@@ -3187,6 +3163,7 @@
         }
         this.private_OnChange();
     };
+
 
     //------------------------------------------------------------------------------------------------------------------
     //
@@ -3202,7 +3179,6 @@
     {
         return "numbering";
     };
-
     /**
      * Get the specified level of the current numbering.
      * @param {number} nLevel - The numbering level index. This value MUST BE from 0 to 8.
@@ -3227,7 +3203,6 @@
     {
         return "numberingLevel";
     };
-
     /**
      * Get the numbering definition.
      * @returns {ApiNumbering}
@@ -3236,7 +3211,6 @@
     {
         return new ApiNumbering(this.Num);
     };
-
     /**
      * Get level index.
      * @returns {number}
@@ -3245,7 +3219,6 @@
     {
         return this.Lvl;
     };
-
     /**
      * Specify the text properties which will be applied to the text in the current numbering level itself, not to the text in the subsequent paragraph.
      * <note>To change the text style for the paragraph, a style must be applied to it using the ApiRun.SetStyle method.</note>
@@ -3255,7 +3228,6 @@
     {
         return new ApiTextPr(this, this.Num.GetLvl(this.Lvl).TextPr.Copy());
     };
-
     /**
      * The paragraph properties which are applied to any numbered paragraph that references the given numbering definition and numbering level.
      * @returns {ApiParaPr}
@@ -3264,7 +3236,6 @@
     {
         return new ApiParaPr(this, this.Num.GetLvl(this.Lvl).ParaPr.Copy());
     };
-
     /**
      * Set one of the existing predefined numbering templates.
      * @param {("none" | "bullet" | "1)" | "1." | "I." | "A." | "a)" | "a." | "i." )} sType - Set one of the existing predefined numbering templates.
@@ -3303,7 +3274,6 @@
                 break;
         }
     };
-
     /**
      * Set your own customized numbering type.
      * @param {("none" | "bullet" | "decimal" | "lowerRoman" | "upperRoman" | "lowerLetter" | "upperLetter" |
@@ -3342,7 +3312,6 @@
 
         this.Num.SetLvlByFormat(this.Lvl, nType, sTextFormatString, nAlign);
     };
-
     /**
      * Specify a one-based index which determines when a numbering level should restart to its starting value. A numbering level restarts when an instance of the specified numbering level, which will be higher (earlier than the this level) is used in the given document contents. By default this value is true.
      * @param {boolean} isRestart - The true value will enable the SetRestart method use.
@@ -3351,7 +3320,6 @@
     {
         this.Num.SetLvlRestart(this.Lvl, private_GetBoolean(isRestart, true));
     };
-
     /**
      * Specify the starting value for the numbering used by the parent numbering level within a given numbering level definition. By default this value is 1.
      * @param {number} nStart -
@@ -3360,7 +3328,6 @@
     {
         this.Num.SetLvlStart(this.Lvl, private_GetInt(nStart));
     };
-
     /**
      * Specify the content which will be added between a given numbering level text and the text of every numbered paragraph which references that numbering level. By default this value is "tab".
      * @param {("space" | "tab" | "none")} sType - The content added between the numbering level text and the text in the numbered paragraph.
@@ -3624,9 +3591,7 @@
         return "tableRowPr";
     };
     /**
-     * Set the height of the current table row within the current table.
-     * @param {("auto" | "atLeast")} sHRule - The rule to either apply or ignore the height value to the current table row.
-     * Use the <code>"atLeast"</code> value to enable the <code>SetHeight</code> method use.
+     * @param {("auto" | "atLeast")} sHRule - The rule to either apply or ignore the height value to the current table row. Use the <code>"atLeast"</code> value to enable the <code>SetHeight</code> method use.
      * @param {twips} [nValue] - The height for the current table row measured in twentieths of a point (1/1440 of an inch). This value will be ignored if <code>sHRule="auto"<code>.
      */
     ApiTableRowPr.prototype.SetHeight = function(sHRule, nValue)
@@ -3902,7 +3867,7 @@
         return "tableStylePr";
     };
     /**
-     * Get the type of the current conditional style.
+     * Get the type of the current table conditional style.
      * @returns {TableStyleOverrideType}
      */
     ApiTableStylePr.prototype.GetType = function()
@@ -3910,7 +3875,7 @@
         return this.Type;
     };
     /**
-     * Get the set of the text run properties which will be applied to all the text runs within the table which match the conditional formatting type.
+     Get the set of the text run properties which will be applied to all the text runs within the table which match the conditional formatting type.
      * @returns {ApiTextPr}
      */
     ApiTableStylePr.prototype.GetTextPr = function()
@@ -3964,7 +3929,6 @@
     {
         return "drawing";
     };
-
     /**
      * Set the size of the object (image, shape, chart) bounding box.
      * @param {EMU} nWidth - The object width measured in English measure units.
@@ -3981,7 +3945,6 @@
             this.Drawing.GraphicObj.spPr.xfrm.setExtY(fHeight);
         }
     };
-
     /**
      * Set the wrapping type of this object (image, shape, chart). One of the following wrapping style types can be set:
      * * <b>"inline"</b> - the object is considered to be a part of the text, like a character, so when the text moves, the object moves as well. In this case the positioning options are inaccessible.
@@ -4059,7 +4022,6 @@
         var nRelativeFrom = private_GetRelativeFromH(sRelativeFrom);
         this.Drawing.Set_PositionH(nRelativeFrom, true, nAlign, false);
     };
-
     /**
      * Specify how the floating object will be vertically aligned.
      * @param {RelFromV} [sRelativeFrom="page"] - The document element which will be taken as a countdown point for the object vertical alignment.
@@ -4071,7 +4033,6 @@
         var nRelativeFrom = private_GetRelativeFromV(sRelativeFrom);
         this.Drawing.Set_PositionV(nRelativeFrom, true, nAlign, false);
     };
-
     /**
      * Set an absolute measurement for the horizontal positioning of the floating object.
      * @param {RelFromH} sRelativeFrom - The document element which will be taken as a countdown point for the object horizontal alignment.
@@ -4083,7 +4044,6 @@
         var nRelativeFrom = private_GetRelativeFromH(sRelativeFrom);
         this.Drawing.Set_PositionH(nRelativeFrom, false, nValue, false);
     };
-
     /**
      * Set an absolute measurement for the vertical positioning of the floating object.
      * @param {RelFromH} sRelativeFrom - The document element which will be taken as a countdown point for the object vertical alignment.
@@ -4095,7 +4055,6 @@
         var nRelativeFrom = private_GetRelativeFromV(sRelativeFrom);
         this.Drawing.Set_PositionV(nRelativeFrom, false, nValue, false);
     };
-
     /**
      * Specify the minimum distance which will be maintained between the edges of this drawing object and any
      * subsequent text.
@@ -4108,6 +4067,7 @@
     {
         this.Drawing.Set_Distance(private_EMU2MM(nLeft), private_EMU2MM(nTop), private_EMU2MM(nRight), private_EMU2MM(nBottom));
     };
+
 
     //------------------------------------------------------------------------------------------------------------------
     //
@@ -4138,6 +4098,7 @@
     {
         return "shape";
     };
+
 
     /**
      * Get the shape inner contents where a paragraph or text runs can be inserted.
@@ -4181,6 +4142,9 @@
         }
     };
 
+
+
+
     /**
      * Set text paddings
      * @param {?EMU} nLeft
@@ -4201,12 +4165,13 @@
         }
     };
 
+
+
     //------------------------------------------------------------------------------------------------------------------
     //
     // ApiChart
     //
     //------------------------------------------------------------------------------------------------------------------
-
     /**
      * Get the type of this class.
      * @returns {"chart"}
@@ -4215,6 +4180,7 @@
     {
         return "chart";
     };
+
 
     ApiChart.prototype.CreateTitle = function(sTitle, nFontSize){
         if(!this.Chart)
@@ -4236,6 +4202,7 @@
         }
         return null;
     };
+
 
     /**
      *  Specifies a chart title
@@ -4365,6 +4332,7 @@
         AscFormat.builder_SetShowDataLabels(this.Chart, bShowSerName, bShowCatName, bShowVal, bShowPercent);
     };
 
+
     /**
      * Spicifies a show options for data labels
      * @param {number} nSeriesIndex
@@ -4395,6 +4363,7 @@
     {
         AscFormat.builder_SetChartHorAxisTickLablePosition(this.Chart, sTickLabelPosition);
     };
+
 
     /**
      * Specifies major tick mark for horizontal axis
@@ -4430,6 +4399,8 @@
         AscFormat.builder_SetChartVerAxisMinorTickMark(this.Chart, sTickMark);
     };
 
+
+
     /**
      * Specifies major vertical gridline's visual properties
      * @param {?ApiStroke} oStroke
@@ -4447,6 +4418,7 @@
     {
         AscFormat.builder_SetVerAxisMinorGridlines(this.Chart, oStroke ?  oStroke.Ln : null);
     };
+
 
     /**
      * Specifies major horizontal gridline's visual properties
@@ -4466,6 +4438,7 @@
         AscFormat.builder_SetHorAxisMinorGridlines(this.Chart, oStroke ?  oStroke.Ln : null);
     };
 
+
     /**
      * Specifies font size for labels of horizontal axis
      * @param {number} nFontSize
@@ -4482,12 +4455,12 @@
         AscFormat.builder_SetVerAxisFontSize(this.Chart, nFontSize);
     };
 
+
     //------------------------------------------------------------------------------------------------------------------
     //
     // ApiFill
     //
     //------------------------------------------------------------------------------------------------------------------
-
     /**
      * Get the type of this class.
      * @returns {"fill"}
@@ -4502,7 +4475,6 @@
     // ApiStroke
     //
     //------------------------------------------------------------------------------------------------------------------
-
     /**
      * Get the type of this class.
      * @returns {"stroke"}
@@ -4517,7 +4489,6 @@
     // ApiGradientStop
     //
     //------------------------------------------------------------------------------------------------------------------
-
     /**
      * Get the type of this class.
      * @returns {"gradientStop"}
@@ -4526,14 +4497,13 @@
     {
         return "gradientStop"
     };
-
     //------------------------------------------------------------------------------------------------------------------
     //
     // ApiUniColor
     //
     //------------------------------------------------------------------------------------------------------------------
     /**
-     * Get the type of this class.
+     * Get the type of the class based on this base class.
      * @returns {"uniColor"}
      */
     ApiUniColor.prototype.GetClassType = function ()
@@ -4546,7 +4516,6 @@
     // ApiRGBColor
     //
     //------------------------------------------------------------------------------------------------------------------
-
     /**
      * Get the type of this class.
      * @returns {"rgbColor"}
@@ -4561,7 +4530,6 @@
     // ApiSchemeColor
     //
     //------------------------------------------------------------------------------------------------------------------
-
     /**
      * Get the type of this class.
      * @returns {"schemeColor"}
@@ -4576,7 +4544,6 @@
     // ApiPresetColor
     //
     //------------------------------------------------------------------------------------------------------------------
-
     /**
      * Get the type of this class.
      * @returns {"presetColor"}
@@ -4600,7 +4567,6 @@
 	// ApiInlineLvlSdt
 	//
 	//------------------------------------------------------------------------------------------------------------------
-
 	/**
 	 * Get the type of this class.
 	 * @returns {"inlineLvlSdt"}
@@ -4609,7 +4575,6 @@
 	{
 		return "inlineLvlSdt";
 	};
-
 	/**
 	 * Set the lock type of this container
 	 * @param {SdtLock} sLockType
@@ -4626,7 +4591,6 @@
 
 		this.Sdt.SetContentControlLock(nLock);
 	};
-
 	/**
 	 * Get the lock type of this container
 	 * @returns {SdtLock}
@@ -4646,7 +4610,6 @@
 
 		return sResult;
 	};
-
 	/**
 	 * Set the tag attribute for this container
 	 * @param {string} sTag
@@ -4655,7 +4618,6 @@
 	{
 		this.Sdt.SetTag(sTag);
 	};
-
 	/**
 	 * Get the tag attribute for this container
 	 * @returns {string}
@@ -4664,7 +4626,6 @@
 	{
 		return this.Sdt.GetTag();
 	};
-
 	/**
 	 * Set the label attribute for this container
 	 * @param {string} sLabel
@@ -4673,7 +4634,6 @@
 	{
 		this.Sdt.SetLabel(sLabel);
 	};
-
 	/**
 	 * Get the label attribute for this container
 	 * @returns {string}
@@ -4690,7 +4650,6 @@
 	{
 		this.Sdt.SetAlias(sAlias);
 	};
-
 	/**
 	 * Get the alias attribute for this container
 	 * @returns {string}
@@ -4699,7 +4658,6 @@
 	{
 		return this.Sdt.GetAlias();
 	};
-
 	/**
 	 * Get the number of elements in the current container.
 	 * @returns {number}
@@ -4708,7 +4666,6 @@
 	{
 		return this.Sdt.Content.length;
 	};
-
 	/**
 	 * Get the element of the container content by specified position.
 	 * @param {number} nPos
@@ -4721,7 +4678,6 @@
 
 		return private_GetSupportedParaElement(this.Sdt.Content[nPos]);
 	};
-
 	/**
 	 * Remove element by specified position.
 	 * @param {number} nPos
@@ -4733,7 +4689,6 @@
 
 		this.Sdt.Remove_FromContent(nPos, 1);
 	};
-
 	/**
 	 * Remove all elements.
 	 */
@@ -4742,7 +4697,6 @@
 		if (this.Sdt.Content.length > 0)
 			this.Sdt.Remove_FromContent(0, this.Sdt.Content.length);
 	};
-
 	/**
 	 * Add an element to inline container.
 	 * @param {ParagraphContent} oElement
@@ -4773,7 +4727,6 @@
 	// ApiBlockLvlSdt
 	//
 	//------------------------------------------------------------------------------------------------------------------
-
 	/**
 	 * Get the type of this class.
 	 * @returns {"blockLvlSdt"}
@@ -4782,7 +4735,6 @@
 	{
 		return "blockLvlSdt";
 	};
-
 	/**
 	 * Set the lock type of this container
 	 * @param {SdtLock} sLockType
@@ -4818,7 +4770,6 @@
 
 		return sResult;
 	};
-
 	/**
 	 * Set the tag attribute for this container
 	 * @param {string} sTag
@@ -4827,7 +4778,6 @@
 	{
 		this.Sdt.SetTag(sTag);
 	};
-
 	/**
 	 * Get the tag attribute for this container
 	 * @returns {string}
@@ -4836,7 +4786,6 @@
 	{
 		return this.Sdt.GetTag();
 	};
-
 	/**
 	 * Set the label attribute for this container
 	 * @param {string} sLabel
@@ -4845,7 +4794,6 @@
 	{
 		this.Sdt.SetLabel(sLabel);
 	};
-
 	/**
 	 * Get the label attribute for this container
 	 * @returns {string}
@@ -4854,7 +4802,6 @@
 	{
 		return this.Sdt.GetLabel();
 	};
-
 	/**
 	 * Set the alias attribute for this container
 	 * @param {string} sAlias
@@ -4863,7 +4810,6 @@
 	{
 		this.Sdt.SetAlias(sAlias);
 	};
-
 	/**
 	 * Get the alias attribute for this container
 	 * @returns {string}
@@ -4872,7 +4818,6 @@
 	{
 		return this.Sdt.GetAlias();
 	};
-
 	/**
 	 * Get the content of this container
 	 * @returns {ApiDocumentContent}
@@ -4881,11 +4826,9 @@
 	{
 		return new ApiDocumentContent(this.Sdt.GetContent());
 	};
-
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Export
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     Api.prototype["GetDocument"]                     = Api.prototype.GetDocument;
     Api.prototype["CreateParagraph"]                 = Api.prototype.CreateParagraph;
     Api.prototype["CreateTable"]                     = Api.prototype.CreateTable;
@@ -5203,7 +5146,6 @@
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Private area
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     function private_GetDrawingDocument()
     {
         return editor.WordControl.m_oLogicDocument.DrawingDocument;
@@ -5390,12 +5332,10 @@
     {
         private_GetLogicDocument().Start_SilentMode();
     }
-
     function private_EndSilentMode()
     {
         private_GetLogicDocument().End_SilentMode(false);
     }
-
     function private_GetAlignH(sAlign)
     {
         if ("left" === sAlign)
@@ -5419,7 +5359,6 @@
 
         return c_oAscAlignV.Center;
     }
-
     function private_GetRelativeFromH(sRel)
     {
         if ("character" === sRel)
@@ -5541,6 +5480,7 @@
         return oApiShape;
     }
 
+
     function privateInsertWatermarkToContent(oApi, oContent, sText, bIsDiagonal){
         if(oContent){
             var nElementsCount = oContent.GetElementsCount();
@@ -5565,47 +5505,39 @@
         oStyles.Set_DefaultParaPr(oApiParaPr.ParaPr);
         oApiParaPr.ParaPr = oStyles.Get_DefaultParaPr().Copy();
     };
-
     ApiDocument.prototype.OnChangeTextPr = function(oApiTextPr)
     {
         var oStyles = this.Document.Get_Styles();
         oStyles.Set_DefaultTextPr(oApiTextPr.TextPr);
         oApiTextPr.TextPr = oStyles.Get_DefaultTextPr().Copy();
     };
-
     ApiParagraph.prototype.private_GetImpl = function()
     {
         return this.Paragraph;
     };
-
     ApiParagraph.prototype.OnChangeParaPr = function(oApiParaPr)
     {
         this.Paragraph.Set_Pr(oApiParaPr.ParaPr);
         oApiParaPr.ParaPr = this.Paragraph.Pr.Copy();
     };
-
     ApiParagraph.prototype.OnChangeTextPr = function(oApiTextPr)
     {
         this.Paragraph.TextPr.Set_Value(oApiTextPr.TextPr);
         oApiTextPr.TextPr = this.Paragraph.TextPr.Value.Copy();
     };
-
     ApiRun.prototype.private_GetImpl = function()
     {
         return this.Run;
     };
-
     ApiRun.prototype.OnChangeTextPr = function(oApiTextPr)
     {
         this.Run.Set_Pr(oApiTextPr.TextPr);
         oApiTextPr.TextPr = this.Run.Pr.Copy();
     };
-
     ApiTable.prototype.private_GetImpl = function()
     {
         return this.Table;
     };
-
     ApiTable.prototype.OnChangeTablePr = function(oApiTablePr)
     {
         this.Table.Set_Pr(oApiTablePr.TablePr);
@@ -5616,19 +5548,16 @@
         this.Table.private_RecalculateGrid();
         this.Table.private_UpdateCellsGrid();
     };
-
     ApiStyle.prototype.OnChangeTextPr = function(oApiTextPr)
     {
         this.Style.Set_TextPr(oApiTextPr.TextPr);
         oApiTextPr.TextPr = this.Style.TextPr.Copy();
     };
-
     ApiStyle.prototype.OnChangeParaPr = function(oApiParaPr)
     {
         this.Style.Set_ParaPr(oApiParaPr.ParaPr);
         oApiParaPr.ParaPr = this.Style.ParaPr.Copy();
     };
-
     ApiStyle.prototype.OnChangeTablePr = function(oApiTablePr)
     {
         this.Style.Set_TablePr(oApiTablePr.TablePr);
@@ -5639,13 +5568,11 @@
         this.Style.Set_TableRowPr(oApiTableRowPr.RowPr);
         oApiTableRowPr.RowPr = this.Style.TableRowPr.Copy();
     };
-
     ApiStyle.prototype.OnChangeTableCellPr = function(oApiTableCellPr)
     {
         this.Style.Set_TableCellPr(oApiTableCellPr.CellPr);
         oApiTableCellPr.CellPr = this.Style.TableCellPr.Copy();
     };
-
     ApiStyle.prototype.OnChangeTableStylePr = function(oApiTableStylePr)
     {
         var sType = oApiTableStylePr.GetType();
@@ -5731,91 +5658,74 @@
             }
         }
     };
-
     ApiNumberingLevel.prototype.OnChangeTextPr = function(oApiTextPr)
     {
         this.Num.SetTextPr(this.Lvl, oApiTextPr.TextPr);
         oApiTextPr.TextPr = this.Num.GetLvl(this.Lvl).GetTextPr().Copy();
     };
-
     ApiNumberingLevel.prototype.OnChangeParaPr = function(oApiParaPr)
     {
         this.Num.SetParaPr(this.Lvl, oApiParaPr.ParaPr);
         oApiParaPr.ParaPr = this.Num.GetLvl(this.Lvl).GetParaPr().Copy();
     };
-
     ApiTableRow.prototype.OnChangeTableRowPr = function(oApiTableRowPr)
     {
         this.Row.Set_Pr(oApiTableRowPr.RowPr);
         oApiTableRowPr.RowPr = this.Row.Pr.Copy();
     };
-
     ApiTableCell.prototype.OnChangeTableCellPr = function(oApiTableCellPr)
     {
         this.Cell.Set_Pr(oApiTableCellPr.CellPr);
         oApiTableCellPr.CellPr = this.Cell.Pr.Copy();
     };
-
     ApiTextPr.prototype.private_OnChange = function()
     {
         this.Parent.OnChangeTextPr(this);
     };
-
     ApiParaPr.prototype.private_OnChange = function()
     {
         this.Parent.OnChangeParaPr(this);
     };
-
     ApiTablePr.prototype.private_OnChange = function()
     {
         this.Parent.OnChangeTablePr(this);
     };
-
     ApiTableRowPr.prototype.private_OnChange = function()
     {
         this.Parent.OnChangeTableRowPr(this);
     };
-
     ApiTableCellPr.prototype.private_OnChange = function()
     {
         this.Parent.OnChangeTableCellPr(this);
     };
-
     ApiTableStylePr.prototype.private_OnChange = function()
     {
         this.Parent.OnChangeTableStylePr(this);
     };
-
     ApiTableStylePr.prototype.OnChangeTextPr = function()
     {
         this.private_OnChange();
     };
-
     ApiTableStylePr.prototype.OnChangeParaPr = function()
     {
         this.private_OnChange();
     };
-
     ApiTableStylePr.prototype.OnChangeTablePr = function()
     {
         this.private_OnChange();
     };
-
     ApiTableStylePr.prototype.OnChangeTableRowPr = function()
     {
         this.private_OnChange();
     };
-
     ApiTableStylePr.prototype.OnChangeTableCellPr = function()
     {
         this.private_OnChange();
     };
-
     ApiInlineLvlSdt.prototype.private_GetImpl = function()
 	{
 		return this.Sdt;
 	};
-
     ApiBlockLvlSdt.prototype.private_GetImpl = function()
 	{
 		return this.Sdt;
