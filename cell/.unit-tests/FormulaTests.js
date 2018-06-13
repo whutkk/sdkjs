@@ -1332,6 +1332,8 @@ $( function () {
 		oParser = new parserFormula( "TDIST(A2,A3,1)", "A1", ws );
 		ok( oParser.parse(), "TDIST(A2,A3,1)" );
 		strictEqual( oParser.calculate().getValue().toFixed(9) - 0, 0.027322465, "TDIST(A2,A3,1)" );
+
+		testArrayFormula2("TDIST", 3, 3);
 	} );
 
 	test( "Test: \"T.DIST\"", function () {
@@ -1342,6 +1344,8 @@ $( function () {
 		oParser = new parserFormula( "T.DIST(8,3,FALSE)", "A1", ws );
 		ok( oParser.parse(), "T.DIST(8,3,FALSE)" );
 		strictEqual( oParser.calculate().getValue().toFixed(8) - 0, 0.00073691, "T.DIST(8,3,FALSE)" );
+
+		testArrayFormula2("T.DIST", 3, 3);
 	} );
 
 	test( "Test: \"T.DIST.2T\"", function () {
@@ -2785,6 +2789,11 @@ $( function () {
 
     } );
 
+	test( "Test: \"DATE\"", function () {
+
+		testArrayFormula2("DATE", 3, 3);
+	} );
+
     test( "Test: \"DATEVALUE\"", function () {
 
         oParser = new parserFormula( "DATEVALUE(\"10-10-2010 10:26\")", "A2", ws );
@@ -2945,6 +2954,7 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), 21 );
 
+        testArrayFormula2("NETWORKDAYS", 2, 3, true);
     } );
 
 	test( "Test: \"NETWORKDAYS.INTL\"", function () {
@@ -3359,6 +3369,27 @@ $( function () {
 
 	} );
 
+	test( "Test: \"TIME\"", function () {
+		ws.getRange2( "A2" ).setValue( "12" );
+		ws.getRange2( "A3" ).setValue( "16" );
+
+		ws.getRange2( "B2" ).setValue( "0" );
+		ws.getRange2( "B3" ).setValue( "48" );
+
+		ws.getRange2( "C2" ).setValue( "0" );
+		ws.getRange2( "C3" ).setValue( "10" );
+
+		oParser = new parserFormula( "TIME(A2,B2,C2)", "A2", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue(), 0.5 );
+
+		oParser = new parserFormula( "TIME(A3,B3,C3)", "A2", ws );
+		ok( oParser.parse() );
+		strictEqual( oParser.calculate().getValue().toFixed(7) - 0, 0.7001157 );
+
+		testArrayFormula2("TIME", 3, 3);
+	} );
+
     test( "Test: \"TIMEVALUE\"", function () {
         oParser = new parserFormula( "timevalue(\"10:02:34\")", "A2", ws );
         ok( oParser.parse() );
@@ -3393,6 +3424,7 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), 1197 );
 
+        testArrayFormula2("DAYS360", 2, 3);
     } );
 
     test( "Test: \"WEEKNUM\"", function () {
@@ -3611,6 +3643,8 @@ $( function () {
         oParser = new parserFormula( "YEARFRAC(DATE(2004,3,1),DATE(2006,3,1),1)", "A2", ws );
         ok( oParser.parse() );
         okWrapper( oParser.calculate().getValue(), 1.998175182481752 );
+
+        testArrayFormula2("YEARFRAC", 2, 3, true);
     } );
 
     test( "Test: \"DATEDIF\"", function () {
@@ -3630,6 +3664,8 @@ $( function () {
         oParser = new parserFormula( "DATEDIF(DATE(2001,6,1),DATE(2002,8,15),\"MD\")", "A2", ws );
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), 14 );
+
+        testArrayFormula2("DATEDIF", 3, 3);
     } );
 
     test( "Test: \"SUMPRODUCT\"", function () {
@@ -6510,6 +6546,8 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), percentrank( [12, 6, 7, 9, 3, 8], 5 ) );
 
+        //TODO нужен другой тест
+        //testArrayFormula2("PERCENTRANK", 2, 3, null, true);
     } );
 
 	test( "Test: \"PERCENTRANK.EXC\"", function () {
@@ -6534,6 +6572,9 @@ $( function () {
 		oParser = new parserFormula( "PERCENTRANK.EXC(A202:A210, 5.43, 1)", "A1", ws );
 		ok( oParser.parse(), "PERCENTRANK.EXC(A202:A210, 5.43, 1)" );
 		strictEqual( oParser.calculate().getValue(), 0.3, "PERCENTRANK.EXC(A202:A210, 5.43, 1)" );
+
+		//TODO нужен другой тест
+		//testArrayFormula2("PERCENTRANK.EXC", 2, 3, null, true);
 	} );
 
 	test( "Test: \"PERCENTRANK.INC\"", function () {
@@ -6640,6 +6681,8 @@ $( function () {
         oParser = new parserFormula( "POISSON(6,-5,false)", "A2", ws );
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), "#NUM!" );
+
+        testArrayFormula2("POISSON", 3, 3);
     } );
 
 	test( "Test: \"POISSON.DIST\"", function () {
@@ -7016,6 +7059,7 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), STANDARDIZE( 22, 12, -2 ) );
 
+        testArrayFormula2("STANDARDIZE", 3, 3);
     } );
 
     test( "Test: \"STDEV\"", function () {
@@ -8219,6 +8263,7 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), tbilleq( new cDate(Date.UTC(2008,2,31)), new cDate(Date.UTC(2008,5,1)), 0.0914 ) );
 
+        testArrayFormula2("TBILLEQ", 3, 3, true);
     } );
 
     test( "Test: \"TBILLPRICE\"", function () {
@@ -8243,6 +8288,7 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), tbillprice( new cDate(Date.UTC(2008,2,31)), new cDate(Date.UTC(2008,5,1)), 0.09 ) );
 
+        testArrayFormula2("TBILLPRICE", 3, 3, true);
     } );
 
     test( "Test: \"TBILLYIELD\"", function () {
@@ -8484,6 +8530,7 @@ $( function () {
 		ok( oParser.parse() );
 		strictEqual( oParser.calculate().getValue(), "#N/A" );
 
+		testArrayFormula2("CONVERT", 3, 3, true);
 	} );
 
     test( "Test: \"PRICE\"", function () {
@@ -8895,7 +8942,7 @@ $( function () {
         ok( oParser.parse() );
         strictEqual( oParser.calculate().getValue(), sln(30000,7500,10) );
 
-
+		testArrayFormula2("SLN", 3, 3);
     } );
 
     test( "Test: \"XIRR\"", function () {
@@ -9932,6 +9979,7 @@ $( function () {
         ok( oParser.assemble() == "COMPLEX(0,0)" );
         strictEqual( oParser.calculate().getValue(), "0");
 
+        testArrayFormula2("COMPLEX", 2, 3, true);
     });
 
     test( "Test: \"DELTA\"", function () {
